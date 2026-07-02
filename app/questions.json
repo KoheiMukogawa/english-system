@@ -1,0 +1,2225 @@
+[
+  {
+    "id": 1,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The captain was anxious ( ) the deteriorating weather.",
+    "a": "about",
+    "d": [
+      "on",
+      "to",
+      "for"
+    ],
+    "e": "be anxious **about**＝〜を心配して（＝worried about）。形容詞 anxious は about と結びつく。\n◎ be anxious **to** do（しきりに〜したがる）、be anxious **for**（〜を切望して）と、前置詞で意味が変わる点まで押さえる。"
+  },
+  {
+    "id": 2,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "This jet is superior ( ) the older model in fuel efficiency.",
+    "a": "to",
+    "d": [
+      "than",
+      "as",
+      "from"
+    ],
+    "e": "be superior **to**＝〜より優れている。ラテン語由来の比較語（superior, inferior, senior, junior, prior）は than ではなく **to** をとる。\n✗ than は通常の比較級用で不可。◎ prefer A **to** B も同じ仲間。"
+  },
+  {
+    "id": 3,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Diplomats are ( ) from paying certain local taxes.",
+    "a": "exempt",
+    "d": [
+      "absent",
+      "distinct",
+      "reluctant"
+    ],
+    "e": "be exempt **from**＝〜を免除される。tax-exempt（免税の）でも頻出。\n✗ absent（欠席の）/ distinct（明確に異なる）/ reluctant（気が進まない）は文意に合わない。"
+  },
+  {
+    "id": 4,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Most passengers were ( ) of the delay until they reached the gate.",
+    "a": "unaware",
+    "d": [
+      "uneasy",
+      "unable",
+      "unwilling"
+    ],
+    "e": "be unaware **of**＝〜に気づいていない（aware of の否定）。\n✗ uneasy（不安な）/ unable（できない）/ unwilling（気が進まない）は of と結ばず文意にも合わない。"
+  },
+  {
+    "id": 5,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The new regulation is ( ) to change without prior notice.",
+    "a": "subject",
+    "d": [
+      "resistant",
+      "opposed",
+      "relevant"
+    ],
+    "e": "be subject **to** change＝変更されることがある。「〜の影響・支配を受ける」の意。\n◎ subject to approval（承認を条件とする）。✗ resistant to / opposed to は意味が逆方向。"
+  },
+  {
+    "id": 6,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Cabin crew are responsible ( ) the safety of all passengers.",
+    "a": "for",
+    "d": [
+      "to",
+      "of",
+      "with"
+    ],
+    "e": "be responsible **for**＝〜に責任がある。\n◎「人に対して責任を負う」は be responsible **to** a person。for（事柄）と to（相手）を区別。"
+  },
+  {
+    "id": 7,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Only applicants over 18 are eligible ( ) the training program.",
+    "a": "for",
+    "d": [
+      "to",
+      "on",
+      "in"
+    ],
+    "e": "be eligible **for**＝〜の資格がある。\n◎ be eligible **to** do の形もある（eligible to apply）。名詞の前は for、動詞の前は to。"
+  },
+  {
+    "id": 8,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "A safe flight depends ( ) careful preparation.",
+    "a": "on",
+    "d": [
+      "in",
+      "at",
+      "of"
+    ],
+    "e": "depend **on/upon**＝〜次第である／〜に頼る。\n◎ rely on, count on, hinge on も「頼る・左右される」系で on。"
+  },
+  {
+    "id": 9,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Water consists ( ) hydrogen and oxygen.",
+    "a": "of",
+    "d": [
+      "in",
+      "from",
+      "with"
+    ],
+    "e": "consist **of**＝〜から成る（＝be made up of）。\n✗ consist **in**（〜に本質がある）という別語法もあるので文脈注意。"
+  },
+  {
+    "id": 10,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Heavy rainfall often results ( ) flight cancellations.",
+    "a": "in",
+    "d": [
+      "from",
+      "to",
+      "on"
+    ],
+    "e": "result **in**＝〜という結果になる（原因→結果の向き）。\n◎ 11とペア。「原因 result **in** 結果」。lead to, bring about も同じ向き。"
+  },
+  {
+    "id": 11,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The accident resulted ( ) a sudden mechanical failure.",
+    "a": "from",
+    "d": [
+      "in",
+      "of",
+      "at"
+    ],
+    "e": "result **from**＝〜が原因で生じる（結果←原因の向き、10の逆）。\n覚え方：「結果 result **from** 原因」。arise from, stem from も同じ。"
+  },
+  {
+    "id": 12,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Passengers are kindly asked to refrain ( ) smoking.",
+    "a": "from",
+    "d": [
+      "of",
+      "to",
+      "against"
+    ],
+    "e": "refrain **from** -ing＝〜を控える（＝abstain from）。機内放送の定番。\n✗ 他の前置詞は不可。refrain の後は必ず from＋動名詞。"
+  },
+  {
+    "id": 13,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "All airlines must comply ( ) international safety standards.",
+    "a": "with",
+    "d": [
+      "to",
+      "on",
+      "for"
+    ],
+    "e": "comply **with**＝（規則・要求）に従う。\n◎ 同義で conform **to**, abide **by**, adhere **to**。前置詞が語ごとに違う。"
+  },
+  {
+    "id": 14,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Bad weather may account ( ) the long delay.",
+    "a": "for",
+    "d": [
+      "to",
+      "on",
+      "of"
+    ],
+    "e": "account **for**＝①〜を説明する ②（割合を）占める。\n◎ This accounts for 30%（占める）／account for the delay（説明する）。"
+  },
+  {
+    "id": 15,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The storm deprived the region ( ) electricity for days.",
+    "a": "of",
+    "d": [
+      "from",
+      "out",
+      "with"
+    ],
+    "e": "deprive A **of** B＝AからBを奪う。\n◎ rob A of B, strip A of B, cure A of B も「A of B」型（分離のof）。"
+  },
+  {
+    "id": 16,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The pilot was accused ( ) violating the aviation code.",
+    "a": "of",
+    "d": [
+      "for",
+      "with",
+      "to"
+    ],
+    "e": "accuse A **of** B＝AをBのことで非難・告発する。\n◎ 似た型 charge A **with** B（前置詞が with）と混同しない。"
+  },
+  {
+    "id": 17,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "She is familiar ( ) the airport's layout.",
+    "a": "with",
+    "d": [
+      "to",
+      "of",
+      "for"
+    ],
+    "e": "（人）be familiar **with**（物）＝人が物をよく知っている。\n18とペア。主語が「人」なら with。"
+  },
+  {
+    "id": 18,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The procedure is familiar ( ) every trained pilot.",
+    "a": "to",
+    "d": [
+      "with",
+      "of",
+      "for"
+    ],
+    "e": "（物）be familiar **to**（人）＝物が人に知られている（17の主語逆転）。\n主語を見て with / to を即判定。"
+  },
+  {
+    "id": 19,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "New recruits must get accustomed ( ) irregular schedules.",
+    "a": "to",
+    "d": [
+      "with",
+      "for",
+      "of"
+    ],
+    "e": "be/get accustomed **to**＋（動）名詞＝〜に慣れる。この to は前置詞なので後ろは -ing。\n◎ look forward to -ing, be used to -ing も同じ「to＝前置詞」グループ。"
+  },
+  {
+    "id": 20,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Frequent flyers are entitled ( ) various benefits.",
+    "a": "to",
+    "d": [
+      "for",
+      "with",
+      "of"
+    ],
+    "e": "be entitled **to**＝〜の権利・資格がある。be entitled to do も可。\n✗ 他は不可。"
+  },
+  {
+    "id": 21,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The crew was capable ( ) handling the emergency calmly.",
+    "a": "of",
+    "d": [
+      "to",
+      "for",
+      "with"
+    ],
+    "e": "be capable **of** -ing＝〜できる。\n◎ 反意は be incapable of。人にも物（性能）にも使える。"
+  },
+  {
+    "id": 22,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The delay was attributed ( ) a technical glitch.",
+    "a": "to",
+    "d": [
+      "for",
+      "on",
+      "with"
+    ],
+    "e": "attribute A **to** B＝AをBのせいにする／AはBに起因すると考える。\n◎ 受け身 be attributed to で頻出。owe A to B も同型。"
+  },
+  {
+    "id": 23,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Travelers should be aware ( ) local customs.",
+    "a": "of",
+    "d": [
+      "on",
+      "to",
+      "for"
+    ],
+    "e": "be aware **of**＝〜に気づいている・認識している。\n◎ 節を続けるなら be aware **that** SV。"
+  },
+  {
+    "id": 24,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The airline apologized ( ) the inconvenience.",
+    "a": "for",
+    "d": [
+      "to",
+      "about",
+      "on"
+    ],
+    "e": "apologize **for**（事）＝〜を詫びる。「人に」詫びるなら apologize **to** a person。\n両方使うと apologize to you for the delay。"
+  },
+  {
+    "id": 25,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The vaccine provides protection ( ) the virus.",
+    "a": "against",
+    "d": [
+      "for",
+      "to",
+      "of"
+    ],
+    "e": "protection **against**＝〜に対する防御。\n◎ protect A against/from B。"
+  },
+  {
+    "id": 26,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Her conclusion was based ( ) solid evidence.",
+    "a": "on",
+    "d": [
+      "in",
+      "of",
+      "to"
+    ],
+    "e": "be based **on/upon**＝〜に基づく。\n◎ 能動 base A on B。"
+  },
+  {
+    "id": 27,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Several nations imposed sanctions ( ) the regime.",
+    "a": "on",
+    "d": [
+      "to",
+      "for",
+      "into"
+    ],
+    "e": "impose A **on** B＝A（税・制裁・負担）をBに課す。\n◎ inflict A on B, confer A on B も「A on B」型。"
+  },
+  {
+    "id": 28,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The union strongly objects ( ) the proposed schedule.",
+    "a": "to",
+    "d": [
+      "against",
+      "for",
+      "on"
+    ],
+    "e": "object **to**＋（動）名詞＝〜に反対する。この to も前置詞。\n✗ against ではない。be opposed **to** も to。"
+  },
+  {
+    "id": 29,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The medicine is effective ( ) motion sickness.",
+    "a": "against",
+    "d": [
+      "to",
+      "into",
+      "of"
+    ],
+    "e": "effective **against**＝〜に効く（敵＝症状に対して）。\n◎ effective **in** -ing（〜する点で有効）という型も別にある。"
+  },
+  {
+    "id": 30,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "This airport is notorious ( ) its frequent delays.",
+    "a": "for",
+    "d": [
+      "to",
+      "of",
+      "with"
+    ],
+    "e": "be notorious **for**＝〜で悪名高い。famous for の悪い版。\n✗ 他は不可。"
+  },
+  {
+    "id": 31,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The flight will ( ) on time despite the morning fog.",
+    "a": "take off",
+    "d": [
+      "take after",
+      "take in",
+      "take over"
+    ],
+    "e": "take off＝（飛行機が）離陸する／（服を）脱ぐ／急に人気が出る。\n✗ take after（似ている）/ take in（理解・だます）/ take over（引き継ぐ）。"
+  },
+  {
+    "id": 32,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Due to the typhoon, the airline had to ( ) the flight.",
+    "a": "call off",
+    "d": [
+      "call on",
+      "call for",
+      "call up"
+    ],
+    "e": "call off＝（予定・イベントを）中止する（＝cancel）。\n✗ call on（訪問・要請）/ call for（要求・必要とする）/ call up（電話・招集）。"
+  },
+  {
+    "id": 33,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "We had to ( ) the meeting until next week.",
+    "a": "put off",
+    "d": [
+      "put on",
+      "put up",
+      "put out"
+    ],
+    "e": "put off＝（予定を）延期する（＝postpone）。put off -ing。\n✗ put up（掲げる・泊める）/ put out（消す）。"
+  },
+  {
+    "id": 34,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Investigators will ( ) the cause of the crash.",
+    "a": "look into",
+    "d": [
+      "look after",
+      "look up",
+      "look over"
+    ],
+    "e": "look into＝（問題・事件を）調査する（＝investigate）。\n✗ look after（世話をする）/ look up（辞書で調べる）/ look over（ざっと見る）。"
+  },
+  {
+    "id": 35,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The engineers ( ) a clever solution.",
+    "a": "came up with",
+    "d": [
+      "came across",
+      "came down with",
+      "came over"
+    ],
+    "e": "come up with＝（考え・解決策を）思いつく。\n✗ came across（偶然出会う）/ came down with（病気にかかる）/ came over（訪れる）。"
+  },
+  {
+    "id": 36,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "It took her a week to ( ) the jet lag.",
+    "a": "get over",
+    "d": [
+      "get on",
+      "get by",
+      "get through"
+    ],
+    "e": "get over＝（病気・つらい経験を）克服する／時差ボケから立ち直る。\n✗ get by（何とかやっていく）/ get through（切り抜ける）。"
+  },
+  {
+    "id": 37,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "We are about to ( ) fuel; we must land soon.",
+    "a": "run out of",
+    "d": [
+      "run into",
+      "run over",
+      "run up"
+    ],
+    "e": "run out of＝（燃料・時間を）使い果たす。主語は人・組織。\n◎ 物が主語なら The fuel ran out（of不要）。✗ run into（偶然会う・衝突）。"
+  },
+  {
+    "id": 38,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Hard work can ( ) a lack of experience.",
+    "a": "make up for",
+    "d": [
+      "make out",
+      "make up",
+      "make over"
+    ],
+    "e": "make up for＝（不足・損失を）埋め合わせる（＝compensate for）。\n✗ make up（でっち上げる・化粧・仲直り）/ make out（識別する）。"
+  },
+  {
+    "id": 39,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The airline decided to ( ) the unprofitable route.",
+    "a": "do away with",
+    "d": [
+      "do without",
+      "do up",
+      "do over"
+    ],
+    "e": "do away with＝（制度・慣習を）廃止する（＝abolish）。\n✗ do without（〜なしで済ます）は別義。"
+  },
+  {
+    "id": 40,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The new captain will ( ) command tomorrow.",
+    "a": "take over",
+    "d": [
+      "take off",
+      "take in",
+      "take after"
+    ],
+    "e": "take over＝（役目・会社を）引き継ぐ／乗っ取る。\n✗ take off（離陸）/ take in（理解）/ take after（似る）。"
+  },
+  {
+    "id": 41,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The merger plan fell ( ) for lack of funding.",
+    "a": "through",
+    "d": [
+      "off",
+      "out",
+      "in"
+    ],
+    "e": "fall **through**＝（計画が）だめになる・流れる。\n✗ fall off（減少・落ちる）/ fall out（けんかする・抜け落ちる）。"
+  },
+  {
+    "id": 42,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The airline will ( ) extra staff for the busy season.",
+    "a": "take on",
+    "d": [
+      "take off",
+      "take in",
+      "take up"
+    ],
+    "e": "take on＝（人を）雇う／（仕事・責任を）引き受ける。\n✗ take up（趣味を始める・場所を取る）/ take in（理解）。"
+  },
+  {
+    "id": 43,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "He ( ) an old colleague at the airport lounge.",
+    "a": "ran into",
+    "d": [
+      "ran out",
+      "ran over",
+      "ran up"
+    ],
+    "e": "run into＝（偶然）出会う／（困難に）ぶつかる。\n✗ run over（車で轢く）/ run up（駆け上がる・つけをためる）。"
+  },
+  {
+    "id": 44,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Let's ( ) the checklist once more before departure.",
+    "a": "go over",
+    "d": [
+      "go off",
+      "go out",
+      "go by"
+    ],
+    "e": "go over＝（念入りに）見直す・点検する。\n✗ go off（鳴る・爆発・腐る）/ go by（通り過ぎる・経つ）。"
+  },
+  {
+    "id": 45,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "I can't ( ) what she's saying over the engine noise.",
+    "a": "make out",
+    "d": [
+      "make up",
+      "make for",
+      "make off"
+    ],
+    "e": "make out＝（かろうじて）聞き取る・識別する。\n✗ make for（〜に向かう・役立つ）/ make off（逃げ去る）。"
+  },
+  {
+    "id": 46,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The candle ( ) in the sudden gust.",
+    "a": "blew out",
+    "d": [
+      "blew up",
+      "blew off",
+      "blew over"
+    ],
+    "e": "blow out＝（火が）吹き消える／（タイヤが）破裂する。\n✗ blow up（爆発・激怒）/ blow over（（嵐・騒動が）過ぎ去る）。"
+  },
+  {
+    "id": 47,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The new aircraft model will ( ) next spring.",
+    "a": "come out",
+    "d": [
+      "come off",
+      "come over",
+      "come round"
+    ],
+    "e": "come out＝（新製品が）発売される／（真実が）明るみに出る。\n✗ come off（取れる・成功する）/ come round（意識を取り戻す）。"
+  },
+  {
+    "id": 48,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "He ( ) smoking after his doctor's warning.",
+    "a": "gave up",
+    "d": [
+      "gave in",
+      "gave off",
+      "gave away"
+    ],
+    "e": "give up＝（習慣・試みを）やめる・断念する。give up -ing。\n✗ give off（放つ）/ give away（ただで与える・漏らす）。"
+  },
+  {
+    "id": 49,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Despite the pressure, she refused to ( ).",
+    "a": "give in",
+    "d": [
+      "give up",
+      "give off",
+      "give out"
+    ],
+    "e": "give in＝（圧力に）屈する・降参する（＝yield）。refused to give in が定型。\n✗ give up（やめる）とは微妙に違う（in＝屈服）。"
+  },
+  {
+    "id": 50,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The old engine ( ) a strange smell.",
+    "a": "gave off",
+    "d": [
+      "gave in",
+      "gave up",
+      "gave away"
+    ],
+    "e": "give off＝（におい・熱・光を）放つ。\n✗ give in（屈する）/ give away / give up。"
+  },
+  {
+    "id": 51,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The situation ( ) to be worse than predicted.",
+    "a": "turned out",
+    "d": [
+      "turned off",
+      "turned in",
+      "turned down"
+    ],
+    "e": "turn out＝（結局）〜だと判明する（turn out to be〜）。\n✗ turn off（消す）/ turn in（提出・就寝）/ turn down（断る・音量を下げる）。"
+  },
+  {
+    "id": 52,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Please ( ) this form and hand it to the agent.",
+    "a": "fill out",
+    "d": [
+      "fill up",
+      "fill away",
+      "fill off"
+    ],
+    "e": "fill out＝（書類に）記入する（米）。英では fill in。\n✗ fill up（満タンにする）。"
+  },
+  {
+    "id": 53,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The runway was anything ( ) safe in the icy conditions.",
+    "a": "but",
+    "d": [
+      "than",
+      "of",
+      "for"
+    ],
+    "e": "anything **but**＝決して〜でない（＝far from）。but は「〜以外」。\n◎ nothing but（〜にすぎない）、all but（ほとんど）とセット。"
+  },
+  {
+    "id": 54,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "You had ( ) reconfirm your reservation before departure.",
+    "a": "better",
+    "d": [
+      "rather",
+      "best",
+      "well"
+    ],
+    "e": "had **better**＋動詞原形＝〜した方がよい（やや強い忠告）。\n✗ rather は would rather の形。否定は had better **not** do（to は入らない）。"
+  },
+  {
+    "id": 55,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "I would ( ) take the night flight than wait until morning.",
+    "a": "rather",
+    "d": [
+      "better",
+      "sooner",
+      "prefer"
+    ],
+    "e": "would **rather** A **than** B＝BよりむしろAしたい。A・Bは動詞原形。\n◎ would rather **that** S＋過去形（仮定法）の形もある。"
+  },
+  {
+    "id": 56,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) had the plane landed than a storm hit the airport.",
+    "a": "No sooner",
+    "d": [
+      "No longer",
+      "Not only",
+      "Not until"
+    ],
+    "e": "**No sooner** had S 過去分詞 **than** …＝〜するやいなや…。否定語文頭→倒置。\n◎ 同義 Hardly/Scarcely had S p.p. **when/before** …。"
+  },
+  {
+    "id": 57,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) you need assistance, press the call button.",
+    "a": "In case",
+    "d": [
+      "In spite",
+      "In place",
+      "In time"
+    ],
+    "e": "**In case** S V＝〜する場合に備えて。\n✗ in case **of**＋名詞（〜の場合には）とは形が違う。ここは節が続く。"
+  },
+  {
+    "id": 58,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) of the entire crew, the captain thanked the passengers.",
+    "a": "On behalf",
+    "d": [
+      "In favor",
+      "In charge",
+      "By means"
+    ],
+    "e": "on **behalf of**＝〜を代表して／〜のために。\n✗ in favor of（賛成）/ in charge of（担当）/ by means of（〜によって）。"
+  },
+  {
+    "id": 59,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The detour was taken ( ) of passenger safety.",
+    "a": "for the sake",
+    "d": [
+      "in the sake",
+      "on the sake",
+      "at the sake"
+    ],
+    "e": "for the **sake of**＝〜のために（目的・利益）。\n◎ for the sake of safety。前置詞は for で固定。"
+  },
+  {
+    "id": 60,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) bad weather, the airshow was canceled.",
+    "a": "Owing to",
+    "d": [
+      "Owing for",
+      "Owing of",
+      "Owing with"
+    ],
+    "e": "**owing to**＝〜が原因で（＝due to, because of）。\n✗ owing は必ず to をとる。"
+  },
+  {
+    "id": 61,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) speaking, newer aircraft are more fuel-efficient.",
+    "a": "Generally",
+    "d": [
+      "General",
+      "In general to",
+      "A general"
+    ],
+    "e": "**generally speaking**＝一般的に言えば（分詞構文の慣用句）。\n◎ frankly/strictly speaking も同類。"
+  },
+  {
+    "id": 62,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) as it may seem, the engine ran without fuel for minutes.",
+    "a": "Strange",
+    "d": [
+      "Strangely",
+      "How strange",
+      "As strange"
+    ],
+    "e": "形容詞＋**as** it may seem＝〜に思えるが（譲歩の as）。倒置で形容詞が文頭。\n◎ Young as he is（若いが）と同構造。"
+  },
+  {
+    "id": 63,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The flight took off ( ) schedule, to everyone's surprise.",
+    "a": "ahead of",
+    "d": [
+      "ahead for",
+      "ahead to",
+      "ahead in"
+    ],
+    "e": "**ahead of** schedule＝予定より早く。\n✗ behind schedule が反意。ahead は必ず of。"
+  },
+  {
+    "id": 64,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The report must be submitted ( ) Friday.",
+    "a": "no later than",
+    "d": [
+      "no longer than",
+      "no more than",
+      "no less than"
+    ],
+    "e": "**no later than**＝遅くとも〜までに（期限の強調）。\n✗ no longer than（長さ）/ no more than（たった〜）/ no less than（〜も）。"
+  },
+  {
+    "id": 65,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) the heavy traffic, we arrived on time.",
+    "a": "In spite of",
+    "d": [
+      "In case of",
+      "In terms of",
+      "In need of"
+    ],
+    "e": "**in spite of**＝〜にもかかわらず（＝despite）。\n✗ in case of（場合）/ in terms of（観点）/ in need of（必要として）。"
+  },
+  {
+    "id": 66,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "Let's evaluate the plan ( ) of cost and safety.",
+    "a": "in terms",
+    "d": [
+      "in case",
+      "in spite",
+      "in need"
+    ],
+    "e": "in **terms of**＝〜の観点から・〜に関して。\n◎ in terms of cost。評価軸を示す定番。"
+  },
+  {
+    "id": 67,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The signal was transmitted ( ) of a coded message.",
+    "a": "by means",
+    "d": [
+      "by way",
+      "by dint",
+      "by virtue"
+    ],
+    "e": "by **means of**＝〜という手段によって。\n✗ by way of（経由で）/ by dint of・by virtue of（〜のおかげで）は別ニュアンス。"
+  },
+  {
+    "id": 68,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) to popular belief, air travel is extremely safe.",
+    "a": "Contrary",
+    "d": [
+      "Opposite",
+      "Against",
+      "Reverse"
+    ],
+    "e": "**contrary to**＝〜に反して。contrary to popular belief は決まり文句。\n✗ opposite/against/reverse は to とこの型を作らない。"
+  },
+  {
+    "id": 69,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The captain stayed calm ( ) the emergency.",
+    "a": "in the face of",
+    "d": [
+      "in the case of",
+      "in the way of",
+      "in the light of"
+    ],
+    "e": "in the **face of**＝〜に直面しても・〜をものともせず。\n✗ in the case of（場合）/ in the light of（踏まえて）。"
+  },
+  {
+    "id": 70,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "She is fluent in three languages, ( ) her native Japanese.",
+    "a": "not to mention",
+    "d": [
+      "not to say",
+      "not to speak",
+      "no mention of"
+    ],
+    "e": "**not to mention**＝〜は言うまでもなく（＝to say nothing of）。\n◎ 後ろは名詞句。"
+  },
+  {
+    "id": 71,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "( ) for a short delay, the journey was perfect.",
+    "a": "Except",
+    "d": [
+      "Beside",
+      "Despite",
+      "Without"
+    ],
+    "e": "**except for**＝〜を除いては（全体に対する例外）。\n✗ beside（そばに）/ despite（にもかかわらず）。"
+  },
+  {
+    "id": 72,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The merger is still ( ) the air; nothing is final.",
+    "a": "up in",
+    "d": [
+      "on in",
+      "in on",
+      "up on"
+    ],
+    "e": "**up in the air**＝（計画などが）未定で・宙に浮いて。\nイディオムなので語順そのまま暗記。"
+  },
+  {
+    "id": 73,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "On a tight budget, they struggled to make ( ) meet.",
+    "a": "ends",
+    "d": [
+      "end",
+      "ending",
+      "an end"
+    ],
+    "e": "make **ends** meet＝収支を合わせる・やりくりする（ends は複数形固定）。\n◎ 直訳「両端を合わせる」。"
+  },
+  {
+    "id": 74,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "He passed the check ride by ( ) skin of his teeth.",
+    "a": "the",
+    "d": [
+      "a",
+      "his",
+      "no"
+    ],
+    "e": "by the **skin of one's teeth**＝辛うじて・間一髪で。\n定型なので the も含めて丸暗記。"
+  },
+  {
+    "id": 75,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "The reform is a step in the ( ) direction.",
+    "a": "right",
+    "d": [
+      "correct",
+      "true",
+      "proper"
+    ],
+    "e": "a step in the **right** direction＝正しい方向への一歩（改善の定型）。\n✗ correct/true/proper も「正しい」だが、この慣用句は right で固定。"
+  },
+  {
+    "id": 76,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "Don't ( ) the gun—wait for the official confirmation.",
+    "a": "jump",
+    "d": [
+      "fire",
+      "shoot",
+      "pull"
+    ],
+    "e": "**jump the gun**＝早まる・フライングする（陸上のフライングが語源）。\n動詞は jump で固定。"
+  },
+  {
+    "id": 77,
+    "part": "Part 4",
+    "cat": "仮定法",
+    "q": "If the engine ( ) earlier, the accident could have been avoided.",
+    "a": "had been checked",
+    "d": [
+      "was checked",
+      "checked",
+      "has checked"
+    ],
+    "e": "仮定法過去完了：If S **had** 過去分詞, S **could have** 過去分詞（過去の反実）。受け身なので had **been** checked。\n✗ was checked は直説法で不可。"
+  },
+  {
+    "id": 78,
+    "part": "Part 4",
+    "cat": "仮定法",
+    "q": "If I ( ) you, I would postpone the trip.",
+    "a": "were",
+    "d": [
+      "was",
+      "am",
+      "had been"
+    ],
+    "e": "仮定法過去 If I **were** you＝もし私があなたなら。仮定法では主語を問わず were が正式。\n◎ 現在の事実に反する仮定。"
+  },
+  {
+    "id": 79,
+    "part": "Part 4",
+    "cat": "仮定法",
+    "q": "( ) it not for radar, flying would be far more dangerous.",
+    "a": "Were",
+    "d": [
+      "Was",
+      "Had",
+      "If"
+    ],
+    "e": "Were it not for＝〜がなければ（If it were not for の if 省略→倒置）。\n◎ 過去なら **Had** it not been for〜。"
+  },
+  {
+    "id": 80,
+    "part": "Part 4",
+    "cat": "仮定法",
+    "q": "I wish I ( ) more time to prepare for the exam.",
+    "a": "had",
+    "d": [
+      "have",
+      "will have",
+      "had had"
+    ],
+    "e": "I wish＋**仮定法過去**（過去形）＝今〜であればなあ（現在の願望）。\n✗ had had は「過去への後悔」で時制が過剰。"
+  },
+  {
+    "id": 81,
+    "part": "Part 4",
+    "cat": "仮定法",
+    "q": "He talks as if he ( ) a pilot, but he has never flown.",
+    "a": "were",
+    "d": [
+      "is",
+      "was being",
+      "has been"
+    ],
+    "e": "as if＋**仮定法過去**＝まるで〜であるかのように（実際はそうでない）。\n事実に反するので were。"
+  },
+  {
+    "id": 82,
+    "part": "Part 4",
+    "cat": "関係詞",
+    "q": "Do you know the reason ( ) the flight was delayed?",
+    "a": "why",
+    "d": [
+      "which",
+      "where",
+      "what"
+    ],
+    "e": "関係副詞 why（先行詞 the reason）。後ろが完全文なので which は不可。\n◎ the reason (why) は why 省略も多い。"
+  },
+  {
+    "id": 83,
+    "part": "Part 4",
+    "cat": "関係詞",
+    "q": "( ) wins the bid will operate the new terminal.",
+    "a": "Whoever",
+    "d": [
+      "Whomever",
+      "Whichever",
+      "Whatever"
+    ],
+    "e": "複合関係代名詞・主格＝〜する人は誰でも（＝anyone who）。直後に動詞 wins→主格。\n✗ Whomever は目的格。"
+  },
+  {
+    "id": 84,
+    "part": "Part 4",
+    "cat": "関係詞",
+    "q": "This is the hangar ( ) the aircraft is stored.",
+    "a": "where",
+    "d": [
+      "which",
+      "that",
+      "what"
+    ],
+    "e": "関係副詞 where（先行詞 hangar＝場所）。後ろが完全文。\n✗ which なら名詞の欠落が必要。"
+  },
+  {
+    "id": 85,
+    "part": "Part 4",
+    "cat": "関係詞",
+    "q": "She'll take ( ) seat is still available.",
+    "a": "whichever",
+    "d": [
+      "whoever",
+      "however",
+      "whenever"
+    ],
+    "e": "whichever＋名詞＝どの〜でも（＝any … that）。seat を修飾。\n✗ whoever は人。"
+  },
+  {
+    "id": 86,
+    "part": "Part 4",
+    "cat": "関係詞",
+    "q": "The official ( ) I spoke was the chief inspector.",
+    "a": "to whom",
+    "d": [
+      "to who",
+      "whom to",
+      "that to"
+    ],
+    "e": "前置詞＋関係代名詞：spoke **to** whom → to whom I spoke。\n✗ to who は不可（前置詞の後は目的格 whom）。"
+  },
+  {
+    "id": 87,
+    "part": "Part 4",
+    "cat": "比較",
+    "q": "This jet is ( ) more economical than the old one.",
+    "a": "far",
+    "d": [
+      "very",
+      "more",
+      "so"
+    ],
+    "e": "比較級の強調は far / much / even / still / a lot。\n✗ **very** は比較級を強調できない（very＋原級のみ）。"
+  },
+  {
+    "id": 88,
+    "part": "Part 4",
+    "cat": "比較",
+    "q": "No other airport is ( ) busy as this one.",
+    "a": "as",
+    "d": [
+      "so",
+      "more",
+      "than"
+    ],
+    "e": "No other … is **as** … **as** ~＝他のどれも〜ほど…でない（最上級相当）。\n◎ 否定文では前の as を so にしてもよい。"
+  },
+  {
+    "id": 89,
+    "part": "Part 4",
+    "cat": "比較",
+    "q": "The more you practice, ( ) you become.",
+    "a": "the better",
+    "d": [
+      "better",
+      "the best",
+      "more better"
+    ],
+    "e": "The＋比較級 …, the＋比較級 …＝〜すればするほど…。両方に the が必要。\n✗ 単なる better は不可。"
+  },
+  {
+    "id": 90,
+    "part": "Part 4",
+    "cat": "比較",
+    "q": "She is ( ) the most experienced pilot on the team.",
+    "a": "by far",
+    "d": [
+      "very",
+      "more",
+      "too"
+    ],
+    "e": "最上級の強調は by far / much（by far the best）。\n✗ very で強調するなら the very best（語順が別）。"
+  },
+  {
+    "id": 91,
+    "part": "Part 4",
+    "cat": "比較",
+    "q": "The service was ( ) from satisfactory.",
+    "a": "far",
+    "d": [
+      "much",
+      "anything",
+      "nothing"
+    ],
+    "e": "**far from**＝決して〜でない（＝anything but）。\n「満足には程遠い」。✗ much from という形はない。"
+  },
+  {
+    "id": 92,
+    "part": "Part 4",
+    "cat": "時制",
+    "q": "Please remain seated until the aircraft ( ) to a complete stop.",
+    "a": "comes",
+    "d": [
+      "will come",
+      "came",
+      "is coming"
+    ],
+    "e": "時・条件を表す副詞節では未来の内容も**現在形**。\n◎ until / when / if / as soon as 節内は will を使わない。"
+  },
+  {
+    "id": 93,
+    "part": "Part 4",
+    "cat": "時制",
+    "q": "The instructor explained that water ( ) at 100°C.",
+    "a": "boils",
+    "d": [
+      "boiled",
+      "had boiled",
+      "was boiling"
+    ],
+    "e": "不変の真理・科学的事実は主節が過去でも**現在形**（時制の一致の例外）。\n「水は100℃で沸騰する」は普遍的真理。"
+  },
+  {
+    "id": 94,
+    "part": "Part 4",
+    "cat": "時制",
+    "q": "By the time we reach the gate, the flight ( ).",
+    "a": "will have departed",
+    "d": [
+      "departs",
+      "departed",
+      "has departed"
+    ],
+    "e": "未来完了 will have p.p.＝（未来のある時点）までに〜してしまっているだろう。\nby the time が目印。"
+  },
+  {
+    "id": 95,
+    "part": "Part 4",
+    "cat": "時制",
+    "q": "This time tomorrow, I ( ) over the Pacific.",
+    "a": "will be flying",
+    "d": [
+      "will fly",
+      "fly",
+      "have flown"
+    ],
+    "e": "未来進行形 will be -ing＝（未来の時点で）〜している最中だろう。\nthis time tomorrow が目印。"
+  },
+  {
+    "id": 96,
+    "part": "Part 4",
+    "cat": "時制",
+    "q": "He ( ) for the airline for ten years before he retired.",
+    "a": "had worked",
+    "d": [
+      "has worked",
+      "works",
+      "is working"
+    ],
+    "e": "過去完了 had p.p.＝過去のある時点（retired）までの継続。\nbefore＋過去形とセット。"
+  },
+  {
+    "id": 97,
+    "part": "Part 4",
+    "cat": "第4文型・語法",
+    "q": "The instructor showed ( ) the proper landing technique.",
+    "a": "us",
+    "d": [
+      "to us",
+      "for us",
+      "at us"
+    ],
+    "e": "show＋人＋物（SVOO、前置詞なし）。\n◎ 前置詞を使うなら show the technique **to** us（第3文型）。"
+  },
+  {
+    "id": 98,
+    "part": "Part 4",
+    "cat": "第4文型・語法",
+    "q": "They offered ( ) a position as co-pilot.",
+    "a": "him",
+    "d": [
+      "to him",
+      "for him",
+      "at him"
+    ],
+    "e": "offer＋人＋物（SVOO）。offer him a position。\n✗ to him は第3文型用で、直後に来る形としては不可。"
+  },
+  {
+    "id": 99,
+    "part": "Part 4",
+    "cat": "第4文型・語法",
+    "q": "The repair cost ( ) nearly a thousand dollars.",
+    "a": "us",
+    "d": [
+      "to us",
+      "for us",
+      "of us"
+    ],
+    "e": "cost＋人＋金額（SVOO）＝（物・事が）人に金額を負担させる。\ncost は cost-cost-cost（無変化）。"
+  },
+  {
+    "id": 100,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "The crew finished ( ) the cabin before boarding began.",
+    "a": "cleaning",
+    "d": [
+      "to clean",
+      "clean",
+      "cleaned"
+    ],
+    "e": "finish＋**動名詞**（-ing）。finish to do は不可。\n◎ enjoy / avoid / mind / give up / put off も動名詞。"
+  },
+  {
+    "id": 101,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "I'm looking forward to ( ) my first solo flight.",
+    "a": "making",
+    "d": [
+      "make",
+      "made",
+      "makes"
+    ],
+    "e": "look forward **to**＋動名詞（to＝前置詞）。\n◎ to make としないよう注意（Part1-19と同グループ）。"
+  },
+  {
+    "id": 102,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "He decided ( ) the offer despite the risk.",
+    "a": "to accept",
+    "d": [
+      "accepting",
+      "accept",
+      "accepted"
+    ],
+    "e": "decide＋**to do**（不定詞）。\n◎ want / hope / promise / refuse / manage も不定詞。"
+  },
+  {
+    "id": 103,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "The captain suggested ( ) the route to avoid the storm.",
+    "a": "changing",
+    "d": [
+      "to change",
+      "change",
+      "changed"
+    ],
+    "e": "suggest＋**動名詞**（または suggest that S (should) do）。suggest to do は不可。\n◎ recommend, insist も同様。"
+  },
+  {
+    "id": 104,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "Remember ( ) your boarding pass before you leave.",
+    "a": "to bring",
+    "d": [
+      "bringing",
+      "brought",
+      "brings"
+    ],
+    "e": "remember＋**to do**＝これから〜するのを覚えている（未来）。\n◎ remember -ing は「〜したのを覚えている」（過去）。"
+  },
+  {
+    "id": 105,
+    "part": "Part 4",
+    "cat": "不可算・数量",
+    "q": "Could you give me some ( ) about the delay?",
+    "a": "information",
+    "d": [
+      "informations",
+      "an information",
+      "many information"
+    ],
+    "e": "information は不可算。複数形も冠詞 an も不可。\n◎ 数えるなら a piece of information。advice, news, furniture も同様。"
+  },
+  {
+    "id": 106,
+    "part": "Part 4",
+    "cat": "不可算・数量",
+    "q": "The airport handles a large ( ) of luggage every day.",
+    "a": "amount",
+    "d": [
+      "number",
+      "many",
+      "few"
+    ],
+    "e": "a large **amount of**＋不可算名詞（luggage）。\n✗ number は可算名詞用（a number of passengers）。"
+  },
+  {
+    "id": 107,
+    "part": "Part 4",
+    "cat": "倒置・その他",
+    "q": "( ) did we realize the danger we were in.",
+    "a": "Little",
+    "d": [
+      "Few",
+      "Less",
+      "Small"
+    ],
+    "e": "否定・準否定の副詞（Little, Never, Seldom）が文頭→**倒置**（Little did S V）。\nLittle＝ほとんど〜ない。"
+  },
+  {
+    "id": 108,
+    "part": "Part 4",
+    "cat": "倒置・その他",
+    "q": "Not only ( ) the flight delayed, but it was also overbooked.",
+    "a": "was",
+    "d": [
+      "did",
+      "had",
+      "has"
+    ],
+    "e": "Not only が文頭→倒置。be動詞の文なので was が前に出る。\n◎ Not only … but also … の相関。"
+  },
+  {
+    "id": 109,
+    "part": "Part 4",
+    "cat": "倒置・その他",
+    "q": "Only after landing ( ) the pilot finally relax.",
+    "a": "did",
+    "d": [
+      "was",
+      "had",
+      "has"
+    ],
+    "e": "Only＋副詞句が文頭→倒置。一般動詞なので did＋主語＋原形。\n「着陸して初めてくつろいだ」。"
+  },
+  {
+    "id": 110,
+    "part": "Part 4",
+    "cat": "倒置・その他",
+    "q": "Hardly ( ) the plane taken off when the alarm sounded.",
+    "a": "had",
+    "d": [
+      "was",
+      "did",
+      "has"
+    ],
+    "e": "Hardly **had** S 過去分詞 **when** …＝〜するやいなや…（倒置＋過去完了）。\n◎ Part3-4の No sooner … than と同グループ。"
+  },
+  {
+    "id": 111,
+    "part": "Part 4",
+    "cat": "倒置・その他",
+    "q": "( ) the weather, the ceremony will proceed as planned.",
+    "a": "Whatever",
+    "d": [
+      "However",
+      "Whoever",
+      "Wherever"
+    ],
+    "e": "Whatever＋名詞＝どんな〜であろうと（譲歩、＝no matter what）。\n✗ However は形容詞・副詞を伴う（However bad）。"
+  },
+  {
+    "id": 112,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "A bird in the hand is ( ) two in the bush.",
+    "a": "worth",
+    "d": [
+      "worth of",
+      "worthy",
+      "better"
+    ],
+    "e": "be **worth**＋名詞＝〜の価値がある（of は不要）。諺＝明日の百より今日の五十。\n✗ worth of は誤り。問われているのは **worth の語法**。"
+  },
+  {
+    "id": 113,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "When ( ) Rome, do as the Romans do.",
+    "a": "in",
+    "d": [
+      "at",
+      "on",
+      "to"
+    ],
+    "e": "When **in** Rome, do as the Romans do＝郷に入っては郷に従え。\n省略された When (you are) in Rome の in。"
+  },
+  {
+    "id": 114,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "The early bird ( ) the worm.",
+    "a": "catches",
+    "d": [
+      "eats",
+      "takes",
+      "finds"
+    ],
+    "e": "The early bird **catches** the worm＝早起きは三文の徳。\n動詞は catch で固定。"
+  },
+  {
+    "id": 115,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "( ) makes perfect.",
+    "a": "Practice",
+    "d": [
+      "Training",
+      "Study",
+      "Effort"
+    ],
+    "e": "**Practice** makes perfect＝習うより慣れろ／継続は力なり。"
+  },
+  {
+    "id": 116,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "Don't ( ) your chickens before they hatch.",
+    "a": "count",
+    "d": [
+      "catch",
+      "keep",
+      "cook"
+    ],
+    "e": "Don't **count** your chickens before they hatch＝捕らぬ狸の皮算用。"
+  },
+  {
+    "id": 117,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "Where there's a ( ), there's a way.",
+    "a": "will",
+    "d": [
+      "way",
+      "wish",
+      "want"
+    ],
+    "e": "Where there's a **will**, there's a way＝意志あるところに道あり。will＝意志。"
+  },
+  {
+    "id": 118,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "( ) two birds with one stone.",
+    "a": "Kill",
+    "d": [
+      "Catch",
+      "Hit",
+      "Shoot"
+    ],
+    "e": "**Kill** two birds with one stone＝一石二鳥。"
+  },
+  {
+    "id": 119,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "Rome was not ( ) in a day.",
+    "a": "built",
+    "d": [
+      "made",
+      "done",
+      "created"
+    ],
+    "e": "Rome was not **built** in a day＝ローマは一日にして成らず。"
+  },
+  {
+    "id": 120,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "Look ( ) you leap.",
+    "a": "before",
+    "d": [
+      "after",
+      "into",
+      "over"
+    ],
+    "e": "Look **before** you leap＝転ばぬ先の杖（飛ぶ前に見よ）。"
+  },
+  {
+    "id": 121,
+    "part": "Part 5",
+    "cat": "ことわざ",
+    "q": "Necessity is the ( ) of invention.",
+    "a": "mother",
+    "d": [
+      "father",
+      "source",
+      "root"
+    ],
+    "e": "Necessity is the **mother** of invention＝必要は発明の母。"
+  },
+  {
+    "id": 122,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "The plane hit severe ( ) over the mountains.",
+    "a": "turbulence",
+    "d": [
+      "tolerance",
+      "turbine",
+      "terminal"
+    ],
+    "e": "turbulent（形：荒れた）の名詞。★\n他：tolerance（許容・耐性）／turbine（タービン）／terminal（終着駅・端末）。"
+  },
+  {
+    "id": 123,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "The aircraft reached a cruising ( ) of 35,000 feet.",
+    "a": "altitude",
+    "d": [
+      "attitude",
+      "latitude",
+      "gratitude"
+    ],
+    "e": "cruising altitude＝巡航高度。★\n他：attitude（態度）／latitude（緯度）／gratitude（感謝）。-tude 4語。"
+  },
+  {
+    "id": 124,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "Passengers must ( ) the aircraft from the rear exits.",
+    "a": "disembark",
+    "d": [
+      "embark",
+      "dismantle",
+      "dispatch"
+    ],
+    "e": "em-（乗る）↔ dis-（降りる）。★\n他：embark（乗り込む・着手する）／dismantle（分解する）／dispatch（発送する）。"
+  },
+  {
+    "id": 125,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "There was a three-hour ( ) in Dubai before the connecting flight.",
+    "a": "layover",
+    "d": [
+      "takeover",
+      "leftover",
+      "turnover"
+    ],
+    "e": "＝stopover（乗り継ぎ待ち）。★\n他：takeover（買収）／leftover（残り物）／turnover（離職率・売上高）。"
+  },
+  {
+    "id": 126,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "Your baggage exceeds the weight ( ).",
+    "a": "allowance",
+    "d": [
+      "allotment",
+      "alliance",
+      "allowing"
+    ],
+    "e": "baggage allowance＝手荷物許容量。★\n他：allotment（割り当て）／alliance（同盟）／allowing（許すこと）。"
+  },
+  {
+    "id": 127,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "Two officers boarded the plane to ( ) the hijacker.",
+    "a": "apprehend",
+    "d": [
+      "comprehend",
+      "reprimand",
+      "recommend"
+    ],
+    "e": "apprehend＝逮捕する／理解する。★\n他：comprehend（理解する）／reprimand（叱責する）／recommend（推薦する）。"
+  },
+  {
+    "id": 128,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "Sudden ( ) in the cabin is dangerous at high altitude.",
+    "a": "decompression",
+    "d": [
+      "depression",
+      "compression",
+      "suppression"
+    ],
+    "e": "de-（除去）＋compression。★\n他：depression（憂鬱・不況）／compression（圧縮）／suppression（抑圧）。"
+  },
+  {
+    "id": 129,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "In an emergency, follow the crew's ( ) instructions.",
+    "a": "evacuation",
+    "d": [
+      "evaluation",
+      "elevation",
+      "education"
+    ],
+    "e": "evacuate（避難させる）の名詞。★\n他：evaluation（評価）／elevation（標高・上昇）／education（教育）。"
+  },
+  {
+    "id": 130,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "The control tower cleared the jet for ( ).",
+    "a": "takeoff",
+    "d": [
+      "takeover",
+      "takeaway",
+      "takedown"
+    ],
+    "e": "↔ landing（着陸）。★\n他：takeover（買収）／takeaway（持ち帰り・要点）／takedown（撃退）。"
+  },
+  {
+    "id": 131,
+    "part": "Part 6",
+    "cat": "✈ 航空・空港",
+    "q": "The flight was ( ) due to a mechanical issue.",
+    "a": "grounded",
+    "d": [
+      "grouped",
+      "granted",
+      "guarded"
+    ],
+    "e": "機体が飛べず地上に留め置かれる／欠航。★\n他：grouped（分類された）／granted（与えられた）／guarded（警戒した）。"
+  },
+  {
+    "id": 132,
+    "part": "Part 6",
+    "cat": "☁ 気象",
+    "q": "The ( ) conditions made for an extremely smooth flight.",
+    "a": "placid",
+    "d": [
+      "placard",
+      "plausible",
+      "plaintive"
+    ],
+    "e": "穏やかな（⇔ turbulent）。★\n他：placard（プラカード）／plausible（もっともらしい）／plaintive（もの悲しい）。"
+  },
+  {
+    "id": 133,
+    "part": "Part 6",
+    "cat": "☁ 気象",
+    "q": "Heavy ( ) reduced visibility on the runway.",
+    "a": "precipitation",
+    "d": [
+      "participation",
+      "preservation",
+      "preparation"
+    ],
+    "e": "雨・雪の総称。★\n他：participation（参加）／preservation（保存）／preparation（準備）。"
+  },
+  {
+    "id": 134,
+    "part": "Part 6",
+    "cat": "☁ 気象",
+    "q": "The pilot reviewed the ( ) forecast before departure.",
+    "a": "meteorological",
+    "d": [
+      "methodological",
+      "metropolitan",
+      "mathematical"
+    ],
+    "e": "meteorology（気象学）の形容詞。★\n他：methodological（方法論の）／metropolitan（大都市の）／mathematical（数学の）。"
+  },
+  {
+    "id": 135,
+    "part": "Part 6",
+    "cat": "☁ 気象",
+    "q": "A sudden ( ) of wind shook the small aircraft.",
+    "a": "gust",
+    "d": [
+      "gulf",
+      "gush",
+      "guts"
+    ],
+    "e": "a gust of wind＝一陣の突風。★\n他：gulf（湾・隔たり）／gush（噴出）／guts（度胸・腸）。"
+  },
+  {
+    "id": 136,
+    "part": "Part 6",
+    "cat": "☁ 気象",
+    "q": "The sky was ( ), threatening rain all afternoon.",
+    "a": "overcast",
+    "d": [
+      "overcome",
+      "overdue",
+      "overall"
+    ],
+    "e": "曇った・どんよりした。★\n他：overcome（克服する）／overdue（期限切れの）／overall（全体的な）。"
+  },
+  {
+    "id": 137,
+    "part": "Part 6",
+    "cat": "⚕ 医療・健康",
+    "q": "Travelers from the region were placed under ( ).",
+    "a": "quarantine",
+    "d": [
+      "quantity",
+      "quarrel",
+      "quality"
+    ],
+    "e": "検疫・隔離（語源は「40日」）。★\n他：quantity（量）／quarrel（口論）／quality（質）。"
+  },
+  {
+    "id": 138,
+    "part": "Part 6",
+    "cat": "⚕ 医療・健康",
+    "q": "The disease has an ( ) period of about two weeks.",
+    "a": "incubation",
+    "d": [
+      "inclination",
+      "indication",
+      "intuition"
+    ],
+    "e": "incubation period＝潜伏期間。★\n他：inclination（傾向・意向）／indication（兆候）／intuition（直感）。"
+  },
+  {
+    "id": 139,
+    "part": "Part 6",
+    "cat": "⚕ 医療・健康",
+    "q": "The flu is highly ( ) and spreads quickly.",
+    "a": "contagious",
+    "d": [
+      "courageous",
+      "contiguous",
+      "conscious"
+    ],
+    "e": "接触感染性の。★\n他：courageous（勇敢な）／contiguous（隣接した）／conscious（意識のある）。綴りに注意。"
+  },
+  {
+    "id": 140,
+    "part": "Part 6",
+    "cat": "⚕ 医療・健康",
+    "q": "A balanced diet prevents nutritional ( ).",
+    "a": "deficiency",
+    "d": [
+      "efficiency",
+      "proficiency",
+      "sufficiency"
+    ],
+    "e": "欠乏・不足。\n-ficiency 4語：efficiency（効率）／proficiency（熟達）／sufficiency（十分）。"
+  },
+  {
+    "id": 141,
+    "part": "Part 6",
+    "cat": "⚕ 医療・健康",
+    "q": "The doctor wrote a ( ) for the medication.",
+    "a": "prescription",
+    "d": [
+      "subscription",
+      "description",
+      "inscription"
+    ],
+    "e": "処方箋（pre-＝前もって書く）。\n-scription：subscription（購読）／description（描写）／inscription（碑文・銘）。"
+  },
+  {
+    "id": 142,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "Several countries imposed ( ) on the regime.",
+    "a": "sanctions",
+    "d": [
+      "sensations",
+      "selections",
+      "sessions"
+    ],
+    "e": "制裁（通例複数）。★\n他：sensations（感覚・大騒ぎ）／selections（選択）／sessions（会期）。"
+  },
+  {
+    "id": 143,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "The government raised ( ) on imported goods.",
+    "a": "tariffs",
+    "d": [
+      "terrors",
+      "tenures",
+      "traits"
+    ],
+    "e": "関税。★\n他：terrors（恐怖）／tenures（在職期間）／traits（特性）。"
+  },
+  {
+    "id": 144,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "The nation held a ( ) on whether to join the union.",
+    "a": "referendum",
+    "d": [
+      "referral",
+      "reference",
+      "refinement"
+    ],
+    "e": "国民投票。★\n他：referral（紹介）／reference（参照）／refinement（洗練）。"
+  },
+  {
+    "id": 145,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "He took ( ) leave to care for his newborn son.",
+    "a": "paternity",
+    "d": [
+      "fraternity",
+      "eternity",
+      "sincerity"
+    ],
+    "e": "paternity leave＝父親の育休。★母親側は maternity。\n他：fraternity（友愛・学生社交団体）／eternity（永遠）／sincerity（誠実）。"
+  },
+  {
+    "id": 146,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "In some countries, ( ) requires young men to serve in the military.",
+    "a": "conscription",
+    "d": [
+      "subscription",
+      "prescription",
+      "inscription"
+    ],
+    "e": "徴兵制。★\n他：subscription（購読）／prescription（処方）／inscription（銘）。"
+  },
+  {
+    "id": 147,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "Rising ( ) has made daily necessities more expensive.",
+    "a": "inflation",
+    "d": [
+      "inflammation",
+      "infestation",
+      "information"
+    ],
+    "e": "インフレ・物価上昇。★\n他：inflammation（炎症）／infestation（害虫の蔓延）／information（情報）。"
+  },
+  {
+    "id": 148,
+    "part": "Part 6",
+    "cat": "🏛 時事・社会",
+    "q": "The country's aging ( ) strains its pension system.",
+    "a": "demographics",
+    "d": [
+      "democracy",
+      "diplomacy",
+      "dynamics"
+    ],
+    "e": "人口統計・人口構成（demo-＝人々）。★\n他：democracy（民主主義）／diplomacy（外交）／dynamics（力学・動態）。"
+  },
+  {
+    "id": 149,
+    "part": "Part 6",
+    "cat": "🔬 科学・技術",
+    "q": "The scientist was able to ( ) the data accurately.",
+    "a": "analyze",
+    "d": [
+      "paralyze",
+      "apologize",
+      "authorize"
+    ],
+    "e": "分析する。\n他：paralyze（麻痺させる）／apologize（謝る）／authorize（承認する）。"
+  },
+  {
+    "id": 150,
+    "part": "Part 6",
+    "cat": "🔬 科学・技術",
+    "q": "The experiment was designed to test the ( ).",
+    "a": "hypothesis",
+    "d": [
+      "hypocrisy",
+      "hypothermia",
+      "hypotenuse"
+    ],
+    "e": "仮説（hypo-＝下＋thesis＝置く）。\n他：hypocrisy（偽善）／hypothermia（低体温症）／hypotenuse（斜辺）。"
+  },
+  {
+    "id": 151,
+    "part": "Part 6",
+    "cat": "🔬 科学・技術",
+    "q": "Solar power is a ( ) source of energy.",
+    "a": "sustainable",
+    "d": [
+      "susceptible",
+      "suspicious",
+      "sensible"
+    ],
+    "e": "持続可能な。★\n他：susceptible（影響を受けやすい）／suspicious（疑わしい）／sensible（分別のある）。"
+  },
+  {
+    "id": 152,
+    "part": "Part 6",
+    "cat": "🔬 科学・技術",
+    "q": "Factories are required to reduce their carbon ( ).",
+    "a": "emissions",
+    "d": [
+      "omissions",
+      "admissions",
+      "commissions"
+    ],
+    "e": "排出（carbon emissions＝炭素排出）。★\n他：omissions（省略）／admissions（入場・入学許可）／commissions（委託・手数料）。"
+  },
+  {
+    "id": 153,
+    "part": "Part 6",
+    "cat": "🔬 科学・技術",
+    "q": "The new engine can ( ) from 0 to 100 km/h in seconds.",
+    "a": "accelerate",
+    "d": [
+      "accumulate",
+      "accommodate",
+      "accomplish"
+    ],
+    "e": "加速する。★\n他：accumulate（蓄積する）／accommodate（収容する・便宜を図る）／accomplish（達成する）。"
+  },
+  {
+    "id": 154,
+    "part": "Part 6",
+    "cat": "💼 ビジネス・経済",
+    "q": "The airline plans to ( ) budget carriers into its network.",
+    "a": "incorporate",
+    "d": [
+      "incarcerate",
+      "incinerate",
+      "incriminate"
+    ],
+    "e": "取り入れる／法人化する。★\n他：incarcerate（投獄する）／incinerate（焼却する）／incriminate（罪を負わせる）。"
+  },
+  {
+    "id": 155,
+    "part": "Part 6",
+    "cat": "💼 ビジネス・経済",
+    "q": "The yen continued to ( ) against the dollar.",
+    "a": "depreciate",
+    "d": [
+      "dedicate",
+      "designate",
+      "demonstrate"
+    ],
+    "e": "価値が下がる（⇔ appreciate）。★\n他：dedicate（捧げる）／designate（指定する）／demonstrate（実演する）。"
+  },
+  {
+    "id": 156,
+    "part": "Part 6",
+    "cat": "💼 ビジネス・経済",
+    "q": "The two airlines agreed to ( ) their operations.",
+    "a": "merge",
+    "d": [
+      "emerge",
+      "submerge",
+      "surge"
+    ],
+    "e": "合併する。\n他：emerge（現れる）／submerge（水没させる）／surge（急上昇する）。"
+  },
+  {
+    "id": 157,
+    "part": "Part 6",
+    "cat": "💼 ビジネス・経済",
+    "q": "Quarterly ( ) exceeded all expectations.",
+    "a": "revenue",
+    "d": [
+      "avenue",
+      "venue",
+      "revere"
+    ],
+    "e": "収益・歳入。★\n他：avenue（大通り・手段）／venue（開催地）／revere（崇拝する）。"
+  },
+  {
+    "id": 158,
+    "part": "Part 6",
+    "cat": "💼 ビジネス・経済",
+    "q": "The contract was ( ) due to repeated violations.",
+    "a": "terminated",
+    "d": [
+      "germinated",
+      "dominated",
+      "nominated"
+    ],
+    "e": "打ち切られた（terminate＝終了させる）。★\n他：germinated（発芽した）／dominated（支配された）／nominated（指名された）。"
+  },
+  {
+    "id": 159,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "Her ( ) report covered every aspect of the issue.",
+    "a": "comprehensive",
+    "d": [
+      "compulsive",
+      "comprehensible",
+      "compelling"
+    ],
+    "e": "包括的な・網羅的な。\n他：compulsive（強迫的な）／comprehensible（理解できる）／compelling（説得力のある）。"
+  },
+  {
+    "id": 160,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "The senator launched into a ( ) against his rivals.",
+    "a": "diatribe",
+    "d": [
+      "dialect",
+      "diagram",
+      "dialogue"
+    ],
+    "e": "痛烈な非難・長い攻撃演説。\n他：dialect（方言）／diagram（図表）／dialogue（対話）。"
+  },
+  {
+    "id": 161,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "His ( ) behavior made him difficult to rely on.",
+    "a": "erratic",
+    "d": [
+      "erroneous",
+      "erudite",
+      "eccentric"
+    ],
+    "e": "一貫しない・気まぐれな。\n他：erroneous（誤った）／erudite（博学な）／eccentric（風変わりな）。"
+  },
+  {
+    "id": 162,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "The analysis was too ( ); it lacked any depth.",
+    "a": "superficial",
+    "d": [
+      "superfluous",
+      "superlative",
+      "superior"
+    ],
+    "e": "表面的な・浅い。\n他：superfluous（余分な）／superlative（最高の・最上級）／superior（優れた）。"
+  },
+  {
+    "id": 163,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "The official tried to ( ) the facts with vague wording.",
+    "a": "obfuscate",
+    "d": [
+      "obligate",
+      "obliterate",
+      "obviate"
+    ],
+    "e": "（わざと）不明瞭にする。\n他：obligate（義務づける）／obliterate（消し去る）／obviate（未然に防ぐ）。"
+  },
+  {
+    "id": 164,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "A long-standing ( ) divided the two families.",
+    "a": "feud",
+    "d": [
+      "feat",
+      "feast",
+      "fee"
+    ],
+    "e": "確執・反目。\n他：feat（偉業）／feast（ごちそう）／fee（料金）。"
+  },
+  {
+    "id": 165,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "The two terminals are ( ) to each other.",
+    "a": "adjacent",
+    "d": [
+      "adamant",
+      "adept",
+      "abundant"
+    ],
+    "e": "隣接した。\n他：adamant（断固とした）／adept（熟達した）／abundant（豊富な）。"
+  },
+  {
+    "id": 166,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "She made a ( ) forecast that later proved true.",
+    "a": "prescient",
+    "d": [
+      "pressing",
+      "precious",
+      "precise"
+    ],
+    "e": "先見の明のある（pre-＋science＝前もって知る）。\n他：pressing（差し迫った）／precious（貴重な）／precise（正確な）。"
+  },
+  {
+    "id": 167,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "He was criticized for his ( ) attitude toward juniors.",
+    "a": "arrogant",
+    "d": [
+      "arduous",
+      "ardent",
+      "adjacent"
+    ],
+    "e": "横柄な・傲慢な。\n他：arduous（骨の折れる）／ardent（熱烈な）／adjacent（隣接した）。"
+  },
+  {
+    "id": 168,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "Spreading false rumors can amount to ( ).",
+    "a": "slander",
+    "d": [
+      "splendor",
+      "slumber",
+      "slogan"
+    ],
+    "e": "（口頭の）中傷・名誉毀損（文書なら libel）。\n他：splendor（壮麗）／slumber（まどろみ）／slogan（標語）。"
+  },
+  {
+    "id": 169,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "The executive received generous ( ) for her work.",
+    "a": "remuneration",
+    "d": [
+      "rumination",
+      "renovation",
+      "reputation"
+    ],
+    "e": "報酬（＝payment の堅い語）。\n他：rumination（熟考・反芻）／renovation（改修）／reputation（評判）。"
+  },
+  {
+    "id": 170,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "He is remarkably ( ) about new technology.",
+    "a": "savvy",
+    "d": [
+      "savory",
+      "saucy",
+      "salvage"
+    ],
+    "e": "（実務に）精通した／知識。\n他：savory（風味のよい）／saucy（生意気な）／salvage（（海難）救助・回収）。"
+  },
+  {
+    "id": 171,
+    "part": "Part 6",
+    "cat": "📚 一般難語",
+    "q": "The salesman's ( ) smile concealed his true motive.",
+    "a": "beguiling",
+    "d": [
+      "bewildering",
+      "belittling",
+      "beleaguering"
+    ],
+    "e": "人を欺く・魅惑的な。\n他：bewildering（当惑させる）／belittling（見くびる）／beleaguering（悩ませる・包囲する）。"
+  }
+]
