@@ -30,13 +30,16 @@ python3 -m http.server 8000
 
 ## デプロイ（GitHub Pages）
 
-1. GitHubにリポジトリを作成し、このフォルダを push
-2. リポジトリの Settings → Pages → Source を「Deploy from a branch」にし、
-   ブランチ `main`・フォルダ `/app` は選べないため、`app/` の中身を `docs/` にコピーするか
-   `main` ルート直下に置く（もしくは Actions でデプロイ）
-3. 発行された URL を iPhone の Safari で開き、共有メニュー →「ホーム画面に追加」
+**公開URL: https://koheimukogawa.github.io/english-system/**
 
-Netlify / Vercel の場合は `app/` を公開ディレクトリに指定するだけです。
+`main` ブランチに push すると GitHub Actions（`.github/workflows/pages.yml`）が
+`app/` フォルダを自動でデプロイします。手動操作は不要です。
+
+```bash
+git add -A && git commit -m "..." && git push   # → 約1分で本番に反映
+```
+
+iPhone での利用: 上記URLを Safari で開き、共有メニュー →「ホーム画面に追加」。
 
 ## 主な機能
 
