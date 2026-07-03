@@ -65,6 +65,10 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:9;white-space:nowrap}
 .toast.show{opacity:.95}
 .loading{text-align:center;color:var(--mut);padding:80px 20px;font-size:14px}
+.cathead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.catbar{display:block;height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+.catbar .fill{display:block;height:100%}
+.acc-low{color:#dc2626;font-weight:700}.acc-mid{color:#ea580c;font-weight:700}.acc-high{color:#16a34a;font-weight:700}
 </style>
 </head>
 <body>
@@ -72,7 +76,7 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.0.0';
+var APP_V='2.1.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -203,6 +207,8 @@ function makeSession(mode,part){
     shuffle(list);
   }else if(mode==='part'){
     list=DATA.filter(function(x){return x.part===part;});shuffle(list);
+  }else if(mode==='cat'){
+    list=DATA.filter(function(x){return x.cat===part;});shuffle(list);
   }else if(mode==='all'){
     list=DATA.slice();shuffle(list);list=list.slice(0,25);
   }else{ // smart: due超過（期限切れが古い順）→ 未学習 → 学習中/マスター（due近い順）
@@ -256,6 +262,7 @@ function renderMenu(){
   +'<button class="primary big" onclick="start(\'smart\')">スマート復習を始める<small>期限が来た問題・未学習を優先して20問</small></button>'
   +'<button class="primary alt" onclick="start(\'mistakes\')">間違えた問題だけ<small>未マスターの誤答 '+DATA.filter(function(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}).length+'問</small></button>'
   +'<button class="primary alt" onclick="start(\'all\')">全問からランダム25問</button>'
+  +'<button class="primary alt" onclick="renderCats()">カテゴリ別の成績<small>弱点カテゴリを確認して、そのまま練習</small></button>'
   +'<div class="secttl">パート別に練習</div>'
   +pb
   +'<button class="reset" onclick="renderData()">データ管理（バックアップ・引き継ぎ）</button>'
@@ -264,6 +271,7 @@ function renderMenu(){
 }
 
 function start(mode,part){
+  if(part)part=decodeURIComponent(part);
   session=makeSession(mode,part);idx=0;scoreC=0;missedIds=[];
   if(!session.length){
     h('<div class="wrap"><h1>🎉 出題なし</h1><p class="done">いま表示できる問題がありません。<br>「間違えた問題だけ」は、一度間違えて まだマスターしていない問題が対象です。全部できています。</p><button class="primary" onclick="renderMenu()">メニューに戻る</button></div>');
@@ -330,6 +338,41 @@ function startMissed(){
   session=DATA.filter(function(x){return ids.indexOf(x.id)>=0;});
   shuffle(session);idx=0;scoreC=0;missedIds=[];
   renderQ();
+}
+
+/* ---------- カテゴリ別成績（弱点分析） ---------- */
+function renderCats(){
+  var m={},order=[];
+  for(var i=0;i<DATA.length;i++){
+    var x=DATA[i];
+    if(!m[x.cat]){m[x.cat]={cat:x.cat,total:0,seen:0,correct:0,mastered:0};order.push(x.cat);}
+    var g=m[x.cat];g.total++;
+    var s=stat(x.id);g.seen+=s.s;g.correct+=s.c;
+    if(tier(x)===3)g.mastered++;
+  }
+  var rows=order.map(function(k){return m[k];});
+  rows.sort(function(a,b){
+    var aa=a.seen?a.correct/a.seen:2,bb=b.seen?b.correct/b.seen:2; // 未学習は最後
+    if(aa!==bb)return aa-bb;
+    return b.total-a.total;
+  });
+  var b='';
+  for(var j=0;j<rows.length;j++){
+    var r=rows[j];
+    var acc=r.seen?Math.round(r.correct/r.seen*100):null;
+    var cls=acc===null?'mut':(acc<70?'acc-low':acc<85?'acc-mid':'acc-high');
+    b+='<button class="opt" onclick="start(\'cat\',\''+encodeURIComponent(r.cat)+'\')">'
+    +'<span class="cathead"><span><b>'+esc(r.cat)+'</b> <span class="mut">'+r.total+'問・マスター'+r.mastered+'</span></span>'
+    +'<span class="'+cls+'">'+(acc===null?'未学習':acc+'%')+'</span></span>'
+    +'<span class="catbar"><span class="fill" style="width:'+(acc||0)+'%"></span></span>'
+    +'</button>';
+  }
+  h('<div class="wrap">'
+  +'<h1>カテゴリ別の成績</h1>'
+  +'<div class="sub">累計の正答率が低い順に並んでいます。タップするとそのカテゴリだけ練習できます</div>'
+  +b
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
 }
 
 /* ---------- データ管理（エクスポート／インポート） ---------- */
