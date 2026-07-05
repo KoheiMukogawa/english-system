@@ -69,7 +69,13 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .catbar{display:block;height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
 .catbar .fill{display:block;height:100%}
 .acc-low{color:#dc2626;font-weight:700}.acc-mid{color:#ea580c;font-weight:700}.acc-high{color:#16a34a;font-weight:700}
-textarea.io.jp{font-family:inherit;font-size:15px;height:90px}
+.qcard.tr{font-weight:400;font-size:16px;padding:14px}
+.qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
+textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
+.primary.sm{padding:10px;font-size:13px;font-weight:600;margin:6px 0}
+.scorerow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.scorebtn{flex:1;min-width:42px;padding:11px 0;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.scorebtn.hi{border-color:var(--acc);color:var(--acc)}
 .etybox{background:#f3e8ff;border:1px solid #d8b4fe}
 @media (prefers-color-scheme:dark){.etybox{background:#2a1f3f;border-color:#584180}}
 .notebox{background:var(--card);border:1px dashed var(--mut)}
@@ -81,7 +87,7 @@ textarea.io.jp{font-family:inherit;font-size:15px;height:90px}
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.2.0';
+var APP_V='2.3.1';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -209,24 +215,35 @@ function counts(){
   }
   return c;
 }
+function isTr(x){return x.type==='tr';}
+function notTr(x){return x.type!=='tr';}
+function isMiss(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}
+// smart: due超過（期限切れが古い順）→ 未学習 → 学習中/マスター（due近い順）
+function smartOrder(pool,n){
+  var t=[[],[],[],[]];
+  for(var i=0;i<pool.length;i++)t[tier(pool[i])].push(pool[i]);
+  var byDue=function(a,b){return stat(a.id).due-stat(b.id).due;};
+  t[0].sort(byDue);
+  shuffle(t[1]);
+  var rest=t[2].concat(t[3]).sort(byDue);
+  return t[0].concat(t[1],rest).slice(0,n);
+}
 function makeSession(mode,part){
   var list;
   if(mode==='mistakes'){
-    list=DATA.filter(function(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;});
-    shuffle(list);
+    list=DATA.filter(function(x){return notTr(x)&&isMiss(x);});shuffle(list);
+  }else if(mode==='trmistakes'){
+    list=DATA.filter(function(x){return isTr(x)&&isMiss(x);});shuffle(list);
   }else if(mode==='part'){
     list=DATA.filter(function(x){return x.part===part;});shuffle(list);
   }else if(mode==='cat'){
     list=DATA.filter(function(x){return x.cat===part;});shuffle(list);
   }else if(mode==='all'){
-    list=DATA.slice();shuffle(list);list=list.slice(0,25);
-  }else{ // smart: due超過（期限切れが古い順）→ 未学習 → 学習中/マスター（due近い順）
-    var t=[[],[],[],[]];
-    for(var i=0;i<DATA.length;i++)t[tier(DATA[i])].push(DATA[i]);
-    t[0].sort(function(a,b){return stat(a.id).due-stat(b.id).due;});
-    shuffle(t[1]);
-    var rest=t[2].concat(t[3]).sort(function(a,b){return stat(a.id).due-stat(b.id).due;});
-    list=t[0].concat(t[1],rest).slice(0,20);
+    list=DATA.filter(notTr);shuffle(list);list=list.slice(0,25);
+  }else if(mode==='trsmart'){
+    list=smartOrder(DATA.filter(isTr),8);
+  }else{
+    list=smartOrder(DATA.filter(notTr),20);
   }
   return list;
 }
@@ -261,15 +278,19 @@ function renderMenu(){
   var c=counts();
   var acc=c.seen?Math.round(c.correct/c.seen*100):0;
   var streak=currentStreak();
-  var parts=[['Part 1','前置詞コロケーション'],['Part 2','句動詞'],['Part 3','イディオム・慣用'],['Part 4','文法・語法'],['Part 5','ことわざ'],['Part 6','トピック語彙'],['Part 7','英文和訳（Claude採点）']];
+  var parts=[['Part 1','前置詞コロケーション'],['Part 2','句動詞'],['Part 3','イディオム・慣用'],['Part 4','文法・語法'],['Part 5','ことわざ'],['Part 6','トピック語彙']];
   var pc={};for(var i=0;i<DATA.length;i++)pc[DATA[i].part]=(pc[DATA[i].part]||0)+1;
   var pb='';
   for(var j=0;j<parts.length;j++){
     var p=parts[j];
     pb+='<button class="opt" onclick="start(\'part\',\''+p[0]+'\')"><b>'+p[0]+'</b> '+p[1]+' <span class="mut">'+(pc[p[0]]||0)+'問</span></button>';
   }
+  var qMiss=DATA.filter(function(x){return notTr(x)&&isMiss(x);}).length;
+  var trMiss=DATA.filter(function(x){return isTr(x)&&isMiss(x);}).length;
+  var l1=DATA.filter(function(x){return x.cat==='和訳・構文確認';}).length;
+  var l2=DATA.filter(function(x){return x.cat==='和訳・実戦';}).length;
   h('<div class="wrap">'
-  +'<h1>航大英語 大問I ドリル</h1>'
+  +'<h1>航大英語ドリル</h1>'
   +'<div class="sub">全'+c.total+'問 ・ 移動中の反復用</div>'
   +'<div class="stats">'
   +'<div class="pill red"><b>'+c.review+'</b>復習待ち</div>'
@@ -278,12 +299,18 @@ function renderMenu(){
   +'<div class="pill"><b>'+acc+'%</b>正答率</div>'
   +'<div class="pill orange"><b>'+streak+'</b>連続日数</div>'
   +'</div>'
+  +'<div class="secttl">大問Ⅰ対策（語彙・文法 4択）</div>'
   +'<button class="primary big" onclick="start(\'smart\')">スマート復習を始める<small>期限が来た問題・未学習を優先して20問</small></button>'
-  +'<button class="primary alt" onclick="start(\'mistakes\')">間違えた問題だけ<small>未マスターの誤答 '+DATA.filter(function(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}).length+'問</small></button>'
+  +'<button class="primary alt" onclick="start(\'mistakes\')">間違えた問題だけ<small>未マスターの誤答 '+qMiss+'問</small></button>'
   +'<button class="primary alt" onclick="start(\'all\')">全問からランダム25問</button>'
   +'<button class="primary alt" onclick="renderCats()">カテゴリ別の成績<small>弱点カテゴリを確認して、そのまま練習</small></button>'
   +'<div class="secttl">パート別に練習</div>'
   +pb
+  +'<div class="secttl">大問Ⅲ対策（英文和訳・Claude採点）</div>'
+  +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
+  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・構文確認')+'\')">レベル1：構文確認 <small>倒置・強調・比較・無生物主語など頻出構文を1文で（'+l1+'問）</small></button>'
+  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・実戦')+'\')">レベル2：実戦・記事抜粋<small>航空・医学・時事の下線部和訳、難関国立レベル（'+l2+'問）</small></button>'
+  +(trMiss?'<button class="primary alt" onclick="start(\'trmistakes\')">間違えた和訳だけ<small>未マスターの誤答 '+trMiss+'問</small></button>':'')
   +'<button class="reset" onclick="renderIdeas()">問題の追加メモ'+(IDEAS.length?'（'+IDEAS.length+'）':'')+'</button>'
   +'<button class="reset" onclick="renderData()">データ管理（バックアップ・引き継ぎ）</button>'
   +'<div class="foot">進捗はこの端末に自動保存されます。<br>正解を重ねると出題間隔が 1日→3日→7日→14日 と延び、間違えるとすぐ復習に戻ります。<br>v'+APP_V+'</div>'
@@ -344,14 +371,13 @@ function choose(btn){
 /* ---------- 和訳問題（type:"tr"）：自分の訳を入力→Claudeに採点依頼 ---------- */
 function renderTr(x){
   var prog=Math.round(idx/session.length*100);
+  var excerpt=x.q.indexOf('**')>=0;   // 下線部和訳（**〜**が訳す範囲）
   h('<div class="wrap">'
   +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
   +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
-  +'<div class="qcard">'+esc(x.q)+'</div>'
-  +'<div class="card">自分の和訳を入力'
-  +'<textarea id="trIn" class="io jp" placeholder="ここに和訳を書く（あとでコピーして Claude に採点してもらえます）"></textarea>'
-  +'<button class="primary alt" onclick="copyTr()">採点プロンプトをコピー<small>Claude アプリに貼り付けると添削してくれます</small></button>'
-  +'</div>'
+  +'<div class="qcard tr">'+fmt(x.q)+'</div>'
+  +'<textarea id="trIn" class="io jp" placeholder="'+(excerpt?'下線部の和訳を入力（文脈を踏まえて）':'ここに和訳を入力')+'"></textarea>'
+  +'<button class="primary alt sm" onclick="copyTr()">英文＋自分の訳をコピー</button>'
   +'<button class="primary" onclick="revealTr()">訳例と解説を見る</button>'
   +'<div id="fb"></div>'
   +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
@@ -360,32 +386,34 @@ function renderTr(x){
 function copyTr(){
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim()||'（未記入）';
-  var p='次の英文和訳を採点してください。10点満点で採点し、誤訳・訳し漏れ・不自然な日本語を具体的に指摘して、より良い訳を示してください。\n\n'
-  +'【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine+'\n\n【訳例】\n'+x.a;
-  copyText(p,'採点プロンプトをコピーしました');
+  copyText('【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine,'英文と自分の訳をコピーしました');
 }
 function revealTr(){
   if(answered)return;
   answered=true;
   var x=session[idx];
+  var sb='';
+  for(var i=0;i<=10;i++)sb+='<button class="scorebtn'+(i>=7?' hi':'')+'" onclick="gradeTr('+i+')">'+i+'</button>';
   document.getElementById('fb').innerHTML=
-   '<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
+   '<div id="grade">'
+  +'<div class="secttl">自己採点（7点以上で◯・復習間隔に反映）</div>'
+  +'<div class="scorerow">'+sb+'</div>'
+  +'</div>'
+  +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
   +etyBlock(x)
-  +'<div id="grade">'
-  +'<div class="secttl">自己評価（Claudeの採点も参考に）</div>'
-  +'<button class="primary" onclick="gradeTr(true)">◯ 概ね訳せた</button>'
-  +'<button class="primary alt" onclick="gradeTr(false)">✕ うまく訳せなかった</button>'
-  +'</div>';
+  +'<div id="nextSlot"></div>';
 }
-function gradeTr(ok){
+function gradeTr(score){
   var x=session[idx];
+  var ok=score>=7;
   if(ok)scoreC++;else missedIds.push(x.id);
   record(x.id,ok);
   var last=(idx+1>=session.length);
   document.getElementById('grade').innerHTML=
-   '<div class="verd">'+(ok?'✓ ◯で記録しました':'✕ で記録しました。間隔を空けてまた出題されます')+'</div>'
-  +memoBlock(x.id)
+   '<div class="verd">'+score+' / 10 点 ・ '+(ok?'◯で記録しました':'✕で記録：間隔を詰めて再出題します')+'</div>';
+  document.getElementById('nextSlot').innerHTML=
+   memoBlock(x.id)
   +'<button class="primary" onclick="next()">'+(last?'結果を見る':'次へ')+'</button>';
 }
 

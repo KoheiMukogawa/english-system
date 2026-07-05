@@ -2492,7 +2492,7 @@
     "a": "航空機が完全に停止して初めて、乗客はシートベルトを外すことを許された。",
     "e": "**Not until A + 倒置**＝「Aして初めて〜」。Not until が文頭に出ると主節が疑問文の語順（were the passengers allowed）になる。\ncome to a complete stop＝完全に停止する（機内アナウンス頻出）。unfasten＝外す（fasten の反対）。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2501,7 +2501,7 @@
     "a": "管制官の素早い判断がなかったならば、2機の航空機は衝突していたかもしれない。",
     "e": "**Had it not been for ~**＝If it had not been for ~（〜がなかったら）の if 省略倒置。仮定法過去完了なので「衝突していたかもしれない」と訳す。\ncollide＝衝突する（名詞 collision）。controller＝管制官。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2510,7 +2510,7 @@
     "a": "天候が良好であれば、その便は定刻より20分早く到着する見込みである。",
     "e": "**独立分詞構文**：Weather conditions being favorable は主節と主語が異なる分詞構文（＝If weather conditions are favorable）。\nahead of schedule＝定刻より早く（⇔ behind schedule）。be expected to do＝〜する見込みである。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2519,7 +2519,7 @@
     "a": "緊急時に最も重要なのは、速さではなく、冷静さを保つ能力である。",
     "e": "**What matters most**＝「最も重要なこと」。what は関係代名詞、matter は動詞で「重要である」。\n**not A but B**＝AではなくB。remain calm＝冷静なままでいる（remain＋形容詞）。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2528,7 +2528,7 @@
     "a": "航空機が搭載する燃料の量は、距離・天候・搭載量といった要因によって決まる。",
     "e": "fuel の直後に**関係代名詞の省略**（fuel (which) an aircraft carries）。文の骨格は The amount ... depends on ...。\n**such A as B**＝BのようなA（＝A such as B）。payload＝有効搭載量。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2537,7 +2537,7 @@
     "a": "人類が動力飛行を成し遂げたのは、20世紀になってからのことだった。",
     "e": "**It was not until A that B**＝「Aになって初めてBした」の強調構文。倒置形（Not until A did B）と書き換え可能な頻出パターン。\npowered flight＝動力飛行。achieve＝成し遂げる。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2546,7 +2546,7 @@
     "a": "技術がどれほど進歩しようとも、最終的な判断はパイロットに委ねられるべきである。",
     "e": "**However + 形容詞 + S + may V**＝どれほど〜でも（譲歩）。＝No matter how advanced technology may become。\n**rest with ~**＝（決定権・責任が）〜にある。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2555,7 +2555,7 @@
     "a": "飛行機が滑走路を離れるやいなや、エンジンの1つが出力を失った。",
     "e": "**Scarcely had S done ~ when …**＝〜するやいなや…（＝Hardly ~ when / No sooner ~ than）。否定語 Scarcely が文頭に出て had S done の倒置。\n時制に注意：先に起きた「離陸」が過去完了。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2564,7 +2564,7 @@
     "a": "航空機の自動化が進めば進むほど、パイロットが基盤となるシステムを理解することはますます重要になる。",
     "e": "**The 比較級 ~, the 比較級 …**＝〜すればするほど…。後半には it is important for A to do（形式主語構文）が組み込まれている。\nunderlying＝根底にある・基盤となる。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
     "type": "tr"
   },
   {
@@ -2573,7 +2573,187 @@
     "a": "夜、コックピットから見ると、街の明かりは星をちりばめた広大な絨毯のように広がっていた。",
     "e": "**Seen from ~**＝過去分詞の分詞構文（＝When they were seen from ~）。主語 the city lights が「見られる」側なので過去分詞で始まる。\nstretch out＝広がる。vast＝広大な。",
     "part": "Part 7",
-    "cat": "英文和訳",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 199,
+    "q": "A glance at the weather chart will tell you why the flight was diverted to another airport.",
+    "a": "天気図を一目見れば、なぜその便が別の空港へ行き先を変更されたのかが分かるだろう。",
+    "e": "**無生物主語構文**：A glance will tell you ~＝「一目見れば〜が分かる」。無生物主語＋tell/show/enable は「〜すれば・〜のおかげで」と副詞的に訳し下すのが定石。\ndivert＝迂回させる・行き先を変更する（ダイバートは航空用語としてそのまま使われる）。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 200,
+    "q": "A modern airliner can no more fly safely without software than a ship can sail without a rudder.",
+    "a": "現代の旅客機がソフトウェアなしで安全に飛べないのは、船が舵なしでは航行できないのと同じである。",
+    "e": "**クジラ構文**：A is no more B than C is D＝「AがBでないのは、CがDでないのと同じ」。than 以下は「あり得ないこと」の例え。\n訳すときは「〜でないのは…でないのと同じ」と両方を否定で訳すのがポイント。rudder＝舵。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 201,
+    "q": "The most experienced pilots are not always the best instructors, for teaching requires skills of a different kind.",
+    "a": "最も経験豊富なパイロットが、必ずしも最良の教官であるとは限らない。というのも、教えることには別種の技能が必要だからである。",
+    "e": "**部分否定**：not always＝「必ずしも〜とは限らない」（全否定と混同しない）。\n**接続詞 for**＝「というのも〜だからだ」（前文の根拠を後から添える。because より弱く、文頭には置けない）。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 202,
+    "q": "The discovery of antibiotics led to a dramatic decline in deaths from infectious diseases.",
+    "a": "抗生物質が発見されたことにより、感染症による死者数は劇的に減少した。",
+    "e": "**名詞構文の訳し下し**：The discovery of antibiotics＝「抗生物質の発見」→「抗生物質が発見されたこと」と動詞的に開くと自然。a dramatic decline in ~ も「〜が劇的に減少した」と開く。\nlead to＝〜をもたらす（無生物主語とセットで頻出）。antibiotics＝抗生物質。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 203,
+    "q": "The spread of the virus was so rapid that hospitals in the region soon ran short of beds.",
+    "a": "ウイルスの拡大は非常に急速だったので、その地域の病院はまもなく病床が不足した。",
+    "e": "**so ~ that …**＝「非常に〜なので…」（結果）。The spread of the virus も名詞構文なので「ウイルスが拡大するのがあまりに速かったので」と開いてもよい。\nrun short of ~＝〜が不足する。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 204,
+    "q": "The candidate who experts predicted would win the election was defeated by a wide margin.",
+    "a": "専門家が選挙に勝つだろうと予測していた候補者は、大差で敗れた。",
+    "e": "**連鎖関係代名詞**：who (experts predicted) would win＝「専門家が勝つと予測した（ところの）」。experts predicted が挿入されており、who は would win の主語。\n文全体の骨格は The candidate ... was defeated。by a wide margin＝大差で。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 205,
+    "q": "As is often the case with new technologies, artificial intelligence has aroused both hope and fear.",
+    "a": "新しい技術にはよくあることだが、人工知能は希望と恐れの両方を呼び起こしてきた。",
+    "e": "**As is often the case with ~**＝「〜にはよくあることだが」。この as は前の内容や主節全体を受ける疑似関係代名詞で、丸ごと決まり文句として覚える。\narouse＝（感情を）呼び起こす。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 206,
+    "q": "The belief that humans, unlike machines, can adapt to the unexpected remains central to pilot training.",
+    "a": "人間は機械とは違って不測の事態に適応できるという信念は、今なおパイロット訓練の中核であり続けている。",
+    "e": "**同格の that**：The belief that ~＝「〜という信念」（that 以下が belief の中身）。関係代名詞ではない点に注意。\nさらに unlike machines が**挿入**されて主語と動詞が離れている。文の骨格は The belief ... remains central。the unexpected＝不測の事態（the＋形容詞）。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 207,
+    "q": "For decades, engineers assumed that safety could be improved simply by adding more automation to the cockpit. **What recent accidents have made painfully clear, however, is that automation, far from eliminating human error, merely changes the form that such error takes.**",
+    "a": "しかし、近年の事故が痛いほど明らかにしたのは、自動化は人的ミスをなくすどころか、そのミスが現れる形を変えるにすぎないということである。",
+    "e": "骨格は **What ~ is that …**（〜したことは…ということだ）。however の**挿入**、**far from ~ing**（〜するどころか）、the form **that** such error takes（ミスがとる形＝関係代名詞）と、3つの仕掛けが重なる。\nmake ~ clear＝明らかにする。painfully＝痛いほど。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 208,
+    "q": "NASA's experimental X-59 aircraft is designed to reduce the sonic boom to a gentle thump. **Should the tests prove successful, they could pave the way for the return of commercial supersonic flight, which has been banned over land for half a century.**",
+    "a": "仮にその試験が成功すれば、半世紀にわたり陸上上空で禁止されてきた商業超音速飛行の復活への道を開く可能性がある。",
+    "e": "**Should S V**＝If S should V の if 省略倒置（万一〜すれば）。prove successful＝成功だと判明する（prove＋形容詞）。\n**pave the way for ~**＝〜への道を開く。**, which** は非制限用法で supersonic flight を補足説明。they は the tests を指す。\nsonic boom＝衝撃音、supersonic＝超音速の（super-＝超える＋sonic＝音の）。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 209,
+    "q": "Climate scientists warn that global warming is altering the jet streams that aircraft rely on to shorten flight times. **However counterintuitive it may seem, a warmer atmosphere could thus make some transatlantic flights longer, not shorter, while increasing the turbulence passengers experience along the way.**",
+    "a": "どれほど直感に反するように思えようとも、大気の温暖化はこのようにして、一部の大西洋横断便を短くするどころかむしろ長くし、同時に、乗客が道中で経験する乱気流を増加させる可能性があるのだ。",
+    "e": "**However ＋形容詞＋ S may V**＝どれほど〜でも（譲歩）。**make O C**（OをCにする）の無生物主語。longer, **not** shorter＝「短くではなく長く」。\n**while ~ing**＝〜しながら・〜する一方で（分詞構文）。turbulence (that) passengers experience は関係代名詞の省略。\ncounterintuitive＝直感に反する（counter-＝逆＋intuitive＝直感的な）。transatlantic＝大西洋横断の。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 210,
+    "q": "Commercial flying is now among the safest forms of travel. **It is no exaggeration to say that the margin of safety in modern aviation owes less to any single invention than to the accumulated lessons of past failures.**",
+    "a": "現代の航空における安全の余裕は、何か一つの発明によるものというよりも、過去の失敗から積み重ねられた教訓によるものだと言っても過言ではない。",
+    "e": "**It is no exaggeration to say that ~**＝〜と言っても過言ではない（形式主語）。\n**owe less to A than to B**＝AよりむしろBのおかげである（owe A to B「AはBのおかげ」＋less ~ than の比較）。not so much A as B と同じ発想。\nmargin＝余裕・余地。accumulated＝蓄積された。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 211,
+    "q": "Antibiotic resistance is now recognized as one of the gravest threats to global health. **Were antibiotics to lose their effectiveness entirely, routine surgery and even minor infections could once again become life-threatening, undoing a century of medical progress.**",
+    "a": "仮に抗生物質が完全に効力を失うようなことがあれば、ありふれた手術や軽い感染症でさえ再び命に関わるものとなり、一世紀にわたる医学の進歩を無に帰しかねない。",
+    "e": "**Were S to do**＝If S were to do の if 省略倒置（実現性の低い仮定「仮に〜するようなことがあれば」）。\n文末の **undoing ~** は分詞構文で「そして〜を無に帰すことになる」と結果的に訳す。undo＝元に戻す・台無しにする。\nroutine＝日常的な・ありふれた。life-threatening＝命に関わる。grave＝重大な。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 212,
+    "q": "Clinical trials are the foundation of modern medicine, yet their results are easily misread. **The extent to which a new drug benefits patients can rarely be judged from a single trial, however promising its initial results may appear.**",
+    "a": "新薬が患者にどの程度の恩恵をもたらすかは、当初の結果がどれほど有望に見えようとも、単一の試験から判断できることはめったにない。",
+    "e": "**the extent to which S V**＝「SがVする程度」→「どの程度〜か」と訳すと自然。前置詞＋関係代名詞の頻出形。\n**rarely**＝めったに〜ない（準否定語）。**however promising ~ may appear**＝どれほど有望に見えようとも（譲歩）。its は a new drug を指す。\nclinical trial＝臨床試験。benefit（動詞）＝〜に恩恵を与える。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 213,
+    "q": "Public health officials stress that vaccination protects not only individuals but the community as a whole. **It is precisely those who cannot be vaccinated for medical reasons—infants, the elderly, and the immunocompromised—that herd immunity is meant to protect.**",
+    "a": "集団免疫が守るためにあるのは、まさに、医学的な理由でワクチン接種を受けられない人々—乳児、高齢者、免疫不全の人々—なのである。",
+    "e": "**It is ~ that …の強調構文**。強調されているのは those who ~（〜する人々）で、protect の目的語。「集団免疫が守るべき対象はまさに〜だ」と訳す。\nダッシュ（—）に挟まれた部分は直前の具体例の**挿入**。be meant to do＝〜するためのものである。\nherd immunity＝集団免疫（herd＝群れ）。immunocompromised＝免疫不全の（immune＋compromised 損なわれた）。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 214,
+    "q": "Epidemiologists later analyzed why the disease had spread so widely despite early warnings. **What made the outbreak so difficult to contain was not the virus itself so much as the speed with which misinformation spread through social media.**",
+    "a": "その流行の封じ込めをこれほど困難にしたのは、ウイルスそのものというよりも、誤情報がSNSを通じて広まる速さであった。",
+    "e": "**What made O C**＝「OをCにしたもの」（無生物主語の what 節）。**not A so much as B**＝AというよりむしろB。\n**the speed with which S V**＝「SがVする速さ」（前置詞＋関係代名詞）。\ncontain＝封じ込める（「含む」以外のこの語義が記事英語で頻出）。outbreak＝（病気の）発生・流行。misinformation＝誤情報。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 215,
+    "q": "Economists disagree over the long-term effects of the new tariffs. **Whatever short-term protection they may offer domestic industries, history suggests that trade barriers, once erected, are far harder to remove than to impose.**",
+    "a": "それが国内産業にどのような短期的保護を与えるにせよ、貿易障壁はいったん築かれると、課すよりも取り除くほうがはるかに難しいということを歴史は示している。",
+    "e": "**Whatever ~ may V**＝何を（どんな〜を）Vしようとも（譲歩）。they＝the new tariffs。\n**once erected**＝once they are erected の省略（いったん築かれると）。**harder to remove than to impose**＝不定詞同士の比較。\nhistory suggests that ~ は無生物主語で「歴史が示すところでは」と訳してもよい。tariff＝関税。erect＝築く。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 216,
+    "q": "Japan is aging faster than any other nation in history. **So rapidly is the working-age population shrinking that, unless productivity rises substantially, the country will struggle to sustain its social security system.**",
+    "a": "生産年齢人口の減少はあまりに急速であるため、生産性が大幅に向上しない限り、日本は社会保障制度を維持するのに苦労することになるだろう。",
+    "e": "**So ＋副詞＋倒置 ~ that …**：So rapidly is S shrinking that ~＝so ~ that 構文の so が文頭に出て疑問文の語順になった形。見抜けるかが勝負。\nthat 節内に **unless**（〜しない限り）の条件節が割り込んでいる。\nworking-age population＝生産年齢人口。substantially＝大幅に。sustain＝維持する（sus-＝下から＋tain＝保つ）。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 217,
+    "q": "Debates over climate policy often focus on the price tag of renewable energy. **Only when the costs of inaction are weighed against those of transition does the economic case for renewable energy become truly compelling.**",
+    "a": "何もしないことの代償が、転換に伴う代償と比較検討されて初めて、再生可能エネルギーの経済的な根拠は真に説得力を持つのである。",
+    "e": "**Only when ~ ＋倒置**：Only＋副詞節が文頭に出ると主節が does the economic case become と倒置する。「〜して初めて…する」と訳す。\n**those of transition**＝the costs of transition（those は costs の反復を避ける代名詞。指示内容を訳出する）。\ninaction＝何もしないこと（in-＝否定＋action）。case for ~＝〜を支持する論拠。compelling＝説得力のある。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 218,
+    "q": "Washington and Beijing are pouring billions into chip manufacturing. **Far from being a relic of the Cold War, the competition for technological supremacy has re-emerged as the defining struggle of our age, with semiconductors playing the role once occupied by oil.**",
+    "a": "技術覇権をめぐる競争は、冷戦の遺物であるどころか、半導体がかつて石油の占めた役割を担う形で、現代を特徴づける闘いとして再び姿を現している。",
+    "e": "**Far from ~ing**＝〜であるどころか（文頭の分詞構文的な慣用句）。\n**with A ~ing**＝Aが〜する状態で（付帯状況の with）。once occupied by oil＝かつて石油によって占められていた（過去分詞の後置修飾）。\nrelic＝遺物。supremacy＝覇権・優位（supreme の名詞形、super-系）。defining＝（時代を）特徴づける。semiconductor＝半導体。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
     "type": "tr"
   }
 ]
