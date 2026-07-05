@@ -69,6 +69,11 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .catbar{display:block;height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
 .catbar .fill{display:block;height:100%}
 .acc-low{color:#dc2626;font-weight:700}.acc-mid{color:#ea580c;font-weight:700}.acc-high{color:#16a34a;font-weight:700}
+textarea.io.jp{font-family:inherit;font-size:15px;height:90px}
+.etybox{background:#f3e8ff;border:1px solid #d8b4fe}
+@media (prefers-color-scheme:dark){.etybox{background:#2a1f3f;border-color:#584180}}
+.notebox{background:var(--card);border:1px dashed var(--mut)}
+.notebox .ghost,.idea .ghost{padding:6px 0 0;text-align:left;width:auto}
 </style>
 </head>
 <body>
@@ -76,13 +81,15 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.1.0';
+var APP_V='2.2.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
 var DATA=[];
 var STATS={};                        // id → {s,c,w,st,last,box,due}
 var META={streak:0,lastDay:'',best:0};
+var NOTES={};                        // id → 自分メモ
+var IDEAS=[];                        // 追加したい問題のメモ [{t,d}]
 
 /* ---------- 永続化：IndexedDB（localStorageにも二重保存） ---------- */
 var DB_KEY='kdai_v2';
@@ -120,7 +127,7 @@ function idbSet(k,v){
 }
 function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
-function snapshot(){return {v:2,app:APP_V,exported:new Date().toISOString(),stats:STATS,meta:META};}
+function snapshot(){return {v:2,app:APP_V,exported:new Date().toISOString(),stats:STATS,meta:META,notes:NOTES,ideas:IDEAS};}
 function save(){
   var json=JSON.stringify(snapshot());
   lsSet(DB_KEY,json);                       // 同期の安全網
@@ -145,6 +152,8 @@ function applySnapshot(obj){
   if(!obj||obj.v!==2||typeof obj.stats!=='object')throw new Error('bad format');
   STATS=obj.stats||{};
   META=obj.meta||{streak:0,lastDay:'',best:0};
+  NOTES=obj.notes||{};
+  IDEAS=obj.ideas||[];
 }
 function loadProgress(){
   return idbGet(DB_KEY).catch(function(){return null;}).then(function(v){
@@ -231,6 +240,16 @@ function toast(msg){
   el.textContent=msg;el.classList.add('show');
   clearTimeout(toast._t);toast._t=setTimeout(function(){el.classList.remove('show');},2200);
 }
+function copyText(t,msg){
+  function fb(){
+    var ta=document.createElement('textarea');
+    ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast(msg);}catch(e){toast('コピーできませんでした');}
+    ta.remove();
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast(msg);},fb);
+  else fb();
+}
 
 /* ---------- 画面 ---------- */
 var session=null,idx=0,scoreC=0,answered=false,missedIds=[];
@@ -242,7 +261,7 @@ function renderMenu(){
   var c=counts();
   var acc=c.seen?Math.round(c.correct/c.seen*100):0;
   var streak=currentStreak();
-  var parts=[['Part 1','前置詞コロケーション'],['Part 2','句動詞'],['Part 3','イディオム・慣用'],['Part 4','文法・語法'],['Part 5','ことわざ'],['Part 6','トピック語彙']];
+  var parts=[['Part 1','前置詞コロケーション'],['Part 2','句動詞'],['Part 3','イディオム・慣用'],['Part 4','文法・語法'],['Part 5','ことわざ'],['Part 6','トピック語彙'],['Part 7','英文和訳（Claude採点）']];
   var pc={};for(var i=0;i<DATA.length;i++)pc[DATA[i].part]=(pc[DATA[i].part]||0)+1;
   var pb='';
   for(var j=0;j<parts.length;j++){
@@ -265,6 +284,7 @@ function renderMenu(){
   +'<button class="primary alt" onclick="renderCats()">カテゴリ別の成績<small>弱点カテゴリを確認して、そのまま練習</small></button>'
   +'<div class="secttl">パート別に練習</div>'
   +pb
+  +'<button class="reset" onclick="renderIdeas()">問題の追加メモ'+(IDEAS.length?'（'+IDEAS.length+'）':'')+'</button>'
   +'<button class="reset" onclick="renderData()">データ管理（バックアップ・引き継ぎ）</button>'
   +'<div class="foot">進捗はこの端末に自動保存されます。<br>正解を重ねると出題間隔が 1日→3日→7日→14日 と延び、間違えるとすぐ復習に戻ります。<br>v'+APP_V+'</div>'
   +'</div>');
@@ -283,6 +303,7 @@ function start(mode,part){
 function renderQ(){
   answered=false;
   var x=session[idx];
+  if(x.type==='tr'){renderTr(x);return;}
   var opts=shuffle([x.a].concat(x.d));
   var prog=Math.round(idx/session.length*100);
   var b='';
@@ -315,7 +336,84 @@ function choose(btn){
   document.getElementById('fb').innerHTML='<div class="exp '+(ok?'okbox':'ngbox')+'">'
   +'<div class="verd">'+(ok?'✓ 正解':'✕ 不正解')+' ・ 答え：'+esc(x.a)+'</div>'
   +'<div>'+fmt(x.e)+'</div></div>'
+  +etyBlock(x)
+  +memoBlock(x.id)
   +'<button class="primary" onclick="next()">'+(last?'結果を見る':'次へ')+'</button>';
+}
+
+/* ---------- 和訳問題（type:"tr"）：自分の訳を入力→Claudeに採点依頼 ---------- */
+function renderTr(x){
+  var prog=Math.round(idx/session.length*100);
+  h('<div class="wrap">'
+  +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
+  +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
+  +'<div class="qcard">'+esc(x.q)+'</div>'
+  +'<div class="card">自分の和訳を入力'
+  +'<textarea id="trIn" class="io jp" placeholder="ここに和訳を書く（あとでコピーして Claude に採点してもらえます）"></textarea>'
+  +'<button class="primary alt" onclick="copyTr()">採点プロンプトをコピー<small>Claude アプリに貼り付けると添削してくれます</small></button>'
+  +'</div>'
+  +'<button class="primary" onclick="revealTr()">訳例と解説を見る</button>'
+  +'<div id="fb"></div>'
+  +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
+  +'</div>');
+}
+function copyTr(){
+  var x=session[idx];
+  var mine=(document.getElementById('trIn').value||'').trim()||'（未記入）';
+  var p='次の英文和訳を採点してください。10点満点で採点し、誤訳・訳し漏れ・不自然な日本語を具体的に指摘して、より良い訳を示してください。\n\n'
+  +'【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine+'\n\n【訳例】\n'+x.a;
+  copyText(p,'採点プロンプトをコピーしました');
+}
+function revealTr(){
+  if(answered)return;
+  answered=true;
+  var x=session[idx];
+  document.getElementById('fb').innerHTML=
+   '<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
+  +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
+  +etyBlock(x)
+  +'<div id="grade">'
+  +'<div class="secttl">自己評価（Claudeの採点も参考に）</div>'
+  +'<button class="primary" onclick="gradeTr(true)">◯ 概ね訳せた</button>'
+  +'<button class="primary alt" onclick="gradeTr(false)">✕ うまく訳せなかった</button>'
+  +'</div>';
+}
+function gradeTr(ok){
+  var x=session[idx];
+  if(ok)scoreC++;else missedIds.push(x.id);
+  record(x.id,ok);
+  var last=(idx+1>=session.length);
+  document.getElementById('grade').innerHTML=
+   '<div class="verd">'+(ok?'✓ ◯で記録しました':'✕ で記録しました。間隔を空けてまた出題されます')+'</div>'
+  +memoBlock(x.id)
+  +'<button class="primary" onclick="next()">'+(last?'結果を見る':'次へ')+'</button>';
+}
+
+/* ---------- 語源・自分メモ ---------- */
+function etyBlock(x){
+  if(!x.ety)return '';
+  return '<div class="exp etybox"><div class="verd">🔍 語源で覚える</div><div>'+fmt(x.ety)+'</div></div>';
+}
+function memoBlock(id){
+  var n=NOTES[id];
+  return '<div id="memoBox">'+(n
+   ?'<div class="exp notebox"><div class="verd">📝 自分メモ</div><div>'+fmt(n)+'</div><button class="ghost" onclick="editMemo('+id+')">メモを編集</button></div>'
+   :'<button class="ghost" onclick="editMemo('+id+')">＋ この問題にメモを残す</button>')
+  +'</div>';
+}
+function editMemo(id){
+  document.getElementById('memoBox').innerHTML=
+   '<div class="exp notebox"><div class="verd">📝 自分メモ</div>'
+  +'<textarea id="memoTa" class="io jp" placeholder="間違えた理由・覚え方など">'+esc(NOTES[id]||'')+'</textarea>'
+  +'<button class="primary alt" onclick="saveMemo('+id+')">メモを保存</button></div>';
+  document.getElementById('memoTa').focus();
+}
+function saveMemo(id){
+  var v=document.getElementById('memoTa').value.trim();
+  if(v)NOTES[id]=v;else delete NOTES[id];
+  save();
+  document.getElementById('memoBox').outerHTML=memoBlock(id);
+  toast(v?'メモを保存しました':'メモを削除しました');
 }
 
 function next(){idx++;if(idx>=session.length)renderDone();else renderQ();}
@@ -373,6 +471,45 @@ function renderCats(){
   +b
   +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
   +'</div>');
+}
+
+/* ---------- 問題の追加メモ（あとで Claude Code に依頼する用） ---------- */
+function renderIdeas(){
+  var b='';
+  for(var i=IDEAS.length-1;i>=0;i--){
+    var it=IDEAS[i];
+    b+='<div class="card idea"><div class="mut">'+esc(it.d||'')+'</div><div>'+fmt(it.t)+'</div>'
+    +'<button class="ghost" onclick="delIdea('+i+')">削除</button></div>';
+  }
+  h('<div class="wrap">'
+  +'<h1>問題の追加メモ</h1>'
+  +'<div class="sub">追加したい問題・単語・派生パターンを思いついたらここにメモ。<br>「全メモをコピー」して Claude Code に貼れば、questions.json に問題を作って追加してもらえます</div>'
+  +'<div class="card"><textarea id="ideaTa" class="io jp" placeholder="例：embark の問題を追加（disembark と対で）／ in charge of のイディオム"></textarea>'
+  +'<button class="primary" onclick="addIdea()">メモを追加</button></div>'
+  +(IDEAS.length?'<button class="primary alt" onclick="copyIdeas()">全メモをコピー<small>Claude Code への依頼文の形でコピーします</small></button>':'')
+  +b
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
+}
+function addIdea(){
+  var v=document.getElementById('ideaTa').value.trim();
+  if(!v){toast('メモを入力してください');return;}
+  IDEAS.push({t:v,d:localDay()});
+  save();
+  renderIdeas();
+  toast('メモを追加しました');
+}
+function delIdea(i){
+  IDEAS.splice(i,1);
+  save();
+  renderIdeas();
+}
+function copyIdeas(){
+  var lines=IDEAS.map(function(it){return '- '+(it.d?'('+it.d+') ':'')+it.t;});
+  var p='英語ドリルアプリの questions.json に、以下のメモをもとに新しい問題を追加してください。'
+  +'既存の形式（4択は q/a/d/e、和訳は type:"tr" で q/a/e）に合わせて、解説と必要に応じて語源（ety）も付けてください。\n\n'
+  +lines.join('\n');
+  copyText(p,'依頼文をコピーしました');
 }
 
 /* ---------- データ管理（エクスポート／インポート） ---------- */

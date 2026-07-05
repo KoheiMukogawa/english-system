@@ -23,7 +23,8 @@
       "as",
       "from"
     ],
-    "e": "be superior **to**＝〜より優れている。ラテン語由来の比較語（superior, inferior, senior, junior, prior）は than ではなく **to** をとる。\n✗ than は通常の比較級用で不可。◎ prefer A **to** B も同じ仲間。"
+    "e": "be superior **to**＝〜より優れている。ラテン語由来の比較語（superior, inferior, senior, junior, prior）は than ではなく **to** をとる。\n✗ than は通常の比較級用で不可。◎ prefer A **to** B も同じ仲間。",
+    "ety": "**super-**（上に）が核。「上にある」→「優れている」。superb（見事な）、supreme（最高の）、superficial（表面＝上っ面の）も同族。-ior はラテン語比較級の名残なので than ではなく to をとる。"
   },
   {
     "id": 3,
@@ -36,7 +37,8 @@
       "distinct",
       "reluctant"
     ],
-    "e": "be exempt **from**＝〜を免除される。tax-exempt（免税の）でも頻出。\n✗ absent（欠席の）/ distinct（明確に異なる）/ reluctant（気が進まない）は文意に合わない。"
+    "e": "be exempt **from**＝〜を免除される。tax-exempt（免税の）でも頻出。\n✗ absent（欠席の）/ distinct（明確に異なる）/ reluctant（気が進まない）は文意に合わない。",
+    "ety": "**ex-**（外へ）＋ **empt**（取る＝ラテン語 emere）。「義務の中から取り出された」→「免除された」。同じ emere は redemption（買い戻し→救済）にも生きている。"
   },
   {
     "id": 4,
@@ -62,7 +64,8 @@
       "opposed",
       "relevant"
     ],
-    "e": "be subject **to** change＝変更されることがある。「〜の影響・支配を受ける」の意。\n◎ subject to approval（承認を条件とする）。✗ resistant to / opposed to は意味が逆方向。"
+    "e": "be subject **to** change＝変更されることがある。「〜の影響・支配を受ける」の意。\n◎ subject to approval（承認を条件とする）。✗ resistant to / opposed to は意味が逆方向。",
+    "ety": "**sub-**（下に）＋ **ject**(投げる）。「下に投げ置かれた」→「支配・影響の下にある」。reject（投げ返す→拒否）、inject（中へ投げる→注入）、project（前へ投げる→計画）と同族。"
   },
   {
     "id": 6,
@@ -114,7 +117,8 @@
       "from",
       "with"
     ],
-    "e": "consist **of**＝〜から成る（＝be made up of）。\n✗ consist **in**（〜に本質がある）という別語法もあるので文脈注意。"
+    "e": "consist **of**＝〜から成る（＝be made up of）。\n✗ consist **in**（〜に本質がある）という別語法もあるので文脈注意。",
+    "ety": "**con-**（共に）＋ **sist**（立つ＝sistere）。「共に立って成り立つ」→ consist of（〜から成る）。insist（上に立つ→主張する）、resist（対して立つ→抵抗する）、persist（立ち続ける→固執する）と同族。"
   },
   {
     "id": 10,
@@ -153,7 +157,8 @@
       "to",
       "against"
     ],
-    "e": "refrain **from** -ing＝〜を控える（＝abstain from）。機内放送の定番。\n✗ 他の前置詞は不可。refrain の後は必ず from＋動名詞。"
+    "e": "refrain **from** -ing＝〜を控える（＝abstain from）。機内放送の定番。\n✗ 他の前置詞は不可。refrain の後は必ず from＋動名詞。",
+    "ety": "**re-**（後ろへ）＋ **frain**（手綱＝frenum）。「手綱を引いて抑える」→「控える」。名詞形 restraint（抑制）も同じイメージ。"
   },
   {
     "id": 13,
@@ -166,7 +171,8 @@
       "on",
       "for"
     ],
-    "e": "comply **with**＝（規則・要求）に従う。\n◎ 同義で conform **to**, abide **by**, adhere **to**。前置詞が語ごとに違う。"
+    "e": "comply **with**＝（規則・要求）に従う。\n◎ 同義で conform **to**, abide **by**, adhere **to**。前置詞が語ごとに違う。",
+    "ety": "**com-**（完全に）＋ **ply**（満たす＝plere）。「要求を満たす」→「従う」。complete（完全にする）、supply（下から満たす→供給）と同族。名詞 compliance（法令遵守）も頻出。"
   },
   {
     "id": 14,
@@ -192,7 +198,8 @@
       "out",
       "with"
     ],
-    "e": "deprive A **of** B＝AからBを奪う。\n◎ rob A of B, strip A of B, cure A of B も「A of B」型（分離のof）。"
+    "e": "deprive A **of** B＝AからBを奪う。\n◎ rob A of B, strip A of B, cure A of B も「A of B」型（分離のof）。",
+    "ety": "**de-**（奪う方向）＋ **prive**（自分だけのものにする＝privus）。private（私有の）と同族で、「私物化して取り上げる」→「奪う」。"
   },
   {
     "id": 16,
@@ -257,7 +264,8 @@
       "with",
       "of"
     ],
-    "e": "be entitled **to**＝〜の権利・資格がある。be entitled to do も可。\n✗ 他は不可。"
+    "e": "be entitled **to**＝〜の権利・資格がある。be entitled to do も可。\n✗ 他は不可。",
+    "ety": "**en-**（与える）＋ **title**（権利・称号）。「権利・資格を与えられている」→ be entitled to（〜の資格がある）。本のタイトルも「名を与えられたもの」。"
   },
   {
     "id": 21,
@@ -283,7 +291,8 @@
       "on",
       "with"
     ],
-    "e": "attribute A **to** B＝AをBのせいにする／AはBに起因すると考える。\n◎ 受け身 be attributed to で頻出。owe A to B も同型。"
+    "e": "attribute A **to** B＝AをBのせいにする／AはBに起因すると考える。\n◎ 受け身 be attributed to で頻出。owe A to B も同型。",
+    "ety": "**at-（ad-）**（〜へ）＋ **tribute**（割り当てる）。「原因を〜へ割り当てる」→「〜のせいだとする」。contribute（共に差し出す→貢献する）、distribute（分けて割り当てる→分配する）と同族。"
   },
   {
     "id": 23,
@@ -1609,7 +1618,8 @@
       "dismantle",
       "dispatch"
     ],
-    "e": "em-（乗る）↔ dis-（降りる）。★\n他：embark（乗り込む・着手する）／dismantle（分解する）／dispatch（発送する）。"
+    "e": "em-（乗る）↔ dis-（降りる）。★\n他：embark（乗り込む・着手する）／dismantle（分解する）／dispatch（発送する）。",
+    "ety": "**dis-**（分離）＋ **em-**（中へ）＋ **bark**（船＝barque）。embark（船に乗り込む→搭乗する）の逆で「降機・下船する」。飛行機にもそのまま使う。"
   },
   {
     "id": 125,
@@ -1648,7 +1658,8 @@
       "reprimand",
       "recommend"
     ],
-    "e": "apprehend＝逮捕する／理解する。★\n他：comprehend（理解する）／reprimand（叱責する）／recommend（推薦する）。"
+    "e": "apprehend＝逮捕する／理解する。★\n他：comprehend（理解する）／reprimand（叱責する）／recommend（推薦する）。",
+    "ety": "**ap-（ad-）**（〜へ）＋ **prehend**（つかむ）。「つかまえる」→「逮捕する」。comprehend（全部つかむ→理解する）と同族。apprehension（不安）も「心をつかまれる」イメージ。"
   },
   {
     "id": 128,
@@ -1661,7 +1672,8 @@
       "compression",
       "suppression"
     ],
-    "e": "de-（除去）＋compression。★\n他：depression（憂鬱・不況）／compression（圧縮）／suppression（抑圧）。"
+    "e": "de-（除去）＋compression。★\n他：depression（憂鬱・不況）／compression（圧縮）／suppression（抑圧）。",
+    "ety": "**de-**（逆・除去）＋ **com-**（共に）＋ **press**（押す）。「押し縮め（compression）が失われること」→「減圧」。pressure、express（外へ押し出す→表現）、suppress（下へ押す→抑圧）も press 系。"
   },
   {
     "id": 129,
@@ -1674,7 +1686,8 @@
       "elevation",
       "education"
     ],
-    "e": "evacuate（避難させる）の名詞。★\n他：evaluation（評価）／elevation（標高・上昇）／education（教育）。"
+    "e": "evacuate（避難させる）の名詞。★\n他：evaluation（評価）／elevation（標高・上昇）／education（教育）。",
+    "ety": "**e-（ex-）**（外へ）＋ **vacu**（空っぽ＝vacuus）。「中を空にして外へ出す」→「避難」。vacant（空いている）、vacuum（真空）と同族。"
   },
   {
     "id": 130,
@@ -1726,7 +1739,8 @@
       "preservation",
       "preparation"
     ],
-    "e": "雨・雪の総称。★\n他：participation（参加）／preservation（保存）／preparation（準備）。"
+    "e": "雨・雪の総称。★\n他：participation（参加）／preservation（保存）／preparation（準備）。",
+    "ety": "**pre-**（前へ）＋ **cipit**（頭＝caput）。「頭から真っ逆さまに落ちる」→「空から落ちてくるもの」→「降水（雨・雪）」。動詞 precipitate は「急落させる・引き起こす」。"
   },
   {
     "id": 134,
@@ -1739,7 +1753,8 @@
       "metropolitan",
       "mathematical"
     ],
-    "e": "meteorology（気象学）の形容詞。★\n他：methodological（方法論の）／metropolitan（大都市の）／mathematical（数学の）。"
+    "e": "meteorology（気象学）の形容詞。★\n他：methodological（方法論の）／metropolitan（大都市の）／mathematical（数学の）。",
+    "ety": "**meteor**（ギリシャ語で「空中に浮かぶもの」）＋ **-logy**（学問）。流星だけでなく雲や雨もすべて「空中のもの」だったので「気象学」になった。"
   },
   {
     "id": 135,
@@ -1778,7 +1793,8 @@
       "quarrel",
       "quality"
     ],
-    "e": "検疫・隔離（語源は「40日」）。★\n他：quantity（量）／quarrel（口論）／quality（質）。"
+    "e": "検疫・隔離（語源は「40日」）。★\n他：quantity（量）／quarrel（口論）／quality（質）。",
+    "ety": "イタリア語 **quaranta**（40）が語源。ペスト流行期、入港する船を**40日間**沖に留めて検疫したことから「隔離・検疫」。"
   },
   {
     "id": 138,
@@ -1791,7 +1807,8 @@
       "indication",
       "intuition"
     ],
-    "e": "incubation period＝潜伏期間。★\n他：inclination（傾向・意向）／indication（兆候）／intuition（直感）。"
+    "e": "incubation period＝潜伏期間。★\n他：inclination（傾向・意向）／indication（兆候）／intuition（直感）。",
+    "ety": "**in-**（上に）＋ **cub**（横たわる＝cubare）。「卵の上に横たわって温める」→「病原体が体内で育つ期間＝潜伏期間」。incubator（保育器・孵卵器）も同じ。"
   },
   {
     "id": 139,
@@ -1804,7 +1821,8 @@
       "contiguous",
       "conscious"
     ],
-    "e": "接触感染性の。★\n他：courageous（勇敢な）／contiguous（隣接した）／conscious（意識のある）。綴りに注意。"
+    "e": "接触感染性の。★\n他：courageous（勇敢な）／contiguous（隣接した）／conscious（意識のある）。綴りに注意。",
+    "ety": "**con-**（共に）＋ **tag**（触れる＝tangere）。「触れ合いでうつる」→「伝染性の」。contact（接触）、intact（触れられていない→無傷の）、tangible（触れられる→具体的な）と同族。"
   },
   {
     "id": 140,
@@ -1817,7 +1835,8 @@
       "proficiency",
       "sufficiency"
     ],
-    "e": "欠乏・不足。\n-ficiency 4語：efficiency（効率）／proficiency（熟達）／sufficiency（十分）。"
+    "e": "欠乏・不足。\n-ficiency 4語：efficiency（効率）／proficiency（熟達）／sufficiency（十分）。",
+    "ety": "**de-**（不足）＋ **fic**（作る＝facere）。「十分に作れていない」→「不足・欠乏」。deficit（赤字）、efficient（きちんと作り出す→効率的な）と同族。"
   },
   {
     "id": 141,
@@ -1830,7 +1849,8 @@
       "description",
       "inscription"
     ],
-    "e": "処方箋（pre-＝前もって書く）。\n-scription：subscription（購読）／description（描写）／inscription（碑文・銘）。"
+    "e": "処方箋（pre-＝前もって書く）。\n-scription：subscription（購読）／description（描写）／inscription（碑文・銘）。",
+    "ety": "**pre-**（前もって）＋ **script**（書く）。「薬を渡す前に書くもの」→「処方箋」。describe（書き表す）、subscribe（下に署名する→定期購読する）と同族。"
   },
   {
     "id": 142,
@@ -1869,7 +1889,8 @@
       "reference",
       "refinement"
     ],
-    "e": "国民投票。★\n他：referral（紹介）／reference（参照）／refinement（洗練）。"
+    "e": "国民投票。★\n他：referral（紹介）／reference（参照）／refinement（洗練）。",
+    "ety": "**re-**（戻す）＋ **fer**（運ぶ）＋ **-endum**（〜されるべきもの）。「国民に差し戻して問われるべき案件」→「国民投票」。refer（差し向ける・参照する）の派生。"
   },
   {
     "id": 145,
@@ -1895,7 +1916,8 @@
       "prescription",
       "inscription"
     ],
-    "e": "徴兵制。★\n他：subscription（購読）／prescription（処方）／inscription（銘）。"
+    "e": "徴兵制。★\n他：subscription（購読）／prescription（処方）／inscription（銘）。",
+    "ety": "**con-**（まとめて）＋ **script**（書く）。「名簿に一括で書き込む」→「徴兵」。prescription・describe と同じ script（書く）ファミリー。"
   },
   {
     "id": 147,
@@ -1921,7 +1943,8 @@
       "diplomacy",
       "dynamics"
     ],
-    "e": "人口統計・人口構成（demo-＝人々）。★\n他：democracy（民主主義）／diplomacy（外交）／dynamics（力学・動態）。"
+    "e": "人口統計・人口構成（demo-＝人々）。★\n他：democracy（民主主義）／diplomacy（外交）／dynamics（力学・動態）。",
+    "ety": "**demo**（民衆＝demos）＋ **graph**（記録する）。「民衆を記録したもの」→「人口統計」。democracy（民衆の支配→民主主義）、epidemic（民衆の間に広がる→流行病）と同族。"
   },
   {
     "id": 149,
@@ -1947,7 +1970,8 @@
       "hypothermia",
       "hypotenuse"
     ],
-    "e": "仮説（hypo-＝下＋thesis＝置く）。\n他：hypocrisy（偽善）／hypothermia（低体温症）／hypotenuse（斜辺）。"
+    "e": "仮説（hypo-＝下＋thesis＝置く）。\n他：hypocrisy（偽善）／hypothermia（低体温症）／hypotenuse（斜辺）。",
+    "ety": "**hypo-**（下に）＋ **thesis**（置くこと）。「議論の土台として下に置くもの」→「仮説」。反対の **hyper-** は「上・過剰」（hypertension 高血圧）。thesis（論文・主張）も同じ。"
   },
   {
     "id": 151,
@@ -1973,7 +1997,8 @@
       "admissions",
       "commissions"
     ],
-    "e": "排出（carbon emissions＝炭素排出）。★\n他：omissions（省略）／admissions（入場・入学許可）／commissions（委託・手数料）。"
+    "e": "排出（carbon emissions＝炭素排出）。★\n他：omissions（省略）／admissions（入場・入学許可）／commissions（委託・手数料）。",
+    "ety": "**e-（ex-）**（外へ）＋ **miss/mit**（送る＝mittere）。「外へ送り出されるもの」→「排出物」。transmit（越えて送る→送信）、permit（通してやる→許可）、dismiss（送り払う→解雇）と同族。"
   },
   {
     "id": 153,
@@ -1986,7 +2011,8 @@
       "accommodate",
       "accomplish"
     ],
-    "e": "加速する。★\n他：accumulate（蓄積する）／accommodate（収容する・便宜を図る）／accomplish（達成する）。"
+    "e": "加速する。★\n他：accumulate（蓄積する）／accommodate（収容する・便宜を図る）／accomplish（達成する）。",
+    "ety": "**ac-（ad-）**（〜の方へ）＋ **celer**（速い）。「速い状態へ持っていく」→「加速する」。反対は decelerate（減速する）。"
   },
   {
     "id": 154,
@@ -1999,7 +2025,8 @@
       "incinerate",
       "incriminate"
     ],
-    "e": "取り入れる／法人化する。★\n他：incarcerate（投獄する）／incinerate（焼却する）／incriminate（罪を負わせる）。"
+    "e": "取り入れる／法人化する。★\n他：incarcerate（投獄する）／incinerate（焼却する）／incriminate（罪を負わせる）。",
+    "ety": "**in-**（中へ）＋ **corpor**（体＝corpus）。「組織という体の中へ取り込む」→「組み込む・法人化する」。corporation（法人）、corps（部隊）と同族。"
   },
   {
     "id": 155,
@@ -2012,7 +2039,8 @@
       "designate",
       "demonstrate"
     ],
-    "e": "価値が下がる（⇔ appreciate）。★\n他：dedicate（捧げる）／designate（指定する）／demonstrate（実演する）。"
+    "e": "価値が下がる（⇔ appreciate）。★\n他：dedicate（捧げる）／designate（指定する）／demonstrate（実演する）。",
+    "ety": "**de-**（下へ）＋ **preci**（価格＝pretium）。「価値が下がる」。precious（高価な）、appreciate（価値を認める→感謝する・値上がりする）が同族で、appreciate ⇔ depreciate は対義。"
   },
   {
     "id": 156,
@@ -2051,7 +2079,8 @@
       "dominated",
       "nominated"
     ],
-    "e": "打ち切られた（terminate＝終了させる）。★\n他：germinated（発芽した）／dominated（支配された）／nominated（指名された）。"
+    "e": "打ち切られた（terminate＝終了させる）。★\n他：germinated（発芽した）／dominated（支配された）／nominated（指名された）。",
+    "ety": "**termin**（境界・終点＝terminus）が核。「終点に達する」→「終了させる」。空港の **terminal** も「路線の終点」。determine（境界を定める→決定する）も同族。"
   },
   {
     "id": 159,
@@ -2064,7 +2093,8 @@
       "comprehensible",
       "compelling"
     ],
-    "e": "包括的な・網羅的な。\n他：compulsive（強迫的な）／comprehensible（理解できる）／compelling（説得力のある）。"
+    "e": "包括的な・網羅的な。\n他：compulsive（強迫的な）／comprehensible（理解できる）／compelling（説得力のある）。",
+    "ety": "**com-**（全部）＋ **prehend**（つかむ）。「全体をつかんでいる」→「包括的な」。apprehend（つかまえる→逮捕する）、comprehend（理解する）とセットで覚える。"
   },
   {
     "id": 160,
@@ -2077,7 +2107,8 @@
       "diagram",
       "dialogue"
     ],
-    "e": "痛烈な非難・長い攻撃演説。\n他：dialect（方言）／diagram（図表）／dialogue（対話）。"
+    "e": "痛烈な非難・長い攻撃演説。\n他：dialect（方言）／diagram（図表）／dialogue（対話）。",
+    "ety": "**dia-**（〜を通して・徹底的に）＋ **tribe**（すり減らす＝tribein）。「相手をすり減らすほど延々と続く」→「長い非難演説」。"
   },
   {
     "id": 161,
@@ -2090,7 +2121,8 @@
       "erudite",
       "eccentric"
     ],
-    "e": "一貫しない・気まぐれな。\n他：erroneous（誤った）／erudite（博学な）／eccentric（風変わりな）。"
+    "e": "一貫しない・気まぐれな。\n他：erroneous（誤った）／erudite（博学な）／eccentric（風変わりな）。",
+    "ety": "**err**（さまよう＝errare）が核。「あちこちさまよう」→「不規則な・気まぐれな」。error（道を外れること→誤り）、err（誤る）と同族。"
   },
   {
     "id": 162,
@@ -2103,7 +2135,8 @@
       "superlative",
       "superior"
     ],
-    "e": "表面的な・浅い。\n他：superfluous（余分な）／superlative（最高の・最上級）／superior（優れた）。"
+    "e": "表面的な・浅い。\n他：superfluous（余分な）／superlative（最高の・最上級）／superior（優れた）。",
+    "ety": "**super-**（上）＋ **fici**（面＝facies）。「表面（上っ面）だけの」→「浅薄な」。surface（表面）とほぼ同じ成り立ち。superior の super- と合わせて覚える。"
   },
   {
     "id": 163,
@@ -2116,7 +2149,8 @@
       "obliterate",
       "obviate"
     ],
-    "e": "（わざと）不明瞭にする。\n他：obligate（義務づける）／obliterate（消し去る）／obviate（未然に防ぐ）。"
+    "e": "（わざと）不明瞭にする。\n他：obligate（義務づける）／obliterate（消し去る）／obviate（未然に防ぐ）。",
+    "ety": "**ob-**（覆って）＋ **fusc**（暗い＝fuscus）。「暗くして見えなくする」→「（わざと）分かりにくくする」。"
   },
   {
     "id": 164,
@@ -2142,7 +2176,8 @@
       "adept",
       "abundant"
     ],
-    "e": "隣接した。\n他：adamant（断固とした）／adept（熟達した）／abundant（豊富な）。"
+    "e": "隣接した。\n他：adamant（断固とした）／adept（熟達した）／abundant（豊富な）。",
+    "ety": "**ad-**（〜のそばに）＋ **jac**（横たわる＝jacere）。「そばに横たわっている」→「隣接した」。※ ject（投げる）と綴りが似るが別系統なので注意。"
   },
   {
     "id": 166,
@@ -2155,7 +2190,8 @@
       "precious",
       "precise"
     ],
-    "e": "先見の明のある（pre-＋science＝前もって知る）。\n他：pressing（差し迫った）／precious（貴重な）／precise（正確な）。"
+    "e": "先見の明のある（pre-＋science＝前もって知る）。\n他：pressing（差し迫った）／precious（貴重な）／precise（正確な）。",
+    "ety": "**pre-**（前もって）＋ **sci**（知る＝scire）。「前もって知っている」→「先見の明のある」。science（知ること→科学）、conscious（気づいている）と同族。"
   },
   {
     "id": 167,
@@ -2181,7 +2217,8 @@
       "slumber",
       "slogan"
     ],
-    "e": "（口頭の）中傷・名誉毀損（文書なら libel）。\n他：splendor（壮麗）／slumber（まどろみ）／slogan（標語）。"
+    "e": "（口頭の）中傷・名誉毀損（文書なら libel）。\n他：splendor（壮麗）／slumber（まどろみ）／slogan（標語）。",
+    "ety": "ギリシャ語 **skandalon**（罠・つまずきの石）が変化したもので、**scandal** と同語源。「人をつまずかせる悪評」→「（口頭での）名誉毀損」。"
   },
   {
     "id": 169,
@@ -2194,7 +2231,8 @@
       "renovation",
       "reputation"
     ],
-    "e": "報酬（＝payment の堅い語）。\n他：rumination（熟考・反芻）／renovation（改修）／reputation（評判）。"
+    "e": "報酬（＝payment の堅い語）。\n他：rumination（熟考・反芻）／renovation（改修）／reputation（評判）。",
+    "ety": "**re-**（お返しに）＋ **muner**（贈り物・務め＝munus）。「務めへのお返し」→「報酬」。salary より堅い語で、役員報酬などに使う。"
   },
   {
     "id": 170,
@@ -2220,6 +2258,322 @@
       "belittling",
       "beleaguering"
     ],
-    "e": "人を欺く・魅惑的な。\n他：bewildering（当惑させる）／belittling（見くびる）／beleaguering（悩ませる・包囲する）。"
+    "e": "人を欺く・魅惑的な。\n他：bewildering（当惑させる）／belittling（見くびる）／beleaguering（悩ませる・包囲する）。",
+    "ety": "**be-**（すっかり〜する）＋ **guile**（策略）。「策略で包み込む」→「だまし惑わす・魅惑的な」。guile 単独でも「狡猾さ」。"
+  },
+  {
+    "id": 172,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The trainee was anxious ( ) make his first solo flight.",
+    "a": "to",
+    "d": [
+      "about",
+      "for",
+      "of"
+    ],
+    "e": "be anxious **to** do＝しきりに〜したがる。後ろが動詞の原形なら to。\n◎ be anxious **about**＋名詞（〜を心配して）と対で覚える：about＝心配、to do＝切望。"
+  },
+  {
+    "id": 173,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Most passengers prefer window seats ( ) aisle seats.",
+    "a": "to",
+    "d": [
+      "than",
+      "with",
+      "from"
+    ],
+    "e": "prefer A **to** B＝BよりAを好む。superior to と同じく、ラテン語系の比較は than ではなく **to**。\n✗ than につられない。◎ prior **to**（〜より前に）も同じ仲間。"
+  },
+  {
+    "id": 174,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "All documents must be submitted ( ) to departure.",
+    "a": "prior",
+    "d": [
+      "ahead",
+      "early",
+      "forward"
+    ],
+    "e": "**prior to**＝before のフォーマル版。superior to・prefer A to B と同じ「ラテン語比較＋to」ファミリー。\n✗ ahead は ahead **of** schedule の形で使う。空港アナウンス頻出表現。",
+    "ety": "**pri-**（前＝ラテン語 prior「より前の」）が核。priority（優先）、prime（第一の）、primary（最初の）と同族。「より前の」という比較の意味を含むので to をとる。"
+  },
+  {
+    "id": 175,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "She finally succeeded ( ) obtaining her pilot's license.",
+    "a": "in",
+    "d": [
+      "to",
+      "at",
+      "on"
+    ],
+    "e": "succeed **in** doing＝〜に成功する。\n◎ succeed **to** the throne（王位を継承する）と前置詞で意味が激変する頻出ペア。名詞も success（成功）／succession（継承）で別。"
+  },
+  {
+    "id": 176,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Strong crosswinds may interfere ( ) the landing schedule.",
+    "a": "with",
+    "d": [
+      "to",
+      "in",
+      "on"
+    ],
+    "e": "interfere **with**＝〜を妨げる。\n◎ interfere **in**（〜に口出しする・干渉する）との違い：with＝物事の妨害、in＝人の問題への介入。"
+  },
+  {
+    "id": 177,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "Vaccinated crew members are largely immune ( ) the virus.",
+    "a": "to",
+    "d": [
+      "from",
+      "against",
+      "with"
+    ],
+    "e": "be immune **to**＝〜に免疫がある・影響されない。immune to criticism（批判に動じない）と比喩でも頻出。\n✗ protection **against**（〜からの保護）と混同しやすいので注意。",
+    "ety": "**im-（in-）**（否定）＋ **mune**（務め＝munus）。「務め（課税・兵役）を免れた」→「免疫のある」。remuneration（報酬）、community（務めを共にする集団）と同じ munus 系。"
+  },
+  {
+    "id": 178,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "We had to substitute a smaller aircraft ( ) the grounded jet.",
+    "a": "for",
+    "d": [
+      "to",
+      "with",
+      "by"
+    ],
+    "e": "substitute A **for** B＝Bの代わりにAを使う。**A（新）for B（旧）**の順に注意。\n◎ 言い換えは replace B **with** A：replace なら with になる点がねらわれる。",
+    "ety": "**sub-**（下に）＋ **stitute**（立てる＝statuere）。「下に控えとして立てておく」→「代わりに使う」。institute（中に立てる→設立）、constitute（共に立てる→構成）と同族。"
+  },
+  {
+    "id": 179,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "I can't put up ( ) the constant engine noise any longer.",
+    "a": "with",
+    "d": [
+      "to",
+      "for",
+      "at"
+    ],
+    "e": "put up **with**＝〜を我慢する（＝tolerate, stand, bear）。\n◎ put off（延期する）、put out（消す）、put on（着る）と put 系はまとめて覚える。"
+  },
+  {
+    "id": 180,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "Mechanics carried ( ) a thorough inspection overnight.",
+    "a": "out",
+    "d": [
+      "on",
+      "off",
+      "over"
+    ],
+    "e": "carry **out**＝実行する（＝conduct, perform）。carry out an inspection / a survey / a plan の形で頻出。\n✗ carry on（続ける）、carry over（持ち越す）と区別。"
+  },
+  {
+    "id": 181,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "A fire broke ( ) in the cargo hold shortly after takeoff.",
+    "a": "out",
+    "d": [
+      "down",
+      "up",
+      "off"
+    ],
+    "e": "break **out**＝（火事・戦争・伝染病が）突然発生する。名詞形は **outbreak**（発生・流行）。\n✗ break down（故障する）、break up（解散する）、break off（中断する）。"
+  },
+  {
+    "id": 182,
+    "part": "Part 2",
+    "cat": "句動詞",
+    "q": "The boy takes ( ) his father in both looks and temper.",
+    "a": "after",
+    "d": [
+      "over",
+      "off",
+      "on"
+    ],
+    "e": "take **after**＝（親・血縁者）に似ている（＝resemble）。血縁に使うのがポイント。\n◎ take over（引き継ぐ）、take off（離陸する）、take on（引き受ける・雇う）と take 系はセットで。"
+  },
+  {
+    "id": 183,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "As ( ) as safety is concerned, no compromise is acceptable.",
+    "a": "far",
+    "d": [
+      "long",
+      "much",
+      "soon"
+    ],
+    "e": "**as far as ~ is concerned**＝〜に関する限り（話題の範囲）。\n✗ as long as（〜する限り）は「時間・条件」、as far as は「範囲・程度」。ここは範囲なので far。"
+  },
+  {
+    "id": 184,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "It goes without ( ) that punctuality is essential for pilots.",
+    "a": "saying",
+    "d": [
+      "telling",
+      "speaking",
+      "mentioning"
+    ],
+    "e": "**It goes without saying that ~**＝〜は言うまでもない（＝Needless to say）。丸ごと決まり文句として暗記する。"
+  },
+  {
+    "id": 185,
+    "part": "Part 3",
+    "cat": "イディオム・慣用",
+    "q": "You ( ) be too careful when taxiing in poor visibility.",
+    "a": "cannot",
+    "d": [
+      "must not",
+      "may not",
+      "should not"
+    ],
+    "e": "**cannot ~ too …**＝いくら〜してもしすぎることはない。You cannot be too careful＝注意してもしすぎることはない。\n✗ must not だと「注意しすぎてはいけない」という逆の意味になる。"
+  },
+  {
+    "id": 186,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "I clearly remember ( ) the cabin door, but it was open when I returned.",
+    "a": "locking",
+    "d": [
+      "to lock",
+      "lock",
+      "to have locked"
+    ],
+    "e": "remember **doing**＝〜したことを覚えている（過去の行為）。remember **to** do＝忘れずに〜する（これからの行為）。\n本問は「鍵をかけた記憶」なので動名詞。forget doing / forget to do も同じ対立。"
+  },
+  {
+    "id": 187,
+    "part": "Part 4",
+    "cat": "動名詞・不定詞",
+    "q": "On the way to the hangar, he stopped ( ) to an old colleague.",
+    "a": "to talk",
+    "d": [
+      "talking",
+      "talk",
+      "talked"
+    ],
+    "e": "stop **to** do＝〜するために立ち止まる（to は目的）。stop **doing**＝〜するのをやめる。\n本問は「話すために立ち止まった」ので to 不定詞。"
+  },
+  {
+    "id": 188,
+    "part": "Part 1",
+    "cat": "前置詞コロケーション",
+    "q": "The investigation committee is composed ( ) nine independent experts.",
+    "a": "of",
+    "d": [
+      "by",
+      "with",
+      "from"
+    ],
+    "e": "be composed **of**＝〜から構成される（＝consist of, be made up of）。\n◎ consist **of** は能動態、be composed **of** は受動態と、形の違いがねらわれる。",
+    "ety": "**com-**（共に）＋ **pose**（置く）。「共に置いて組み立てる」→「構成する」。propose（前に置く→提案）、expose（外に置く→さらす）、oppose（against置く→反対）と同族。"
+  },
+  {
+    "id": 189,
+    "q": "Not until the aircraft had come to a complete stop were the passengers allowed to unfasten their seat belts.",
+    "a": "航空機が完全に停止して初めて、乗客はシートベルトを外すことを許された。",
+    "e": "**Not until A + 倒置**＝「Aして初めて〜」。Not until が文頭に出ると主節が疑問文の語順（were the passengers allowed）になる。\ncome to a complete stop＝完全に停止する（機内アナウンス頻出）。unfasten＝外す（fasten の反対）。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 190,
+    "q": "Had it not been for the controller's quick judgment, the two aircraft might have collided.",
+    "a": "管制官の素早い判断がなかったならば、2機の航空機は衝突していたかもしれない。",
+    "e": "**Had it not been for ~**＝If it had not been for ~（〜がなかったら）の if 省略倒置。仮定法過去完了なので「衝突していたかもしれない」と訳す。\ncollide＝衝突する（名詞 collision）。controller＝管制官。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 191,
+    "q": "Weather conditions being favorable, the flight is expected to arrive twenty minutes ahead of schedule.",
+    "a": "天候が良好であれば、その便は定刻より20分早く到着する見込みである。",
+    "e": "**独立分詞構文**：Weather conditions being favorable は主節と主語が異なる分詞構文（＝If weather conditions are favorable）。\nahead of schedule＝定刻より早く（⇔ behind schedule）。be expected to do＝〜する見込みである。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 192,
+    "q": "What matters most in an emergency is not speed but the ability to remain calm.",
+    "a": "緊急時に最も重要なのは、速さではなく、冷静さを保つ能力である。",
+    "e": "**What matters most**＝「最も重要なこと」。what は関係代名詞、matter は動詞で「重要である」。\n**not A but B**＝AではなくB。remain calm＝冷静なままでいる（remain＋形容詞）。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 193,
+    "q": "The amount of fuel an aircraft carries depends on such factors as distance, weather, and payload.",
+    "a": "航空機が搭載する燃料の量は、距離・天候・搭載量といった要因によって決まる。",
+    "e": "fuel の直後に**関係代名詞の省略**（fuel (which) an aircraft carries）。文の骨格は The amount ... depends on ...。\n**such A as B**＝BのようなA（＝A such as B）。payload＝有効搭載量。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 194,
+    "q": "It was not until the twentieth century that humans achieved powered flight.",
+    "a": "人類が動力飛行を成し遂げたのは、20世紀になってからのことだった。",
+    "e": "**It was not until A that B**＝「Aになって初めてBした」の強調構文。倒置形（Not until A did B）と書き換え可能な頻出パターン。\npowered flight＝動力飛行。achieve＝成し遂げる。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 195,
+    "q": "However advanced technology may become, the final decision should rest with the pilot.",
+    "a": "技術がどれほど進歩しようとも、最終的な判断はパイロットに委ねられるべきである。",
+    "e": "**However + 形容詞 + S + may V**＝どれほど〜でも（譲歩）。＝No matter how advanced technology may become。\n**rest with ~**＝（決定権・責任が）〜にある。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 196,
+    "q": "Scarcely had the plane left the runway when one of the engines lost power.",
+    "a": "飛行機が滑走路を離れるやいなや、エンジンの1つが出力を失った。",
+    "e": "**Scarcely had S done ~ when …**＝〜するやいなや…（＝Hardly ~ when / No sooner ~ than）。否定語 Scarcely が文頭に出て had S done の倒置。\n時制に注意：先に起きた「離陸」が過去完了。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 197,
+    "q": "The more automated aircraft become, the more important it is for pilots to understand the underlying systems.",
+    "a": "航空機の自動化が進めば進むほど、パイロットが基盤となるシステムを理解することはますます重要になる。",
+    "e": "**The 比較級 ~, the 比較級 …**＝〜すればするほど…。後半には it is important for A to do（形式主語構文）が組み込まれている。\nunderlying＝根底にある・基盤となる。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
+  },
+  {
+    "id": 198,
+    "q": "Seen from the cockpit at night, the city lights stretched out like a vast carpet of stars.",
+    "a": "夜、コックピットから見ると、街の明かりは星をちりばめた広大な絨毯のように広がっていた。",
+    "e": "**Seen from ~**＝過去分詞の分詞構文（＝When they were seen from ~）。主語 the city lights が「見られる」側なので過去分詞で始まる。\nstretch out＝広がる。vast＝広大な。",
+    "part": "Part 7",
+    "cat": "英文和訳",
+    "type": "tr"
   }
 ]
