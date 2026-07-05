@@ -80,8 +80,9 @@ input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10p
 .etybox{background:#f3e8ff;border:1px solid #d8b4fe}
 @media (prefers-color-scheme:dark){.etybox{background:#2a1f3f;border-color:#584180}}
 .notebox{background:var(--card);border:1px dashed var(--mut)}
-.aifb{background:#e0f2fe;border:1px solid #7dd3fc}
-@media (prefers-color-scheme:dark){.aifb{background:#0c2a3a;border-color:#155e83}}
+.aifb{background:#fdf1ec;border:1px solid #eec5b3}
+@media (prefers-color-scheme:dark){.aifb{background:#33201a;border-color:#6b4434}}
+.clawd{font-family:ui-monospace,monospace;white-space:pre;color:#D97757;font-size:6px;line-height:1.15;display:inline-block;vertical-align:middle;text-align:left;margin-right:6px;font-weight:400}
 select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:14px;padding:10px;margin:8px 0}
 .notebox .ghost,.idea .ghost{padding:6px 0 0;text-align:left;width:auto}
 </style>
@@ -91,7 +92,7 @@ select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.5.0';
+var APP_V='2.6.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -298,15 +299,16 @@ function aiClear(){
   AI={key:'',model:AI.model};persistAiCfg();
   renderData();
 }
+var CLAWD='<span class="clawd">▐▛███▜▌\n▝▜█████▛▘\n  ▘▘ ▝▝</span>';
 function aiGrade(){
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim();
   var box=document.getElementById('aibox');
   if(!mine){toast('先に自分の訳を入力してください');return;}
-  box.innerHTML='<div class="exp aifb"><div class="verd">🤖 Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
+  box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
   var excerpt=x.q.indexOf('**')>=0;
   var sys='あなたは難関国立大学の英文和訳を指導する講師です。学生の和訳を添削します。\n'
-  +'- 1行目に「採点: n/10」と点数を示す\n'
+  +'- 1行目は必ず「採点: n/10」の形式で始める（nは0〜10の整数。この形式を厳守）\n'
   +'- 誤訳・訳し漏れ・不自然な日本語を、箇条書きで具体的に指摘する\n'
   +'- 最後に、指摘を反映したより良い訳を1つ示す\n'
   +'- スマホで読むため、全体で300字程度に簡潔に。装飾は**太字**のみ使用可\n'
@@ -334,11 +336,20 @@ function aiGrade(){
       if(res.content[i].type==='text')txt+=res.content[i].text;
     }
     if(!txt)throw new Error('応答が空でした');
-    box.innerHTML='<div class="exp aifb"><div class="verd">🤖 Claude添削</div><div>'+fmt(txt)+'</div></div>';
+    var m=txt.match(/採点[:：]\s*(\d{1,2})\s*[\/／]\s*10/);
+    box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div>'+fmt(txt)+'</div></div>';
+    if(m&&+m[1]<=10){
+      applyTrScore(+m[1],txt);              // 点数を読み取って自動記録
+    }else{
+      document.getElementById('grade').style.display='';  // 点数が読めなければ手動採点に切替
+      toast('点数を読み取れませんでした。自己採点してください');
+    }
   }).catch(function(e){
     box.innerHTML='<div class="exp ngbox"><div class="verd">添削エラー</div>'
     +'<div>'+esc(e.message)+'<br><span class="mut">通信環境と、データ管理のAPIキー設定・残高を確認してください。</span></div>'
     +'<button class="ghost" onclick="aiGrade()">もう一度試す</button></div>';
+    var g=document.getElementById('grade');
+    if(g&&!trDone)g.style.display='';       // 失敗時は自己採点にフォールバック
   });
 }
 function loadProgress(){
@@ -571,24 +582,30 @@ function copyTr(){
 function revealTr(){
   if(answered)return;
   answered=true;
+  trDone=false;
   var x=session[idx];
+  var mine=(document.getElementById('trIn').value||'').trim();
+  var auto=!!(AI.key&&mine);   // キー設定済み＋訳入力済みなら自動でClaude採点
   var sb='';
   for(var i=0;i<=10;i++)sb+='<button class="scorebtn'+(i>=7?' hi':'')+'" onclick="gradeTr('+i+')">'+i+'</button>';
   document.getElementById('fb').innerHTML=
-   '<div id="grade">'
+   '<div id="aibox"></div>'
+  +'<div id="grade"'+(auto?' style="display:none"':'')+'>'
   +'<div class="secttl">自己採点（7点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
   +'</div>'
-  +'<div id="aibox">'+(AI.key?'<button class="primary alt sm" onclick="aiGrade()">🤖 Claudeに添削してもらう</button>':'')+'</div>'
   +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
   +trHistBlock(x.id)
   +etyBlock(x)
   +'<div id="nextSlot"></div>';
+  if(auto)aiGrade();
 }
-function logTr(id,text,score){
+function logTr(id,text,score,feedback){
   var a=TRLOG[id]||[];
-  a.push({d:localDay(),sc:score,t:text});
+  var e={d:localDay(),sc:score,t:text};
+  if(feedback)e.f=feedback;
+  a.push(e);
   if(a.length>5)a=a.slice(a.length-5);   // 直近5回だけ保持
   TRLOG[id]=a;
 }
@@ -599,17 +616,24 @@ function trHistBlock(id){
   var trend='';
   if(a.length>1)trend='<div class="mut" style="margin-top:6px">点数の推移: '+a.map(function(r){return r.sc;}).join('点 → ')+'点</div>';
   return '<div class="exp notebox"><div class="verd">🕘 前回の自分の訳（'+esc(last.d)+' ・ '+last.sc+'点）</div>'
-  +'<div>'+fmt(last.t||'（未入力）')+'</div>'+trend+'</div>';
+  +'<div>'+fmt(last.t||'（未入力）')+'</div>'
+  +(last.f?'<div class="mut" style="margin-top:6px">前回の添削:</div><div>'+fmt(last.f)+'</div>':'')
+  +trend+'</div>';
 }
-function gradeTr(score){
+var trDone=false;    // 二重記録防止（Claude自動記録と手動採点の排他）
+function gradeTr(score){applyTrScore(score,null);}
+function applyTrScore(score,feedback){
+  if(trDone)return;
+  trDone=true;
   var x=session[idx];
   var ok=score>=7;
   if(ok)scoreC++;else missedIds.push(x.id);
-  logTr(x.id,(document.getElementById('trIn').value||'').trim(),score);
+  logTr(x.id,(document.getElementById('trIn').value||'').trim(),score,feedback);
   record(x.id,ok);
   var last=(idx+1>=session.length);
-  document.getElementById('grade').innerHTML=
-   '<div class="verd">'+score+' / 10 点 ・ '+(ok?'◯で記録しました':'✕で記録：間隔を詰めて再出題します')+'</div>';
+  var g=document.getElementById('grade');
+  g.style.display='';
+  g.innerHTML='<div class="verd">'+score+' / 10 点'+(feedback?'（Claude採点・自動記録）':'')+' ・ '+(ok?'◯で記録しました':'✕で記録：間隔を詰めて再出題します')+'</div>';
   document.getElementById('nextSlot').innerHTML=
    memoBlock(x.id)
   +'<button class="primary" onclick="next()">'+(last?'結果を見る':'次へ')+'</button>';
@@ -762,8 +786,8 @@ function renderData(){
   }
   var ai='<div class="card">'
   +(AI.key
-    ?'✅ Claude採点は設定済みです。和訳の解説画面に「添削してもらう」ボタンが表示されます。'
-    :'APIキーを設定すると、和訳の解説画面でその場でClaudeの添削が受けられます（従量課金・1問あたり数円）。'
+    ?'✅ Claude採点は設定済みです。和訳で「訳例と解説を見る」を押すと自動で添削・採点され、点数がそのまま記録されます。'
+    :'APIキーを設定すると、和訳の「訳例と解説を見る」で自動的にClaudeが添削・採点し、点数を記録します（従量課金・1問あたり数円）。'
      +'<div class="mut" style="margin:8px 0"><a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">→ Anthropic Console でAPIキーを作成</a></div>')
   +'<input id="aiKeyIn" class="io ti" type="password" placeholder="'+(AI.key?'設定済み（変更する場合のみ貼り付け）':'sk-ant- で始まるAPIキーを貼り付け')+'" autocomplete="off">'
   +'<select id="aiModel" class="io">'
@@ -777,7 +801,7 @@ function renderData(){
   h('<div class="wrap">'
   +'<h1>データ管理</h1>'
   +'<div class="sub">端末間の同期と、バックアップの書き出し／取り込み</div>'
-  +'<h2>Claude採点（和訳のAI添削）</h2>'
+  +'<h2>'+CLAWD+'Claude採点（和訳のAI添削）</h2>'
   +ai
   +'<h2>端末間の自動同期（無料）</h2>'
   +sync
