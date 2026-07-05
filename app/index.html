@@ -72,6 +72,7 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .qcard.tr{font-weight:400;font-size:16px;padding:14px}
 .qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
 textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
+input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:13px;padding:10px;font-family:ui-monospace,monospace;margin:8px 0}
 .primary.sm{padding:10px;font-size:13px;font-weight:600;margin:6px 0}
 .scorerow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .scorebtn{flex:1;min-width:42px;padding:11px 0;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -87,7 +88,7 @@ textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--c
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.3.1';
+var APP_V='2.4.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -96,6 +97,7 @@ var STATS={};                        // id → {s,c,w,st,last,box,due}
 var META={streak:0,lastDay:'',best:0};
 var NOTES={};                        // id → 自分メモ
 var IDEAS=[];                        // 追加したい問題のメモ [{t,d}]
+var TRLOG={};                        // id → [{d,sc,t}] 和訳の過去回答（直近5回）
 
 /* ---------- 永続化：IndexedDB（localStorageにも二重保存） ---------- */
 var DB_KEY='kdai_v2';
@@ -133,11 +135,12 @@ function idbSet(k,v){
 }
 function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
-function snapshot(){return {v:2,app:APP_V,exported:new Date().toISOString(),stats:STATS,meta:META,notes:NOTES,ideas:IDEAS};}
+function snapshot(){return {v:2,app:APP_V,exported:new Date().toISOString(),stats:STATS,meta:META,notes:NOTES,ideas:IDEAS,trlog:TRLOG};}
 function save(){
   var json=JSON.stringify(snapshot());
   lsSet(DB_KEY,json);                       // 同期の安全網
   idbGet && idbSet(DB_KEY,json).catch(function(){});
+  schedulePush();                           // Gist設定済みなら自動アップロード
 }
 function migrateLegacy(){
   // 旧プロトタイプ（localStorage kdai_stats_v1）からの移行
@@ -160,6 +163,99 @@ function applySnapshot(obj){
   META=obj.meta||{streak:0,lastDay:'',best:0};
   NOTES=obj.notes||{};
   IDEAS=obj.ideas||[];
+  TRLOG=obj.trlog||{};
+}
+
+/* ---------- 端末間同期（GitHub Gist・無料） ---------- */
+var SYNC_KEY='kdai_sync_v1';         // {tok,gist} この端末のみ・エクスポートには含めない
+var GIST_FILE='kdai-progress.json';
+var SYNC={tok:'',gist:''};
+var syncState={last:0,err:''};
+function loadSyncCfg(){try{var r=lsGet(SYNC_KEY);if(r)SYNC=JSON.parse(r);}catch(e){}}
+function saveSyncCfg(){lsSet(SYNC_KEY,JSON.stringify(SYNC));}
+function gh(method,path,body){
+  return fetch('https://api.github.com'+path,{
+    method:method,
+    headers:{'Authorization':'Bearer '+SYNC.tok,'Accept':'application/vnd.github+json'},
+    body:body?JSON.stringify(body):undefined
+  }).then(function(r){
+    if(!r.ok)throw new Error('GitHub API '+r.status);
+    return r.status===204?null:r.json();
+  });
+}
+function schedulePush(){
+  if(!SYNC.tok||!SYNC.gist)return;
+  clearTimeout(schedulePush._t);
+  schedulePush._t=setTimeout(pushSync,800);  // 連打をまとめる（1問ごとに即時同期）
+}
+function pushSync(){
+  if(!SYNC.tok||!SYNC.gist)return Promise.resolve();
+  var files={};files[GIST_FILE]={content:JSON.stringify(snapshot())};
+  return gh('PATCH','/gists/'+SYNC.gist,{files:files}).then(function(){
+    syncState.last=Date.now();syncState.err='';updateSyncBadge();
+  },function(e){
+    syncState.err=e.message;updateSyncBadge();
+  });
+}
+function pullSync(){
+  if(!SYNC.tok||!SYNC.gist)return Promise.resolve();
+  return gh('GET','/gists/'+SYNC.gist).then(function(g){
+    var f=g.files&&g.files[GIST_FILE];
+    if(!f)return;
+    var p=f.truncated?fetch(f.raw_url).then(function(r){return r.text();}):Promise.resolve(f.content);
+    return p.then(function(txt){
+      var remote=JSON.parse(txt);
+      var remoteExp=Date.parse(remote.exported||'')||0;
+      var localExp=0;
+      try{localExp=Date.parse(JSON.parse(lsGet(DB_KEY)||'null').exported||'')||0;}catch(e){}
+      if(remoteExp>localExp){
+        applySnapshot(remote);
+        var json=JSON.stringify(snapshot());
+        lsSet(DB_KEY,json);idbSet(DB_KEY,json).catch(function(){});
+      }else if(localExp>remoteExp){
+        schedulePush();
+      }
+      syncState.last=Date.now();syncState.err='';
+    });
+  }).catch(function(e){syncState.err=e.message;});
+}
+function syncText(){
+  if(!SYNC.tok)return '';
+  if(syncState.err)return '☁ 同期エラー（データ管理から確認）';
+  if(syncState.last)return '☁ 同期済み '+new Date(syncState.last).toLocaleTimeString().slice(0,5);
+  return '☁ 同期設定済み';
+}
+function updateSyncBadge(){
+  var el=document.getElementById('syncBadge');
+  if(el)el.textContent=syncText();
+}
+function setupSync(){
+  var tok=(document.getElementById('tokIn').value||'').trim();
+  if(!tok){toast('トークンを貼り付けてください');return;}
+  SYNC.tok=tok;
+  toast('GitHub に接続中…');
+  gh('GET','/gists?per_page=100').then(function(list){
+    for(var i=0;i<list.length;i++){
+      if(list[i].files&&list[i].files[GIST_FILE])return list[i];  // 他端末が作成済み
+    }
+    var files={};files[GIST_FILE]={content:JSON.stringify(snapshot())};
+    return gh('POST','/gists',{description:'航大英語ドリル 進捗（自動同期）',public:false,files:files});
+  }).then(function(g){
+    SYNC.gist=g.id;saveSyncCfg();
+    return pullSync();
+  }).then(function(){
+    toast('同期を設定しました');
+    renderData();
+  }).catch(function(e){
+    SYNC={tok:'',gist:''};
+    toast('設定に失敗しました（'+e.message+'）');
+  });
+}
+function clearSyncCfg(){
+  if(!confirm('この端末の同期設定を解除します。Gist上のデータと学習履歴はそのまま残ります。'))return;
+  SYNC={tok:'',gist:''};saveSyncCfg();
+  syncState={last:0,err:''};
+  renderData();
 }
 function loadProgress(){
   return idbGet(DB_KEY).catch(function(){return null;}).then(function(v){
@@ -313,7 +409,7 @@ function renderMenu(){
   +(trMiss?'<button class="primary alt" onclick="start(\'trmistakes\')">間違えた和訳だけ<small>未マスターの誤答 '+trMiss+'問</small></button>':'')
   +'<button class="reset" onclick="renderIdeas()">問題の追加メモ'+(IDEAS.length?'（'+IDEAS.length+'）':'')+'</button>'
   +'<button class="reset" onclick="renderData()">データ管理（バックアップ・引き継ぎ）</button>'
-  +'<div class="foot">進捗はこの端末に自動保存されます。<br>正解を重ねると出題間隔が 1日→3日→7日→14日 と延び、間違えるとすぐ復習に戻ります。<br>v'+APP_V+'</div>'
+  +'<div class="foot"><span id="syncBadge">'+syncText()+'</span><br>進捗はこの端末に自動保存されます。<br>正解を重ねると出題間隔が 1日→3日→7日→14日 と延び、間違えるとすぐ復習に戻ります。<br>v'+APP_V+'</div>'
   +'</div>');
 }
 
@@ -401,13 +497,30 @@ function revealTr(){
   +'</div>'
   +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
+  +trHistBlock(x.id)
   +etyBlock(x)
   +'<div id="nextSlot"></div>';
+}
+function logTr(id,text,score){
+  var a=TRLOG[id]||[];
+  a.push({d:localDay(),sc:score,t:text});
+  if(a.length>5)a=a.slice(a.length-5);   // 直近5回だけ保持
+  TRLOG[id]=a;
+}
+function trHistBlock(id){
+  var a=TRLOG[id];
+  if(!a||!a.length)return '';
+  var last=a[a.length-1];
+  var trend='';
+  if(a.length>1)trend='<div class="mut" style="margin-top:6px">点数の推移: '+a.map(function(r){return r.sc;}).join('点 → ')+'点</div>';
+  return '<div class="exp notebox"><div class="verd">🕘 前回の自分の訳（'+esc(last.d)+' ・ '+last.sc+'点）</div>'
+  +'<div>'+fmt(last.t||'（未入力）')+'</div>'+trend+'</div>';
 }
 function gradeTr(score){
   var x=session[idx];
   var ok=score>=7;
   if(ok)scoreC++;else missedIds.push(x.id);
+  logTr(x.id,(document.getElementById('trIn').value||'').trim(),score);
   record(x.id,ok);
   var last=(idx+1>=session.length);
   document.getElementById('grade').innerHTML=
@@ -542,9 +655,31 @@ function copyIdeas(){
 
 /* ---------- データ管理（エクスポート／インポート） ---------- */
 function renderData(){
+  var sync;
+  if(SYNC.tok&&SYNC.gist){
+    sync='<div class="card">✅ この端末は自動同期中です（1問ごとにアップロード）。'
+    +'<div class="mut" style="margin:6px 0">保存先 Gist: '+esc(SYNC.gist.slice(0,10))+'… ・ '
+    +(syncState.err?'⚠ エラー: '+esc(syncState.err):(syncState.last?'最終同期 '+new Date(syncState.last).toLocaleString():'未同期'))+'</div>'
+    +'<button class="primary alt sm" onclick="pushSync().then(function(){toast(\'同期しました\');renderData();})">今すぐ同期</button>'
+    +'<button class="ghost" onclick="clearSyncCfg()">この端末の同期を解除</button>'
+    +'</div>';
+  }else{
+    sync='<div class="card">GitHub の無料アカウントで、学習履歴を端末間で自動同期できます（1問ごとに保存）。'
+    +'<div class="mut" style="margin:8px 0;line-height:1.8">'
+    +'1. 下のリンクから GitHub でトークンを作成（<b>スコープは gist のみ</b>のまま「Generate token」）<br>'
+    +'2. 表示された ghp_… を下に貼り付けて「同期を開始」<br>'
+    +'3. 別の端末でも同じトークンを貼れば、自動でつながります</div>'
+    +'<a href="https://github.com/settings/tokens/new?scopes=gist&description=kdai-drill-sync" target="_blank" rel="noopener">→ トークン作成ページを開く</a>'
+    +'<input id="tokIn" class="io ti" type="password" placeholder="ghp_ で始まるトークンを貼り付け" autocomplete="off">'
+    +'<button class="primary sm" onclick="setupSync()">同期を開始</button>'
+    +'<div class="mut" style="margin-top:6px">トークンはこの端末の中だけに保存され、エクスポートにも含まれません。共用端末では設定しないでください。</div>'
+    +'</div>';
+  }
   h('<div class="wrap">'
   +'<h1>データ管理</h1>'
-  +'<div class="sub">機種変更・バックアップ用に進捗を書き出し／取り込みできます</div>'
+  +'<div class="sub">端末間の同期と、バックアップの書き出し／取り込み</div>'
+  +'<h2>端末間の自動同期（無料）</h2>'
+  +sync
   +'<h2>エクスポート</h2>'
   +'<div class="card">学習履歴をファイルとして保存するか、コードをコピーして新しい端末に貼り付けてください。'
   +'<button class="primary" onclick="expFile()">ファイルをダウンロード</button>'
@@ -601,14 +736,17 @@ function impText(){
   doImport(t);
 }
 function resetAll(){
-  if(confirm('すべての学習履歴を消去します。よろしいですか？')){
-    STATS={};META={streak:0,lastDay:'',best:0};save();renderMenu();
+  if(confirm('すべての学習履歴（和訳の過去回答を含む）を消去します。よろしいですか？')){
+    STATS={};META={streak:0,lastDay:'',best:0};TRLOG={};save();renderMenu();
   }
 }
 
 /* ---------- 起動 ---------- */
 function boot(){
+  loadSyncCfg();
   loadProgress().then(function(){
+    return pullSync();                 // 他端末の進捗があれば取り込む（失敗しても続行）
+  }).then(function(){
     return fetch('questions.json').then(function(r){
       if(!r.ok)throw new Error('HTTP '+r.status);
       return r.json();
