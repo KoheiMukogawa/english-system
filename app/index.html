@@ -302,7 +302,8 @@ function aiClear(){
   renderData();
 }
 // clawd（Claude Code起動ロゴのピクセルアート）。フォント依存で崩れないようSVGで描画
-var CLAWD='<svg class="clawd" width="36" height="10" viewBox="0 0 18 5" fill="#D97757" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">'
+// ターミナルの文字セルは縦長（高さ≈幅の2倍）なので、縦2倍に伸ばして本来の形にする
+var CLAWD='<svg class="clawd" width="28" height="16" viewBox="0 0 18 5" preserveAspectRatio="none" fill="#D97757" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">'
 +'<rect x="3" y="0" width="12" height="1"/>'
 +'<rect x="3" y="1" width="2" height="1"/><rect x="6" y="1" width="6" height="1"/><rect x="13" y="1" width="2" height="1"/>'
 +'<rect x="1" y="2" width="16" height="1"/>'
