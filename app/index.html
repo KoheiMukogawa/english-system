@@ -92,7 +92,7 @@ select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.7.0';
+var APP_V='2.8.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -526,6 +526,7 @@ function renderMenu(){
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・構文確認')+'\')">レベル1：構文確認 <small>倒置・強調・比較・無生物主語など頻出構文を1文で（'+l1+'問）</small></button>'
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・実戦')+'\')">レベル2：実戦・記事抜粋<small>航空・医学・時事の下線部和訳、難関国立レベル（'+l2+'問）</small></button>'
   +(trMiss?'<button class="primary alt" onclick="start(\'trmistakes\')">間違えた和訳だけ<small>未マスターの誤答 '+trMiss+'問</small></button>':'')
+  +'<button class="primary alt" onclick="renderTrList()">和訳の問題一覧<small>文章を選んで、その1問だけやり直す</small></button>'
   +'<button class="reset" onclick="renderIdeas()">問題の追加メモ'+(IDEAS.length?'（'+IDEAS.length+'）':'')+'</button>'
   +'<button class="reset" onclick="renderData()">データ管理（バックアップ・引き継ぎ）</button>'
   +'<div class="foot"><span id="syncBadge">'+syncText()+'</span><br>進捗はこの端末に自動保存されます。<br>正解を重ねると出題間隔が 1日→3日→7日→14日 と延び、間違えるとすぐ復習に戻ります。<br>v'+APP_V+'</div>'
@@ -711,6 +712,48 @@ function startMissed(){
   var ids=missedIds.slice();
   session=activeData().filter(function(x){return ids.indexOf(x.id)>=0;});
   shuffle(session);idx=0;scoreC=0;missedIds=[];
+  renderQ();
+}
+
+/* ---------- 和訳の問題一覧（1問だけやり直す） ---------- */
+function trExcerpt(x){
+  var m=x.q.match(/\*\*(.+?)\*\*/);       // 下線部和訳は下線部を代表文に
+  var t=(m?m[1]:x.q).replace(/\*\*/g,'');
+  return t.length>52?t.slice(0,52)+'…':t;
+}
+function renderTrList(){
+  var groups=[['和訳・構文確認','レベル1：構文確認'],['和訳・実戦','レベル2：実戦・記事抜粋']];
+  var b='';
+  var AD=activeData();
+  for(var g=0;g<groups.length;g++){
+    b+='<div class="secttl">'+groups[g][1]+'</div>';
+    for(var i=0;i<AD.length;i++){
+      var x=AD[i];
+      if(x.cat!==groups[g][0])continue;
+      var log=TRLOG[x.id];
+      var badge;
+      if(log&&log.length){
+        var sc=log[log.length-1].sc;
+        badge='<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'点</span>';
+      }else{
+        badge='<span class="mut">未挑戦</span>';
+      }
+      b+='<button class="opt" onclick="startOne('+x.id+')">'
+      +'<span class="cathead"><span style="font-weight:400">'+esc(trExcerpt(x))+'</span>'+badge+'</span>'
+      +'</button>';
+    }
+  }
+  h('<div class="wrap">'
+  +'<h1>和訳の問題一覧</h1>'
+  +'<div class="sub">タップするとその1問だけ演習できます。点数は直近の採点結果です</div>'
+  +b
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
+}
+function startOne(id){
+  session=activeData().filter(function(x){return x.id===id;});
+  if(!session.length){renderMenu();return;}
+  idx=0;scoreC=0;missedIds=[];
   renderQ();
 }
 

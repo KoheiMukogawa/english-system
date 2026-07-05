@@ -2755,5 +2755,113 @@
     "part": "Part 7",
     "cat": "和訳・実戦",
     "type": "tr"
+  },
+  {
+    "id": 219,
+    "q": "As aviation technology advances, the role of the pilot changes, just as the role of the sailor changed when steam replaced sail.",
+    "a": "航空技術が進歩するにつれてパイロットの役割は変化するが、それはちょうど、蒸気船が帆船に取って代わったときに船乗りの役割が変化したのと同じである。",
+    "e": "**asの識別**が主題。文頭の As は**比例**（〜につれて）、just as は**様態**（ちょうど〜のように）。同じ as でも訳が全く変わる。\nreplace A＝Aに取って代わる。asを見たら「接続詞か前置詞か・どの用法か」を必ず判定する癖をつける。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 220,
+    "q": "Young as he was, the co-pilot handled the emergency with a composure that impressed even the veteran captain.",
+    "a": "彼は若かったが、その副操縦士は、ベテランの機長さえも感心させるほどの冷静さでその緊急事態に対処した。",
+    "e": "**形容詞＋as＋S＋V＝譲歩**（〜だけれども）。Young as he was＝Though he was young。形容詞が文頭に出る特殊な語順で、asの識別の中でも見抜きにくい。\n4択で出た Strange as it may seem と同型。composure＝冷静さ。even＝〜さえも。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 221,
+    "q": "Many passengers take it for granted that flying is dangerous, when in fact it is the safest form of long-distance travel.",
+    "a": "多くの乗客は、空の旅は危険なものだと当然のように思い込んでいるが、実際には飛行機は最も安全な長距離移動の手段である。",
+    "e": "**take it for granted that ~**＝〜を当然のことと思う。この it は**形式目的語**で、真の目的語は that節。make it clear that / owe it to A that も同じ仕組み。\nこの **when** は時ではなく**対比・逆接**（〜だが実際は）。in fact とセットで頻出。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 222,
+    "q": "The flight was delayed not because the weather was bad, but because a warning light, later found to be faulty, could not be ignored.",
+    "a": "その便が遅れたのは、天候が悪かったからではなく、後に故障と判明した警告灯を無視するわけにはいかなかったからである。",
+    "e": "**not because A but because B**＝AだからではなくBだから。「悪天候で遅れなかった」と誤読しない。訳は「〜したのは、Aだからではなく…」と理由部分を後ろにまとめると自然。\nlater found to be faulty は**過去分詞の挿入**（＝which was later found...）。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 223,
+    "q": "You cannot read the history of medicine without being struck by how recent most of its major advances are.",
+    "a": "医学の歴史を読めば、その主要な進歩の大半がいかに最近のものであるかに必ず驚かされる。",
+    "e": "**cannot ~ without …ing**＝〜すれば必ず…する（**二重否定**は肯定に転じて訳す）。「…せずに〜することはできない」と直訳してから整える。\nbe struck by＝〜に心を打たれる。**how＋形容詞＋S＋V**＝いかに〜であるか（感嘆の名詞節）。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 224,
+    "q": "The vaccine saved millions of lives that would otherwise have been lost to the disease.",
+    "a": "そのワクチンは、それがなければその病気で失われていたであろう何百万もの命を救った。",
+    "e": "**otherwise に潜む仮定法**：otherwise＝if the vaccine had not saved them。if節がなくても would have been lost（仮定法過去完了）が「〜していたであろう」の含みを持つ。\nif節のない仮定法（otherwise / without / 主語や副詞句に潜む形）は難関大の狙い所。be lost to ~＝〜で失われる。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 225,
+    "q": "The crew should have noticed the warning earlier; the data suggest that the instruments cannot have been functioning properly.",
+    "a": "乗務員はもっと早くその警告に気づくべきだった。データが示すところでは、計器類が正常に作動していたはずがない。",
+    "e": "**助動詞＋have done** の訳し分け：**should have done**＝〜すべきだったのに（しなかった：過去への非難）、**cannot have done**＝〜したはずがない（過去への強い否定推量)。\n◎ must have done（〜したに違いない）、may have done（〜したかもしれない）もセットで整理。suggest＝示唆する。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 226,
+    "q": "The checklist is to a pilot what the scalpel is to a surgeon: simple, essential, and unforgiving of neglect.",
+    "a": "チェックリストとパイロットの関係は、メスと外科医の関係と同じである。すなわち、単純で、不可欠で、怠れば容赦がないのだ。",
+    "e": "**A is to B what C is to D**＝AのBに対する関係は、CのDに対する関係と同じ。what は「関係」を表す慣用。丸ごと公式として暗記する。\nコロン（:）以下は補足説明。unforgiving of ~＝〜に容赦がない。scalpel＝メス。",
+    "part": "Part 7",
+    "cat": "和訳・構文確認",
+    "type": "tr"
+  },
+  {
+    "id": 227,
+    "q": "At the heart of every modern cockpit sits a paradox. **For all the sophistication of its automated systems, the aircraft still depends, in the last resort, on a human being who must know when to distrust them.**",
+    "a": "その自動化システムがどれほど精巧であろうとも、航空機は結局のところ、いつそれを疑うべきかを分かっていなければならない一人の人間に、依然として依存しているのである。",
+    "e": "**For all ~**＝〜にもかかわらず（前置詞句の譲歩。despite より堅い）。in the last resort＝結局のところ（**挿入**）。**when to distrust**＝疑うべき時（疑問詞＋to不定詞）。them＝automated systems（指示語の訳出）。\n文脈文の At the heart ... **sits a paradox** は**場所句倒置**（場所の副詞句＋V＋S）。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 228,
+    "q": "Doctors were once the last people to question the value of a new therapy. **A physician trained a century ago would scarcely recognize today's medicine, in which no treatment, however promising, escapes the scrutiny of randomized trials.**",
+    "a": "一世紀前に教育を受けた医師であれば、今日の医学をほとんど見分けられないだろう。今日の医学においては、どれほど有望であろうとも、いかなる治療法も無作為化試験の精査を免れることはないのである。",
+    "e": "**主語に潜む仮定法**：A physician trained a century ago would ~＝「もし一世紀前の医師が見たならば」。if節なしで would が仮定の含みを持つ。\nscarcely＝ほとんど〜ない（準否定）。**, in which** 非制限用法。**however promising** は挿入の譲歩。文脈文の **the last people to question**＝最も疑いそうにない人々（the last ~ to do）。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 229,
+    "q": "When the banking crisis struck, governments reacted within days. **Such was the fear of contagion that ministers rescued institutions they had long criticized—not because they had come to admire the banks, but because the cost of letting them fail was judged to be far greater.**",
+    "a": "波及への恐怖はあまりに大きかったので、閣僚たちは長年批判してきた金融機関を救済した。それは、銀行を評価するようになったからではなく、破綻するに任せた場合の代償の方がはるかに大きいと判断されたからである。",
+    "e": "**Such was ~ that …**＝補語 Such が文頭に出た**倒置**（＝The fear was so great that ...「恐怖があまりに大きかったので」）。\n**not because A but because B** の複合。institutions (which) they had long criticized は**関係代名詞の省略**。letting them fail＝let O do（Oが〜するに任せる）の動名詞。contagion＝（危機の）伝染・波及。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 230,
+    "q": "Artificial intelligence is often described as a threat to human expertise. **Yet no radiologist who has worked with these systems comes away unimpressed; the machine is, as it were, a tireless second reader, one that is, if anything, more cautious than its human colleague.**",
+    "a": "しかし、これらのシステムを使った経験のある放射線科医で、感銘を受けずに終わる者は一人もいない。その機械は、いわば疲れを知らない第二の読影者であり、どちらかと言えば、人間の同僚よりも慎重ですらあるのだ。",
+    "e": "**no ~ comes away unimpressed**＝二重否定（誰もが必ず感銘を受ける）。**as it were**＝いわば（挿入の慣用句）。**if anything**＝どちらかと言えば・むしろ（挿入）。\n**one**＝a second reader を受ける代名詞（指示内容を訳出する）。radiologist＝放射線科医。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
   }
 ]
