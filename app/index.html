@@ -80,6 +80,9 @@ input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10p
 .etybox{background:#f3e8ff;border:1px solid #d8b4fe}
 @media (prefers-color-scheme:dark){.etybox{background:#2a1f3f;border-color:#584180}}
 .notebox{background:var(--card);border:1px dashed var(--mut)}
+.aifb{background:#e0f2fe;border:1px solid #7dd3fc}
+@media (prefers-color-scheme:dark){.aifb{background:#0c2a3a;border-color:#155e83}}
+select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:14px;padding:10px;margin:8px 0}
 .notebox .ghost,.idea .ghost{padding:6px 0 0;text-align:left;width:auto}
 </style>
 </head>
@@ -88,7 +91,7 @@ input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10p
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.4.0';
+var APP_V='2.5.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -256,6 +259,87 @@ function clearSyncCfg(){
   SYNC={tok:'',gist:''};saveSyncCfg();
   syncState={last:0,err:''};
   renderData();
+}
+
+/* ---------- Claude採点（Anthropic API・この端末のみにキー保存） ---------- */
+var AI_KEY='kdai_ai_v1';
+var AI={key:'',model:'claude-opus-4-8'};
+function loadAiCfg(){try{var r=lsGet(AI_KEY);if(r)AI=JSON.parse(r);}catch(e){}}
+function persistAiCfg(){lsSet(AI_KEY,JSON.stringify(AI));}
+function aiHeaders(key){
+  return {
+    'content-type':'application/json',
+    'x-api-key':key,
+    'anthropic-version':'2023-06-01',
+    'anthropic-dangerous-direct-browser-access':'true'
+  };
+}
+function aiSave(){
+  var k=(document.getElementById('aiKeyIn').value||'').trim();
+  var m=document.getElementById('aiModel').value;
+  if(!k&&!AI.key){toast('APIキーを貼り付けてください');return;}
+  var key=k||AI.key;
+  toast('キーを確認中…');
+  // count_tokens は無料エンドポイント。キーとモデルの有効性だけ検証する
+  fetch('https://api.anthropic.com/v1/messages/count_tokens',{
+    method:'POST',headers:aiHeaders(key),
+    body:JSON.stringify({model:m,messages:[{role:'user',content:'ping'}]})
+  }).then(function(r){
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    AI.key=key;AI.model=m;persistAiCfg();
+    toast('Claude採点を設定しました');
+    renderData();
+  }).catch(function(e){
+    toast('確認に失敗しました（'+e.message+'）。キーを確認してください');
+  });
+}
+function aiClear(){
+  if(!confirm('この端末のClaude採点設定（APIキー）を解除します。'))return;
+  AI={key:'',model:AI.model};persistAiCfg();
+  renderData();
+}
+function aiGrade(){
+  var x=session[idx];
+  var mine=(document.getElementById('trIn').value||'').trim();
+  var box=document.getElementById('aibox');
+  if(!mine){toast('先に自分の訳を入力してください');return;}
+  box.innerHTML='<div class="exp aifb"><div class="verd">🤖 Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
+  var excerpt=x.q.indexOf('**')>=0;
+  var sys='あなたは難関国立大学の英文和訳を指導する講師です。学生の和訳を添削します。\n'
+  +'- 1行目に「採点: n/10」と点数を示す\n'
+  +'- 誤訳・訳し漏れ・不自然な日本語を、箇条書きで具体的に指摘する\n'
+  +'- 最後に、指摘を反映したより良い訳を1つ示す\n'
+  +'- スマホで読むため、全体で300字程度に簡潔に。装飾は**太字**のみ使用可\n'
+  +(excerpt?'- 英文中の **〜** で囲まれた部分だけが和訳対象。前後の文は文脈であり、文脈に合った語義選択・指示語の訳出も評価する\n':'');
+  var prompt='次の英文和訳を添削してください。\n\n【英文】\n'+x.q+'\n\n【訳例】\n'+x.a+'\n\n【学生の訳】\n'+mine;
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:aiHeaders(AI.key),
+    body:JSON.stringify({
+      model:AI.model,
+      max_tokens:3000,
+      thinking:{type:'adaptive'},
+      system:sys,
+      messages:[{role:'user',content:prompt}]
+    })
+  }).then(function(r){
+    if(!r.ok){
+      return r.json().catch(function(){return null;}).then(function(j){
+        throw new Error((j&&j.error&&j.error.message)||('HTTP '+r.status));
+      });
+    }
+    return r.json();
+  }).then(function(res){
+    var txt='';
+    for(var i=0;i<res.content.length;i++){
+      if(res.content[i].type==='text')txt+=res.content[i].text;
+    }
+    if(!txt)throw new Error('応答が空でした');
+    box.innerHTML='<div class="exp aifb"><div class="verd">🤖 Claude添削</div><div>'+fmt(txt)+'</div></div>';
+  }).catch(function(e){
+    box.innerHTML='<div class="exp ngbox"><div class="verd">添削エラー</div>'
+    +'<div>'+esc(e.message)+'<br><span class="mut">通信環境と、データ管理のAPIキー設定・残高を確認してください。</span></div>'
+    +'<button class="ghost" onclick="aiGrade()">もう一度試す</button></div>';
+  });
 }
 function loadProgress(){
   return idbGet(DB_KEY).catch(function(){return null;}).then(function(v){
@@ -495,6 +579,7 @@ function revealTr(){
   +'<div class="secttl">自己採点（7点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
   +'</div>'
+  +'<div id="aibox">'+(AI.key?'<button class="primary alt sm" onclick="aiGrade()">🤖 Claudeに添削してもらう</button>':'')+'</div>'
   +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
   +trHistBlock(x.id)
@@ -675,9 +760,25 @@ function renderData(){
     +'<div class="mut" style="margin-top:6px">トークンはこの端末の中だけに保存され、エクスポートにも含まれません。共用端末では設定しないでください。</div>'
     +'</div>';
   }
+  var ai='<div class="card">'
+  +(AI.key
+    ?'✅ Claude採点は設定済みです。和訳の解説画面に「添削してもらう」ボタンが表示されます。'
+    :'APIキーを設定すると、和訳の解説画面でその場でClaudeの添削が受けられます（従量課金・1問あたり数円）。'
+     +'<div class="mut" style="margin:8px 0"><a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">→ Anthropic Console でAPIキーを作成</a></div>')
+  +'<input id="aiKeyIn" class="io ti" type="password" placeholder="'+(AI.key?'設定済み（変更する場合のみ貼り付け）':'sk-ant- で始まるAPIキーを貼り付け')+'" autocomplete="off">'
+  +'<select id="aiModel" class="io">'
+  +'<option value="claude-opus-4-8"'+(AI.model==='claude-opus-4-8'?' selected':'')+'>Claude Opus 4.8（採点品質を最優先・約3.4円/問）</option>'
+  +'<option value="claude-sonnet-5"'+(AI.model==='claude-sonnet-5'?' selected':'')+'>Claude Sonnet 5（コスパ重視・約1.4円/問）</option>'
+  +'</select>'
+  +'<button class="primary sm" onclick="aiSave()">'+(AI.key?'設定を更新':'Claude採点を有効にする')+'</button>'
+  +(AI.key?'<button class="ghost" onclick="aiClear()">この端末の設定を解除</button>':'')
+  +'<div class="mut" style="margin-top:6px">キーはこの端末の中だけに保存され、エクスポートにも含まれません。Console側で月額上限の設定を推奨します。</div>'
+  +'</div>';
   h('<div class="wrap">'
   +'<h1>データ管理</h1>'
   +'<div class="sub">端末間の同期と、バックアップの書き出し／取り込み</div>'
+  +'<h2>Claude採点（和訳のAI添削）</h2>'
+  +ai
   +'<h2>端末間の自動同期（無料）</h2>'
   +sync
   +'<h2>エクスポート</h2>'
@@ -744,6 +845,7 @@ function resetAll(){
 /* ---------- 起動 ---------- */
 function boot(){
   loadSyncCfg();
+  loadAiCfg();
   loadProgress().then(function(){
     return pullSync();                 // 他端末の進捗があれば取り込む（失敗しても続行）
   }).then(function(){
