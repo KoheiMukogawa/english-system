@@ -1,2 +1,7 @@
 *.Zone.Identifier
 node_modules/
+
+# 過去問など著作物はリポジトリに入れない
+*.pdf
+*Zone.Identifier*
+data/
