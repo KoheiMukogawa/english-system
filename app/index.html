@@ -639,11 +639,11 @@ function revealTr(){
   var mine=(document.getElementById('trIn').value||'').trim();
   var auto=!!(AI.key&&mine);   // キー設定済み＋訳入力済みなら自動でClaude採点
   var sb='';
-  for(var i=0;i<=10;i++)sb+='<button class="scorebtn'+(i>=7?' hi':'')+'" onclick="gradeTr('+i+')">'+i+'</button>';
+  for(var i=0;i<=10;i++)sb+='<button class="scorebtn'+(i>=8?' hi':'')+'" onclick="gradeTr('+i+')">'+i+'</button>';
   document.getElementById('fb').innerHTML=
    '<div id="aibox"></div>'
   +'<div id="grade"'+(auto?' style="display:none"':'')+'>'
-  +'<div class="secttl">自己採点（7点以上で◯・復習間隔に反映）</div>'
+  +'<div class="secttl">自己採点（8点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
   +'</div>'
   +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
@@ -678,7 +678,7 @@ function applyTrScore(score,feedback){
   if(trDone)return;
   trDone=true;
   var x=session[idx];
-  var ok=score>=7;
+  var ok=score>=8;
   if(ok)scoreC++;else missedIds.push(x.id);
   logTr(x.id,(document.getElementById('trIn').value||'').trim(),score,feedback);
   record(x.id,ok);
