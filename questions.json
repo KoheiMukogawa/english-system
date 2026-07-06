@@ -1601,11 +1601,11 @@
     "q": "The aircraft reached a cruising ( ) of 35,000 feet.",
     "a": "altitude",
     "d": [
-      "attitude",
-      "latitude",
-      "gratitude"
+      "velocity",
+      "ceiling",
+      "range"
     ],
-    "e": "cruising altitude＝巡航高度。★\n他：attitude（態度）／latitude（緯度）／gratitude（感謝）。-tude 4語。"
+    "e": "cruising **altitude**＝巡航高度。高度は altitude。\n✗ velocity（速度）は単位が合わない。ceiling は航空で「上昇限度・雲底」、range は「航続距離」— どれも数値表現と結べるが「35,000フィートで巡航する」のは altitude のみ。意味と用法で切る。"
   },
   {
     "id": 124,
@@ -1722,11 +1722,11 @@
     "q": "The ( ) conditions made for an extremely smooth flight.",
     "a": "placid",
     "d": [
-      "placard",
-      "plausible",
-      "plaintive"
+      "turbulent",
+      "adverse",
+      "erratic"
     ],
-    "e": "穏やかな（⇔ turbulent）。★\n他：placard（プラカード）／plausible（もっともらしい）／plaintive（もの悲しい）。"
+    "e": "**placid**＝穏やかな。「極めて滑らかな飛行をもたらした」ので「穏やかな気象状態」。\n✗ turbulent（荒れた）/ adverse（不利な）/ erratic（不安定な）はすべて「揺れる」方向で、smooth flight と矛盾する。意味の方向で判断する。"
   },
   {
     "id": 133,
@@ -1735,11 +1735,11 @@
     "q": "Heavy ( ) reduced visibility on the runway.",
     "a": "precipitation",
     "d": [
-      "participation",
-      "preservation",
-      "preparation"
+      "humidity",
+      "condensation",
+      "evaporation"
     ],
-    "e": "雨・雪の総称。★\n他：participation（参加）／preservation（保存）／preparation（準備）。",
+    "e": "heavy **precipitation**＝激しい降水。滑走路の視界を悪くするのは「降水（雨・雪）」。\n✗ humidity（湿度）は heavy と結びにくく視界の直接原因になりにくい。condensation（結露）/ evaporation（蒸発）も文意に合わない。",
     "ety": "**pre-**（前へ）＋ **cipit**（頭＝caput）。「頭から真っ逆さまに落ちる」→「空から落ちてくるもの」→「降水（雨・雪）」。動詞 precipitate は「急落させる・引き起こす」。"
   },
   {
@@ -1749,11 +1749,11 @@
     "q": "The pilot reviewed the ( ) forecast before departure.",
     "a": "meteorological",
     "d": [
-      "methodological",
-      "metropolitan",
-      "mathematical"
+      "astronomical",
+      "geographical",
+      "mechanical"
     ],
-    "e": "meteorology（気象学）の形容詞。★\n他：methodological（方法論の）／metropolitan（大都市の）／mathematical（数学の）。",
+    "e": "**meteorological** forecast＝気象予報。出発前に見るのは気象。\n✗ astronomical（天文の）/ geographical（地理の）/ mechanical（機械の）— 全て形容詞として文には収まるが、forecast と組んで意味が通るのは気象のみ。",
     "ety": "**meteor**（ギリシャ語で「空中に浮かぶもの」）＋ **-logy**（学問）。流星だけでなく雲や雨もすべて「空中のもの」だったので「気象学」になった。"
   },
   {
@@ -1966,11 +1966,11 @@
     "q": "The experiment was designed to test the ( ).",
     "a": "hypothesis",
     "d": [
-      "hypocrisy",
-      "hypothermia",
-      "hypotenuse"
+      "phenomenon",
+      "coincidence",
+      "assumption"
     ],
-    "e": "仮説（hypo-＝下＋thesis＝置く）。\n他：hypocrisy（偽善）／hypothermia（低体温症）／hypotenuse（斜辺）。",
+    "e": "test the **hypothesis**＝仮説を検証する（実験の定番コロケーション）。\n△ assumption（前提）は近いが、「実験で検証するために立てるもの」は hypothesis。phenomenon（現象）は検証対象でなく観察対象、coincidence（偶然）は文意に合わない。近い意味の中から最適語を選ぶ練習。",
     "ety": "**hypo-**（下に）＋ **thesis**（置くこと）。「議論の土台として下に置くもの」→「仮説」。反対の **hyper-** は「上・過剰」（hypertension 高血圧）。thesis（論文・主張）も同じ。"
   },
   {
@@ -2860,6 +2860,326 @@
     "q": "Artificial intelligence is often described as a threat to human expertise. **Yet no radiologist who has worked with these systems comes away unimpressed; the machine is, as it were, a tireless second reader, one that is, if anything, more cautious than its human colleague.**",
     "a": "しかし、これらのシステムを使った経験のある放射線科医で、感銘を受けずに終わる者は一人もいない。その機械は、いわば疲れを知らない第二の読影者であり、どちらかと言えば、人間の同僚よりも慎重ですらあるのだ。",
     "e": "**no ~ comes away unimpressed**＝二重否定（誰もが必ず感銘を受ける）。**as it were**＝いわば（挿入の慣用句）。**if anything**＝どちらかと言えば・むしろ（挿入）。\n**one**＝a second reader を受ける代名詞（指示内容を訳出する）。radiologist＝放射線科医。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 231,
+    "q": "Heavier fines are intended to ( ) airlines from cutting corners on maintenance.",
+    "a": "deter",
+    "d": [
+      "persuade",
+      "oblige",
+      "entitle"
+    ],
+    "e": "**deter** A from ~ing＝Aに〜を思いとどまらせる。罰金は「やめさせる」方向。\n✗ persuade（説得して〜させる：逆方向）/ oblige（義務づける）/ entitle（権利を与える）。from ~ing と組むのも deter。",
+    "ety": "**de-**（離れて）＋ **terrere**（怖がらせる）。「怖がらせて遠ざける」→「抑止する」。terror（恐怖）、terrible と同族。名詞 deterrence（抑止力）は時事頻出。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 232,
+    "q": "Poor communication only ( ) the confusion during the evacuation.",
+    "a": "exacerbated",
+    "d": [
+      "alleviated",
+      "anticipated",
+      "suppressed"
+    ],
+    "e": "**exacerbate**＝悪化させる。only とセットで「かえって混乱を悪化させた」。\n✗ alleviate（和らげる：正反対）/ anticipate（予期する）/ suppress（抑え込む）。悪化↔緩和の対で覚える。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 233,
+    "q": "The new procedures were introduced to ( ) congestion at security checkpoints.",
+    "a": "alleviate",
+    "d": [
+      "aggravate",
+      "tolerate",
+      "accumulate"
+    ],
+    "e": "**alleviate**＝（苦痛・混雑を）緩和する。導入目的なので「緩和」。\n✗ aggravate（悪化させる：逆）/ tolerate（我慢する）/ accumulate（蓄積する）。exacerbate＝aggravate も同義ペアで整理。",
+    "ety": "**al-（ad-）**（〜へ）＋ **lev**（軽い＝levis）。「軽くしてやる」→「緩和する」。elevate（持ち上げる）、lever（てこ）、relevant も lev 系。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 234,
+    "q": "Passenger numbers ( ) after the accident, forcing the airline to cut routes.",
+    "a": "plummeted",
+    "d": [
+      "soared",
+      "fluctuated",
+      "stabilized"
+    ],
+    "e": "**plummet**＝急落する。路線削減を強いられた→乗客数は「急落」。\n✗ soar（急上昇：逆）/ fluctuate（変動する）/ stabilize（安定する）。グラフ動詞は方向のイメージで一網打尽にする。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 235,
+    "q": "Investigators will ( ) the maintenance records for any sign of negligence.",
+    "a": "scrutinize",
+    "d": [
+      "overlook",
+      "compile",
+      "endorse"
+    ],
+    "e": "**scrutinize**＝精査する。for any sign of ~（〜の兆候を求めて）と相性が良いのは「細かく調べる」。\n✗ overlook（見落とす）/ compile（まとめる）/ endorse（承認する）。名詞 scrutiny（精査）は報道英語頻出。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 236,
+    "q": "The design was technically ( ) but far too expensive to build.",
+    "a": "feasible",
+    "d": [
+      "arbitrary",
+      "redundant",
+      "fragile"
+    ],
+    "e": "**feasible**＝実行可能な。「技術的には可能だが高すぎる」の対比。\n✗ arbitrary（恣意的な）/ redundant（余剰の）/ fragile（壊れやすい）。feasibility study（実現可能性調査）でも頻出。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 237,
+    "q": "Weather conditions ( ) rapidly, and the captain elected to divert.",
+    "a": "deteriorated",
+    "d": [
+      "recovered",
+      "persisted",
+      "matured"
+    ],
+    "e": "**deteriorate**＝悪化する（自動詞）。ダイバートの判断→天候は「悪化」。\n✗ recover（回復する：逆）/ persist（持続する）/ mature（成熟する）。get worse の堅い言い換えとして和訳でも重要。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 238,
+    "q": "The first officer was formally ( ) for skipping a checklist item.",
+    "a": "reprimanded",
+    "d": [
+      "commended",
+      "compensated",
+      "promoted"
+    ],
+    "e": "be **reprimanded** for ~＝〜のことで懲戒・叱責される。チェックリスト飛ばし→処分。\n✗ commend（賞賛する：逆）/ compensate（補償する）/ promote（昇進させる）。for 以下の内容から方向を判断する。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 239,
+    "q": "After reviewing the data, the manufacturer ( ) that the sensor design was flawed.",
+    "a": "conceded",
+    "d": [
+      "denied",
+      "speculated",
+      "boasted"
+    ],
+    "e": "**concede**＝（不利なことを）認める。データを見た後なので「渋々認めた」。\n✗ deny（否定する）/ speculate（推測する）/ boast（自慢する）。admit より「抵抗の末に認める」ニュアンス。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 240,
+    "q": "Many first-time flyers feel ( ) about turbulence.",
+    "a": "apprehensive",
+    "d": [
+      "indifferent",
+      "optimistic",
+      "oblivious"
+    ],
+    "e": "be **apprehensive** about ~＝〜を不安に思う。初めての搭乗者は乱気流が「不安」。\n✗ indifferent（無関心な）/ optimistic（楽観的な）/ oblivious（気づいていない）。",
+    "ety": "**ap-（ad-）**＋ **prehend**（つかむ）。「心をつかまれる」→「不安な」。apprehend（逮捕する）・comprehensive（包括的な）と同じ prehend 族。同じ語根でも品詞と文脈で意味が分かれる好例。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 241,
+    "q": "Pre-flight inspections must be ( ); even a small oversight can be costly.",
+    "a": "meticulous",
+    "d": [
+      "superficial",
+      "spontaneous",
+      "occasional"
+    ],
+    "e": "**meticulous**＝細心の・きわめて丁寧な。「小さな見落としも高くつく」から。\n✗ superficial（表面的な：逆）/ spontaneous（自発的な）/ occasional（時折の）。thorough の上位語として覚える。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 242,
+    "q": "The aircraft has ( ) hydraulic systems, so a single failure will not disable the controls.",
+    "a": "redundant",
+    "d": [
+      "obsolete",
+      "defective",
+      "temporary"
+    ],
+    "e": "**redundant**＝予備の・冗長化された（工学では良い意味）。1系統壊れても大丈夫＝多重化。\n✗ obsolete（旧式の）/ defective（欠陥のある）/ temporary（一時的な）。一般文脈では「余剰の・冗長な」、英国では「解雇された」の意味もある多義語。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 243,
+    "q": "Rising fuel costs forced the airline to ( ) several unprofitable services.",
+    "a": "curtail",
+    "d": [
+      "expand",
+      "sustain",
+      "resume"
+    ],
+    "e": "**curtail**＝削減する・切り詰める。燃料高→不採算路線を「縮小」。\n✗ expand（拡大）/ sustain（維持）/ resume（再開）。cut back の堅い言い換え。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 244,
+    "q": "Police moved in to ( ) the crowd that had gathered near the runway.",
+    "a": "disperse",
+    "d": [
+      "assemble",
+      "escort",
+      "restrain"
+    ],
+    "e": "**disperse**＝（群衆を）解散させる・追い散らす。\n✗ assemble（集める：逆）/ escort（護送する）/ restrain（拘束する）。dis-（バラバラに）のイメージ。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 245,
+    "q": "The safety board declined to ( ) the proposal without further testing.",
+    "a": "endorse",
+    "d": [
+      "dismiss",
+      "draft",
+      "oppose"
+    ],
+    "e": "**endorse**＝承認する・支持する。「追加試験なしには承認しかねる」。\n✗ dismiss（退ける）/ draft（起草する）/ oppose（反対する）— declined to dismiss/oppose だと二重否定で文意が崩れる。動詞の方向×否定の組み合わせに注意。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 246,
+    "q": "The senior captain never used his rank to ( ) junior crew members.",
+    "a": "intimidate",
+    "d": [
+      "motivate",
+      "captivate",
+      "interrogate"
+    ],
+    "e": "**intimidate**＝威圧する・脅す。「階級を使って後輩を威圧しない」。\n✗ motivate（やる気にさせる）/ captivate（魅了する）/ interrogate（尋問する）。本番終盤で実際に出た形の選択肢セット。-ate 語は意味で切る。",
+    "ety": "**in-**（中へ）＋ **timid**（臆病な＝timidus）。「臆病にさせる」→「威圧する」。timid（気の弱い）とセットで覚えると忘れない。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 247,
+    "q": "The airline was accused of trying to ( ) responsibility for the delay.",
+    "a": "evade",
+    "d": [
+      "assume",
+      "fulfill",
+      "acknowledge"
+    ],
+    "e": "**evade** responsibility＝責任を回避する。accused of（〜と非難された）から否定的方向。\n✗ assume responsibility（責任を負う）/ fulfill（果たす）/ acknowledge（認める）はすべて「引き受ける」方向。evade は tax evasion（脱税）でも頻出。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 248,
+    "q": "No employee should be ( ) into working beyond legal duty-time limits.",
+    "a": "coerced",
+    "d": [
+      "entitled",
+      "appointed",
+      "dedicated"
+    ],
+    "e": "be **coerced** into ~ing＝〜するよう強要される。into ~ing と結ぶのも coerce の型。\n✗ entitle（資格を与える）/ appoint（任命する）/ dedicate（捧げる）。force の堅い言い換え。名詞 coercion（強制）。",
+    "ety": "**co-**（共に）＋ **arcere**（閉じ込める）。「囲い込んで無理にさせる」→「強要する」。exercise（外に閉じ込めから解き放つ→運動）も同じ arcere 系。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 249,
+    "q": "The lawsuit ( ) that the airline ignored repeated warnings, though no evidence has yet been made public.",
+    "a": "alleges",
+    "d": [
+      "proves",
+      "concludes",
+      "guarantees"
+    ],
+    "e": "**allege**＝（証拠を示さずに）主張する・申し立てる。「証拠はまだ公開されていない」が決め手。\n✗ prove（証明する）/ conclude（結論づける）/ guarantee（保証する）は証拠の存在を前提にする。報道の alleged（〜したとされる）は超頻出。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 250,
+    "q": "The doctor noted that the patient's pupils were abnormally ( ).",
+    "a": "dilated",
+    "d": [
+      "inflated",
+      "swollen",
+      "expanded"
+    ],
+    "e": "**dilated**＝（瞳孔・血管が）拡張した。pupils（瞳孔）と組むのは dilate 一択のコロケーション。\n✗ inflate（空気・物価が膨らむ）/ swollen（腫れた）/ expand（面積・事業が拡大する）— 「広がる」系は対象で使い分ける。本番終盤で出た実例級の語。",
+    "ety": "**di-（dis-）**（広く）＋ **lat**（広い＝latus）。「広くする」→「拡張する」。latitude（緯度＝横に広がる線）と同族。",
+    "part": "Part 6",
+    "cat": "🎯 意味識別・難語"
+  },
+  {
+    "id": 251,
+    "q": "In Japan, the seasonal exchange of greeting cards has long served purposes beyond mere courtesy. Yet the custom is fading, especially among the young. **What we lose when a handwritten letter gives way to an instant message is not information, which now travels faster than ever, but the sense that another person has set aside time—scarce, unrecoverable time—for us alone.**",
+    "a": "手書きの手紙が即時のメッセージに取って代わられるときに私たちが失うのは、情報ではなく—情報は今やかつてないほど速く伝わる—、もう一人の人間が、乏しく、取り戻すことのできない時間を、私たちだけのために割いてくれたのだという感覚なのである。",
+    "e": "**What ~ is not A but B** が骨格（失うのはAではなくB）。**give way to ~**＝〜に取って代わられる。**, which** は information の補足（訳では挿入的に処理）。**the sense that ~** は同格。ダッシュの **scarce, unrecoverable time** は time の言い換え挿入。\n約50語の一気訳。骨格を先に取り、挿入を後から流し込む。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 252,
+    "q": "Efforts to shorten working hours have a long history in Japan, and the government has repeatedly urged firms to let employees go home earlier. **It is one thing to leave the office early; it is quite another to feel entitled to do so, for habits of deference that have taken decades to form do not dissolve merely because a ministry issues a guideline.**",
+    "a": "早く退社することと、そうする権利があると感じられることとは全く別の問題である。というのも、数十年をかけて形成された遠慮の習慣は、省庁が指針を出したからといって消えるものではないからだ。",
+    "e": "**It is one thing to A; it is (quite) another to B**＝AとBは全く別のこと（定番構文）。**feel entitled to do**＝〜する権利があると感じる。**for**＝というのも〜だから（理由の接続詞）。\nhabits of deference **that have taken decades to form**（関係詞+完了）、**not ~ merely because …**＝「…だからといって〜ない」（否定の射程に注意）。deference＝遠慮・敬譲。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 253,
+    "q": "Historians have long debated why some inventions spread while others vanish without a trace. The printing press is a case in point. **It succeeded not so much because the device itself was ingenious as because it appeared at a moment when cities, universities, and a rising merchant class were hungry for the written word.**",
+    "a": "印刷機が成功したのは、装置そのものが精巧だったからというよりも、都市と大学と勃興しつつあった商人階級が書かれた言葉を渇望していた、まさにその時期に登場したからである。",
+    "e": "**not so much because A as because B**＝AだからというよりむしろBだから（not so much A as B の理由節版）。**a moment when ~**＝関係副詞。**a rising merchant class**＝勃興しつつあった商人階級（現在分詞の限定用法）。\nbe hungry for ~＝〜を渇望する（比喩）。a case in point＝好例（リード文の慣用句）。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 254,
+    "q": "Climate policy is often framed as a sacrifice that the present makes for the future. **Seen in a longer perspective, however, the question is less whether we can afford to act than whether the notion of affording—borrowed as it is from household budgeting—makes any sense when applied to the only planet we have.**",
+    "a": "しかし、より長い視野で見るならば、問題は、私たちに行動する余裕があるかどうかというよりも、そもそも「余裕」という考え方—それは家計のやりくりから借りてきたものなのだが—が、私たちの持つ唯一の惑星に当てはめたときに、いったい意味をなすのかどうかということなのである。",
+    "e": "**Seen in ~**＝過去分詞の分詞構文（〜の視点で見れば）。**less A than B**＝AというよりB。**borrowed as it is from ~**＝挿入（as it is は「実際そうなのだが」の強め）。**when applied to ~**＝接続詞+過去分詞（=when it is applied）。\nafford（余裕がある）→ the notion of affording と名詞化される流れを掴む。約50語・挿入3連の最難級。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 255,
+    "q": "Surveys show that people read fewer books each year, and commentators are quick to blame the smartphone. **The deeper change, it may be argued, is not that we lack the time to read but that constant connection has made us reluctant to be alone with our own thoughts, of which sustained reading is the most demanding form.**",
+    "a": "しかし、より深い変化は—こう論じることもできようが—、読む時間がないことではなく、絶え間ないつながりのせいで、自分自身の思考とともに独りでいることに気が進まなくなったことなのである。持続的な読書とは、まさにその独りでいることの最も骨の折れる形式なのだ。",
+    "e": "**it may be argued**＝挿入（〜と論じることもできよう）。**not that A but that B**＝AではなくBだ（that節の対比）。**make O C**（us reluctant）＝無生物主語。\n**, of which ~**＝非制限の前置詞+関係代名詞（先行詞は being alone with our own thoughts）。長い関係詞は「。」で切って訳し下ろすと自然。",
+    "part": "Part 7",
+    "cat": "和訳・実戦",
+    "type": "tr"
+  },
+  {
+    "id": 256,
+    "q": "Every spring, millions of people gather under the cherry blossoms, and every spring the crowds are dismissed as a nuisance. **That so many still pause, year after year, before something so brief and so useless is perhaps the most eloquent answer our age can give to the charge that it values only what can be measured.**",
+    "a": "これほど多くの人が、毎年毎年、これほど短命で無用なもののまえで今なお足を止めるという事実こそ、「現代は測定できるものしか重んじない」という非難に対して、この時代が示しうる最も雄弁な答えなのかもしれない。",
+    "e": "**That節が主語**（That so many still pause ... is ...）— 文頭の That を「〜ということ」と取れるかが勝負。**year after year** は挿入。**the charge that ~**＝同格（〜という非難）。\nanswer (which) our age can give＝関係詞省略。**what can be measured**＝関係代名詞 what。so brief and so useless＝桜の暗喩を訳に残す。",
     "part": "Part 7",
     "cat": "和訳・実戦",
     "type": "tr"
