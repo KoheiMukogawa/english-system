@@ -102,7 +102,7 @@ select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.10.0';
+var APP_V='2.11.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -639,6 +639,11 @@ function renderTr(x){
   +'<div id="fb"></div>'
   +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
   +'</div>');
+  // PC（マウス操作の端末）では最初から入力ボックスにカーソルを置く。
+  // タッチ端末では自動でキーボードが出て英文が隠れるのを避けるため、あえてフォーカスしない。
+  if(window.matchMedia&&window.matchMedia('(pointer:fine)').matches){
+    var ti=document.getElementById('trIn');if(ti)ti.focus();
+  }
 }
 function copyTr(){
   var x=session[idx];
@@ -1014,6 +1019,19 @@ function boot(){
     +'<button class="primary" onclick="location.reload()">再読み込み</button></div>');
   });
 }
+// Ctrl+Enter（Macは⌘+Enter）で、いま押すべきボタンを状況に応じて実行する。
+// 和訳の入力中に何度Enterしても改行できるよう、修飾キー付きのときだけ反応させる。
+document.addEventListener('keydown',function(ev){
+  if(ev.key!=='Enter'||!(ev.ctrlKey||ev.metaKey))return;
+  if(!session||!session.length)return;
+  var x=session[idx];if(!x)return;
+  if(x.type==='tr'){
+    if(!answered){ev.preventDefault();revealTr();}          // 入力中 → 訳例と解説を見る（採点開始）
+    else if(trDone){ev.preventDefault();next();}            // 採点済み → 次へ
+  }else{
+    if(answered){ev.preventDefault();next();}               // 4択：回答後 → 次へ
+  }
+});
 // 旧バージョンのService Workerが残っていたら解除しておく
 if('serviceWorker' in navigator){
   navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});
