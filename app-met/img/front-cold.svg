@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="320" height="60" role="img" aria-label="前線記号">
+  <line x1="10" y1="42" x2="310" y2="42" stroke="#2563eb" stroke-width="3"/>
+  <polygon points="45,42 63,42 54,26" fill="#2563eb"/>
+  <polygon points="120,42 138,42 129,26" fill="#2563eb"/>
+  <polygon points="195,42 213,42 204,26" fill="#2563eb"/>
+  <polygon points="270,42 288,42 279,26" fill="#2563eb"/>
+</svg>

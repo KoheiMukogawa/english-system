@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="320" height="60" role="img" aria-label="前線記号">
+  <line x1="10" y1="42" x2="310" y2="42" stroke="#dc2626" stroke-width="3"/>
+  <path d="M45,42 a9,9 0 0 1 18,0" fill="#dc2626"/>
+  <path d="M120,42 a9,9 0 0 1 18,0" fill="#dc2626"/>
+  <path d="M195,42 a9,9 0 0 1 18,0" fill="#dc2626"/>
+  <path d="M270,42 a9,9 0 0 1 18,0" fill="#dc2626"/>
+</svg>
