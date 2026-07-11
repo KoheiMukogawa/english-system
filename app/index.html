@@ -79,6 +79,7 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .catbar{display:block;height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
 .catbar .fill{display:block;height:100%}
 .acc-low{color:#dc2626;font-weight:700}.acc-mid{color:#ea580c;font-weight:700}.acc-high{color:#16a34a;font-weight:700}
+.trscores{display:inline-flex;gap:8px;flex:none;white-space:nowrap}.trscores>span{font-size:15px}
 .qcard.tr{font-weight:400;font-size:16px;padding:14px}
 .qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
 textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
@@ -102,7 +103,7 @@ select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='2.11.0';
+var APP_V='2.12.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -769,6 +770,10 @@ function trExcerpt(x){
   var t=(m?m[1]:x.q).replace(/\*\*/g,'');
   return t.length>52?t.slice(0,52)+'…':t;
 }
+function trHeading(x){                      // 解説 e の先頭 **構文名** を見出しに使う
+  var m=(x.e||'').match(/^\s*\*\*(.+?)\*\*/);
+  return m?m[1].trim():'';
+}
 function renderTrList(){
   var groups=[['和訳・構文確認','レベル1：構文確認'],['和訳・実戦','レベル2：実戦・記事抜粋']];
   var b='';
@@ -779,21 +784,32 @@ function renderTrList(){
       var x=AD[i];
       if(x.cat!==groups[g][0])continue;
       var log=TRLOG[x.id];
-      var badge;
-      if(log&&log.length){
-        var sc=log[log.length-1].sc;
-        badge='<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'点</span>';
+      var attempted=log&&log.length;
+      var right;                            // 右側：全点数の履歴 or 未挑戦
+      if(attempted){
+        right='<span class="trscores">'+log.map(function(r){
+          var sc=r.sc;
+          return '<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'</span>';
+        }).join('')+'</span>';
       }else{
-        badge='<span class="mut">未挑戦</span>';
+        right='<span class="mut">未挑戦</span>';
+      }
+      var head=attempted?trHeading(x):'';    // 見出しは挑戦済みだけ（ネタバレ防止）
+      var main,sub='';
+      if(head){
+        main='<span style="font-weight:700">'+esc(head)+'</span>';
+        sub='<div class="mut" style="margin-top:3px">'+esc(trExcerpt(x))+'</div>';
+      }else{
+        main='<span style="font-weight:400">'+esc(trExcerpt(x))+'</span>';
       }
       b+='<button class="opt" onclick="startOne('+x.id+')">'
-      +'<span class="cathead"><span style="font-weight:400">'+esc(trExcerpt(x))+'</span>'+badge+'</span>'
+      +'<span class="cathead">'+main+right+'</span>'+sub
       +'</button>';
     }
   }
   h('<div class="wrap">'
   +'<h1>和訳の問題一覧</h1>'
-  +'<div class="sub">タップするとその1問だけ演習できます。点数は直近の採点結果です</div>'
+  +'<div class="sub">タップするとその1問だけ演習できます。点数は過去の採点履歴（古い→新しい順）。見出しは一度解いた問題だけ表示します</div>'
   +b
   +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
   +'</div>');
