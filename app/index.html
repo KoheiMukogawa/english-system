@@ -774,49 +774,59 @@ function trHeading(x){                      // 解説 e の先頭 **構文名** 
   var m=(x.e||'').match(/^\s*\*\*(.+?)\*\*/);
   return m?m[1].trim():'';
 }
+var TRGROUPS=[['和訳・構文確認','レベル1：構文確認'],['和訳・実戦','レベル2：実戦・記事抜粋']];
+function trOrderedList(){                    // 問題一覧と同じ並び順で和訳問題を一列に返す
+  var AD=activeData(),out=[];
+  for(var g=0;g<TRGROUPS.length;g++){
+    for(var i=0;i<AD.length;i++)if(AD[i].cat===TRGROUPS[g][0])out.push(AD[i]);
+  }
+  return out;
+}
 function renderTrList(){
-  var groups=[['和訳・構文確認','レベル1：構文確認'],['和訳・実戦','レベル2：実戦・記事抜粋']];
-  var b='';
-  var AD=activeData();
-  for(var g=0;g<groups.length;g++){
-    b+='<div class="secttl">'+groups[g][1]+'</div>';
-    for(var i=0;i<AD.length;i++){
-      var x=AD[i];
-      if(x.cat!==groups[g][0])continue;
-      var log=TRLOG[x.id];
-      var attempted=log&&log.length;
-      var right;                            // 右側：全点数の履歴 or 未挑戦
-      if(attempted){
-        right='<span class="trscores">'+log.map(function(r){
-          var sc=r.sc;
-          return '<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'</span>';
-        }).join('')+'</span>';
-      }else{
-        right='<span class="mut">未挑戦</span>';
-      }
-      var head=attempted?trHeading(x):'';    // 見出しは挑戦済みだけ（ネタバレ防止）
-      var main,sub='';
-      if(head){
-        main='<span style="font-weight:700">'+esc(head)+'</span>';
-        sub='<div class="mut" style="margin-top:3px">'+esc(trExcerpt(x))+'</div>';
-      }else{
-        main='<span style="font-weight:400">'+esc(trExcerpt(x))+'</span>';
-      }
-      b+='<button class="opt" onclick="startOne('+x.id+')">'
-      +'<span class="cathead">'+main+right+'</span>'+sub
-      +'</button>';
+  var list=trOrderedList();
+  var b='',curCat='';
+  for(var i=0;i<list.length;i++){
+    var x=list[i];
+    if(x.cat!==curCat){                      // カテゴリが変わったら見出しを挿入
+      curCat=x.cat;
+      for(var g=0;g<TRGROUPS.length;g++)if(TRGROUPS[g][0]===curCat)b+='<div class="secttl">'+TRGROUPS[g][1]+'</div>';
     }
+    var log=TRLOG[x.id];
+    var attempted=log&&log.length;
+    var right;                              // 右側：全点数の履歴 or 未挑戦
+    if(attempted){
+      right='<span class="trscores">'+log.map(function(r){
+        var sc=r.sc;
+        return '<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'</span>';
+      }).join('')+'</span>';
+    }else{
+      right='<span class="mut">未挑戦</span>';
+    }
+    var head=attempted?trHeading(x):'';      // 見出しは挑戦済みだけ（ネタバレ防止）
+    var main,sub='';
+    if(head){
+      main='<span style="font-weight:700">'+esc(head)+'</span>';
+      sub='<div class="mut" style="margin-top:3px">'+esc(trExcerpt(x))+'</div>';
+    }else{
+      main='<span style="font-weight:400">'+esc(trExcerpt(x))+'</span>';
+    }
+    b+='<button class="opt" onclick="startOne('+x.id+')">'
+    +'<span class="cathead">'+main+right+'</span>'+sub
+    +'</button>';
   }
   h('<div class="wrap">'
   +'<h1>和訳の問題一覧</h1>'
-  +'<div class="sub">タップするとその1問だけ演習できます。点数は過去の採点履歴（古い→新しい順）。見出しは一度解いた問題だけ表示します</div>'
+  +'<div class="sub">タップした問題から一覧の並び順で続けて演習できます。点数は過去の採点履歴（古い→新しい順）。見出しは一度解いた問題だけ表示します</div>'
   +b
   +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
   +'</div>');
 }
-function startOne(id){
-  session=activeData().filter(function(x){return x.id===id;});
-  if(!session.length){renderMenu();return;}
+function startOne(id){                       // タップした問題から一覧の並び順で以降すべてを演習
+  var list=trOrderedList();
+  var pos=-1;
+  for(var i=0;i<list.length;i++)if(list[i].id===id){pos=i;break;}
+  if(pos<0){renderMenu();return;}
+  session=list.slice(pos);
   idx=0;scoreC=0;missedIds=[];
   renderQ();
 }
