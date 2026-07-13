@@ -1,0 +1,5 @@
+[
+  { "id": 1, "part": "2024-B", "cat": "和訳・実戦", "type": "tr", "q": "This simple act of enlarging the scale transforms a counterintuitive puzzle into a nearly obvious one.", "a": "規模を拡大するというこの単純な行為が、直感に反するパズルをほとんど自明なものへと変える。", "e": "transform A into B＝AをBに変える。" },
+  { "id": 2, "part": "2024-C", "cat": "和文英訳", "type": "en", "q": "2000年以降、室内空気汚染の関連死者数は、世界全体で36%減少している。", "a": "Since 2000, the number of deaths associated with indoor air pollution has fallen by 36% worldwide.", "e": "『〜以降ずっと減少』は現在完了。deaths associated with 〜。" },
+  { "id": 3, "part": "2022-C", "cat": "論述・エネルギー", "type": "essay", "q": "2050年カーボンニュートラル実現に向けて、電力部門に求められる取組を、2030年までと2030年以降に分けて600字程度で論じなさい。", "kw": ["再生可能エネルギー", "原子力", "系統", "調整力"], "limit": 600, "a": "【骨子】2030年まで: 再エネ主力化と系統整備、既設原子力の再稼働で脱炭素の土台を作る。2030年以降: 次世代技術（水素・革新炉・CCUS）と調整力確保で完全脱炭素へ。", "e": "評価観点: ①時期の切り分け ②電源構成の具体 ③系統・調整力への言及 ④実現性。" }
+]

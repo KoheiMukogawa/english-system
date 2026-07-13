@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="航大英語">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<title>京大院試ドリル</title>
+<style>
+:root{--bg:#eef1f6;--card:#fff;--ink:#1a2230;--mut:#6b7280;--acc:#2563eb;--line:#e2e6ee;}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1520;--card:#18212f;--ink:#e7ebf1;--mut:#94a0b3;--acc:#3b82f6;--line:#28313f;}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6;-webkit-text-size-adjust:100%;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.wrap{max-width:620px;margin:0 auto;padding:20px 16px 70px}
+h1{font-size:22px;margin:6px 0 2px}
+h2{font-size:17px;margin:18px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.ministats{display:flex;gap:14px;font-size:11px;color:var(--mut);margin:0 2px 8px}
+.ministats b{color:var(--ink);font-size:14px;margin-right:2px;font-weight:700}
+.ministats .ms-red{color:#dc2626}.ministats .ms-green{color:#16a34a}
+.row2{display:flex;gap:8px}
+.row2>.primary,.row2>.reset{flex:1;min-width:0}
+details.fold{margin:8px 0}
+details.fold summary{list-style:none;cursor:pointer;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font-size:14px;color:var(--mut);-webkit-tap-highlight-color:transparent}
+details.fold summary::-webkit-details-marker{display:none}
+details.fold summary::before{content:'▸ '}
+details.fold[open] summary::before{content:'▾ '}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 10px;font-size:12px;color:var(--mut);flex:1;min-width:66px;text-align:center}
+.pill b{display:block;font-size:20px;color:var(--ink);line-height:1.2}
+.pill.red b{color:#dc2626}.pill.blue b{color:var(--acc)}.pill.green b{color:#16a34a}.pill.orange b{color:#ea580c}
+.primary{display:block;width:100%;border:none;border-radius:14px;background:var(--acc);color:#fff;padding:15px;font-size:16px;font-weight:700;margin:10px 0;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.primary small{display:block;font-weight:400;font-size:12px;opacity:.92;margin-top:3px}
+.primary.big{padding:18px}
+.primary.alt{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.primary.alt small{opacity:.7}
+.secttl{margin:20px 0 6px;font-size:13px;color:var(--mut);font-weight:700}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;font-size:16px;color:var(--ink);margin:8px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.opt .mut{color:var(--mut);font-size:12px}
+.opt.ans{font-weight:600}
+.opt.done{opacity:.5}
+.opt.correct{background:#dcfce7;border-color:#16a34a;color:#14532d;opacity:1}
+.opt.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d;opacity:1}
+@media (prefers-color-scheme:dark){.opt.correct{background:#0f2e1c;border-color:#1f7a44;color:#86efac}.opt.wrong{background:#3a1414;border-color:#a83232;color:#fca5a5}}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:2px 0 14px}
+.fill{height:100%;background:var(--acc);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
+.chip{background:var(--acc);color:#fff;font-size:11px;padding:3px 9px;border-radius:99px;font-weight:700;white-space:nowrap}
+.mut{color:var(--mut);font-size:12px}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:18px;font-weight:600;margin-bottom:10px}
+.exp{border-radius:12px;padding:14px;margin:10px 0;font-size:14px}
+.okbox{background:#dcfce7;border:1px solid #86efac}
+.ngbox{background:#fef3c7;border:1px solid #fcd34d}
+@media (prefers-color-scheme:dark){.okbox{background:#0f2e1c;border-color:#1f5133}.ngbox{background:#3a2f10;border-color:#6b5417}}
+.verd{font-weight:700;margin-bottom:6px}
+.ghost{display:block;width:100%;background:none;border:none;color:var(--mut);padding:12px;font-size:14px;margin-top:6px;cursor:pointer}
+.reset{display:block;width:100%;background:none;border:1px solid var(--line);color:var(--mut);border-radius:12px;padding:12px;font-size:13px;margin-top:24px;cursor:pointer}
+.reset.danger{border-color:#dc2626;color:#dc2626}
+.foot{color:var(--mut);font-size:11px;text-align:center;margin-top:14px;line-height:1.7}
+.warn{background:#fef3c7;border:1px solid #fcd34d;color:#7c5b12;border-radius:12px;padding:10px 12px;font-size:12px;margin:10px 0}
+@media (prefers-color-scheme:dark){.warn{background:#3a2f10;border-color:#6b5417;color:#fcd34d}}
+.result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin:14px 0}
+.big2{font-size:42px;font-weight:800;line-height:1.1}
+.done{color:var(--mut);text-align:center;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0;font-size:14px}
+textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:11px;padding:8px;font-family:ui-monospace,monospace;resize:vertical}
+.filelbl{display:block;width:100%;text-align:center;border:1.5px dashed var(--line);border-radius:12px;padding:14px;font-size:14px;color:var(--mut);cursor:pointer;margin:8px 0}
+.filelbl input{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:9;white-space:nowrap}
+.toast.show{opacity:.95}
+.loading{text-align:center;color:var(--mut);padding:80px 20px;font-size:14px}
+.cathead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.catbar{display:block;height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+.catbar .fill{display:block;height:100%}
+.acc-low{color:#dc2626;font-weight:700}.acc-mid{color:#ea580c;font-weight:700}.acc-high{color:#16a34a;font-weight:700}
+.trscores{display:inline-flex;gap:8px;flex:none;white-space:nowrap}.trscores>span{font-size:15px}
+.qcard.tr{font-weight:400;font-size:16px;padding:14px}
+.qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
+textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
+input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:13px;padding:10px;font-family:ui-monospace,monospace;margin:8px 0}
+.primary.sm{padding:10px;font-size:13px;font-weight:600;margin:6px 0}
+.scorerow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.scorebtn{flex:1;min-width:42px;padding:11px 0;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.scorebtn.hi{border-color:var(--acc);color:var(--acc)}
+.etybox{background:#f3e8ff;border:1px solid #d8b4fe}
+@media (prefers-color-scheme:dark){.etybox{background:#2a1f3f;border-color:#584180}}
+.notebox{background:var(--card);border:1px dashed var(--mut)}
+.aifb{background:#fdf1ec;border:1px solid #eec5b3}
+@media (prefers-color-scheme:dark){.aifb{background:#33201a;border-color:#6b4434}}
+.clawd{display:inline-block;vertical-align:-1px;margin-right:6px}
+select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:14px;padding:10px;margin:8px 0}
+.notebox .ghost,.idea .ghost{padding:6px 0 0;text-align:left;width:auto}
+</style>
+</head>
+<body>
+<div id="app"><div class="loading">読み込み中…</div></div>
+<div id="toast" class="toast"></div>
+<script>
+'use strict';
+var APP_V='1.0.0';
+var DAY=86400000;
+var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
+var MASTER_BOX=3;                    // box3以上＝マスター扱い
+var DATA=[];
+var STATS={};                        // id → {s,c,w,st,last,box,due}
+var META={streak:0,lastDay:'',best:0};
+var NOTES={};                        // id → 自分メモ
+var IDEAS=[];                        // 追加したい問題のメモ [{t,d}]
+var TRLOG={};                        // id → [{d,sc,t,f}] 和訳の過去回答（直近5回）
+var HIDE={};                         // id → 1 卒業（出題対象から除外）
+
+/* ---------- 永続化：IndexedDB（localStorageにも二重保存） ---------- */
+var DB_KEY='kdai_kyoto_v1';
+var LEGACY_KEY='kdai_stats_v1';
+var dbp=null;
+function openDB(){
+  if(dbp)return dbp;
+  dbp=new Promise(function(res,rej){
+    if(!window.indexedDB){rej(new Error('no idb'));return;}
+    var r=indexedDB.open('kdai',1);
+    r.onupgradeneeded=function(){r.result.createObjectStore('kv');};
+    r.onsuccess=function(){res(r.result);};
+    r.onerror=function(){rej(r.error);};
+  });
+  return dbp;
+}
+function idbGet(k){
+  return openDB().then(function(db){
+    return new Promise(function(res,rej){
+      var q=db.transaction('kv','readonly').objectStore('kv').get(k);
+      q.onsuccess=function(){res(q.result);};
+      q.onerror=function(){rej(q.error);};
+    });
+  });
+}
+function idbSet(k,v){
+  return openDB().then(function(db){
+    return new Promise(function(res,rej){
+      var t=db.transaction('kv','readwrite');
+      t.objectStore('kv').put(v,k);
+      t.oncomplete=function(){res();};
+      t.onerror=function(){rej(t.error);};
+    });
+  });
+}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function snapshot(){return {v:2,app:APP_V,exported:new Date().toISOString(),stats:STATS,meta:META,notes:NOTES,ideas:IDEAS,trlog:TRLOG,hide:HIDE};}
+function save(){
+  var json=JSON.stringify(snapshot());
+  lsSet(DB_KEY,json);                       // 同期の安全網
+  idbGet && idbSet(DB_KEY,json).catch(function(){});
+  schedulePush();                           // Gist設定済みなら自動アップロード
+}
+function migrateLegacy(){
+  // 旧プロトタイプ（localStorage kdai_stats_v1）からの移行
+  var raw=lsGet(LEGACY_KEY);
+  if(!raw)return false;
+  try{
+    var old=JSON.parse(raw);var now=Date.now();
+    Object.keys(old).forEach(function(id){
+      var s=old[id];
+      var box=(s.st>=2)?2:(s.s>0?1:0);
+      if(s.w>0&&s.st<2)box=0;
+      STATS[id]={s:s.s||0,c:s.c||0,w:s.w||0,st:s.st||0,last:s.last||'',box:box,due:now};
+    });
+    return true;
+  }catch(e){return false;}
+}
+function applySnapshot(obj){
+  if(!obj||obj.v!==2||typeof obj.stats!=='object')throw new Error('bad format');
+  STATS=obj.stats||{};
+  META=obj.meta||{streak:0,lastDay:'',best:0};
+  NOTES=obj.notes||{};
+  IDEAS=obj.ideas||[];
+  TRLOG=obj.trlog||{};
+  HIDE=obj.hide||{};
+}
+
+/* ---------- 端末間同期（GitHub Gist・無料） ---------- */
+var SYNC_KEY='kdai_kyoto_sync_v1';         // {tok,gist} この端末のみ・エクスポートには含めない
+var GIST_FILE='kdai-kyoto-progress.json';
+var SYNC={tok:'',gist:''};
+var syncState={last:0,err:''};
+function loadSyncCfg(){try{var r=lsGet(SYNC_KEY);if(r)SYNC=JSON.parse(r);}catch(e){}}
+function saveSyncCfg(){lsSet(SYNC_KEY,JSON.stringify(SYNC));}
+function gh(method,path,body){
+  return fetch('https://api.github.com'+path,{
+    method:method,
+    headers:{'Authorization':'Bearer '+SYNC.tok,'Accept':'application/vnd.github+json'},
+    body:body?JSON.stringify(body):undefined
+  }).then(function(r){
+    if(!r.ok)throw new Error('GitHub API '+r.status);
+    return r.status===204?null:r.json();
+  });
+}
+function schedulePush(){
+  if(!SYNC.tok||!SYNC.gist)return;
+  clearTimeout(schedulePush._t);
+  schedulePush._t=setTimeout(pushSync,800);  // 連打をまとめる（1問ごとに即時同期）
+}
+function pushSync(){
+  if(!SYNC.tok||!SYNC.gist)return Promise.resolve();
+  var files={};files[GIST_FILE]={content:JSON.stringify(snapshot())};
+  return gh('PATCH','/gists/'+SYNC.gist,{files:files}).then(function(){
+    syncState.last=Date.now();syncState.err='';updateSyncBadge();
+  },function(e){
+    syncState.err=e.message;updateSyncBadge();
+  });
+}
+function pullSync(){
+  if(!SYNC.tok||!SYNC.gist)return Promise.resolve();
+  return gh('GET','/gists/'+SYNC.gist).then(function(g){
+    var f=g.files&&g.files[GIST_FILE];
+    if(!f)return;
+    var p=f.truncated?fetch(f.raw_url).then(function(r){return r.text();}):Promise.resolve(f.content);
+    return p.then(function(txt){
+      var remote=JSON.parse(txt);
+      var remoteExp=Date.parse(remote.exported||'')||0;
+      var localExp=0;
+      try{localExp=Date.parse(JSON.parse(lsGet(DB_KEY)||'null').exported||'')||0;}catch(e){}
+      if(remoteExp>localExp){
+        applySnapshot(remote);
+        var json=JSON.stringify(snapshot());
+        lsSet(DB_KEY,json);idbSet(DB_KEY,json).catch(function(){});
+      }else if(localExp>remoteExp){
+        schedulePush();
+      }
+      syncState.last=Date.now();syncState.err='';
+    });
+  }).catch(function(e){syncState.err=e.message;});
+}
+function syncText(){
+  if(!SYNC.tok)return '';
+  if(syncState.err)return '☁ 同期エラー（データ管理から確認）';
+  if(syncState.last)return '☁ 同期済み '+new Date(syncState.last).toLocaleTimeString().slice(0,5);
+  return '☁ 同期設定済み';
+}
+function updateSyncBadge(){
+  var el=document.getElementById('syncBadge');
+  if(el)el.textContent=syncText();
+}
+function setupSync(){
+  var tok=(document.getElementById('tokIn').value||'').trim();
+  if(!tok){toast('トークンを貼り付けてください');return;}
+  SYNC.tok=tok;
+  toast('GitHub に接続中…');
+  gh('GET','/gists?per_page=100').then(function(list){
+    for(var i=0;i<list.length;i++){
+      if(list[i].files&&list[i].files[GIST_FILE])return list[i];  // 他端末が作成済み
+    }
+    var files={};files[GIST_FILE]={content:JSON.stringify(snapshot())};
+    return gh('POST','/gists',{description:'航大英語ドリル 進捗（自動同期）',public:false,files:files});
+  }).then(function(g){
+    SYNC.gist=g.id;saveSyncCfg();
+    return pullSync();
+  }).then(function(){
+    toast('同期を設定しました');
+    renderData();
+  }).catch(function(e){
+    SYNC={tok:'',gist:''};
+    toast('設定に失敗しました（'+e.message+'）');
+  });
+}
+function clearSyncCfg(){
+  if(!confirm('この端末の同期設定を解除します。Gist上のデータと学習履歴はそのまま残ります。'))return;
+  SYNC={tok:'',gist:''};saveSyncCfg();
+  syncState={last:0,err:''};
+  renderData();
+}
+
+/* ---------- Claude採点（Anthropic API・この端末のみにキー保存） ---------- */
+var AI_KEY='kdai_ai_v1';
+var AI={key:'',model:'claude-opus-4-8'};
+function loadAiCfg(){try{var r=lsGet(AI_KEY);if(r)AI=JSON.parse(r);}catch(e){}}
+function persistAiCfg(){lsSet(AI_KEY,JSON.stringify(AI));}
+function aiHeaders(key){
+  return {
+    'content-type':'application/json',
+    'x-api-key':key,
+    'anthropic-version':'2023-06-01',
+    'anthropic-dangerous-direct-browser-access':'true'
+  };
+}
+function aiSave(){
+  var k=(document.getElementById('aiKeyIn').value||'').trim();
+  var m=document.getElementById('aiModel').value;
+  if(!k&&!AI.key){toast('APIキーを貼り付けてください');return;}
+  var key=k||AI.key;
+  toast('キーを確認中…');
+  // count_tokens は無料エンドポイント。キーとモデルの有効性だけ検証する
+  fetch('https://api.anthropic.com/v1/messages/count_tokens',{
+    method:'POST',headers:aiHeaders(key),
+    body:JSON.stringify({model:m,messages:[{role:'user',content:'ping'}]})
+  }).then(function(r){
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    AI.key=key;AI.model=m;persistAiCfg();
+    toast('Claude採点を設定しました');
+    renderData();
+  }).catch(function(e){
+    toast('確認に失敗しました（'+e.message+'）。キーを確認してください');
+  });
+}
+function aiClear(){
+  if(!confirm('この端末のClaude採点設定（APIキー）を解除します。'))return;
+  AI={key:'',model:AI.model};persistAiCfg();
+  renderData();
+}
+// clawd（Claude Code起動ロゴのピクセルアート）。フォント依存で崩れないようSVGで描画
+// ターミナルの文字セルは縦長（高さ≈幅の2倍）なので、縦2倍に伸ばして本来の形にする
+var CLAWD='<svg class="clawd" width="28" height="16" viewBox="0 0 18 5" preserveAspectRatio="none" fill="#D97757" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">'
++'<rect x="3" y="0" width="12" height="1"/>'
++'<rect x="3" y="1" width="2" height="1"/><rect x="6" y="1" width="6" height="1"/><rect x="13" y="1" width="2" height="1"/>'
++'<rect x="1" y="2" width="16" height="1"/>'
++'<rect x="3" y="3" width="12" height="1"/>'
++'<rect x="4" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/>'
++'</svg>';
+function aiGrade(){
+  var x=session[idx];
+  var mine=(document.getElementById('trIn').value||'').trim();
+  var box=document.getElementById('aibox');
+  if(!mine){toast('先に自分の訳を入力してください');return;}
+  box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
+  var excerpt=x.q.indexOf('**')>=0;
+  var sys='あなたは京都大学の英文和訳を採点する予備校講師。学生の訳を訳例と比較して採点する。\n'
+  +'- 京大方式の部分点制: 訳出対象を構文要素（骨格SV・従属節・挿入・指示語・語彙）に分けて配点し、要素ごとに判定して合計を10点満点に換算する\n'
+  +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。この形式を厳守）\n'
+  +'- 2行目以降、減点した要素だけを「**−n点**: 指摘（正しい訳し方）」の形式で1行ずつ書く\n'
+  +'- 構文の取り違え・構造を曖昧にした誤魔化し訳は重く、訳語の選択や日本語の綾は軽く減点する\n'
+  +'- 意訳は構造が正確に取れていれば減点しない\n'
+  +'- 訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大300字。装飾は**太字**のみ\n'
+  +(excerpt?'- 英文中の **〜** で囲まれた部分だけが採点対象。前後の文は文脈であり、文脈に合った語義選択・指示語の訳出も配点に含める\n':'');
+  var prompt='次の英文和訳を添削してください。\n\n【英文】\n'+x.q+'\n\n【訳例】\n'+x.a+'\n\n【学生の訳】\n'+mine;
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:aiHeaders(AI.key),
+    body:JSON.stringify({
+      model:AI.model,
+      max_tokens:1500,
+      thinking:{type:'adaptive'},
+      output_config:{effort:'low'},   // 訳例との比較採点なので低effortで十分。品質が落ちたらmediumへ
+      system:sys,
+      messages:[{role:'user',content:prompt}]
+    })
+  }).then(function(r){
+    if(!r.ok){
+      return r.json().catch(function(){return null;}).then(function(j){
+        throw new Error((j&&j.error&&j.error.message)||('HTTP '+r.status));
+      });
+    }
+    return r.json();
+  }).then(function(res){
+    var txt='';
+    for(var i=0;i<res.content.length;i++){
+      if(res.content[i].type==='text')txt+=res.content[i].text;
+    }
+    if(!txt)throw new Error('応答が空でした');
+    var m=txt.match(/採点[:：]\s*(\d{1,2})\s*[\/／]\s*10/);
+    box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div>'+fmt(txt)+'</div></div>';
+    if(m&&+m[1]<=10){
+      applyTrScore(+m[1],txt);              // 点数を読み取って自動記録
+    }else{
+      document.getElementById('grade').style.display='';  // 点数が読めなければ手動採点に切替
+      toast('点数を読み取れませんでした。自己採点してください');
+    }
+  }).catch(function(e){
+    box.innerHTML='<div class="exp ngbox"><div class="verd">添削エラー</div>'
+    +'<div>'+esc(e.message)+'<br><span class="mut">通信環境と、データ管理のAPIキー設定・残高を確認してください。</span></div>'
+    +'<button class="ghost" onclick="aiGrade()">もう一度試す</button></div>';
+    var g=document.getElementById('grade');
+    if(g&&!trDone)g.style.display='';       // 失敗時は自己採点にフォールバック
+  });
+}
+function loadProgress(){
+  return idbGet(DB_KEY).catch(function(){return null;}).then(function(v){
+    var raw=v||lsGet(DB_KEY);
+    if(raw){try{applySnapshot(JSON.parse(raw));return;}catch(e){}}
+    if(migrateLegacy())save();
+  });
+}
+
+/* ---------- SRS（Leitner） ---------- */
+function stat(id){return STATS[id]||{s:0,c:0,w:0,st:0,last:'',box:0,due:0};}
+function record(id,ok){
+  var s=stat(id);var now=Date.now();
+  s.s++;
+  if(ok){s.c++;s.st++;s.box=Math.min((s.box||0)+1,BOX_DAYS.length-1);}
+  else{s.w++;s.st=0;s.box=0;}
+  s.due=now+BOX_DAYS[s.box]*DAY;
+  s.last=ok?'o':'x';
+  STATS[id]=s;
+  bumpStreak();
+  save();
+}
+function localDay(t){
+  var d=t?new Date(t):new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function bumpStreak(){
+  var today=localDay();
+  if(META.lastDay===today)return;
+  var yest=localDay(Date.now()-DAY);
+  META.streak=(META.lastDay===yest)?(META.streak||0)+1:1;
+  META.lastDay=today;
+  if(META.streak>(META.best||0))META.best=META.streak;
+}
+function currentStreak(){
+  if(!META.lastDay)return 0;
+  var today=localDay(),yest=localDay(Date.now()-DAY);
+  return (META.lastDay===today||META.lastDay===yest)?(META.streak||0):0;
+}
+// tier: 0=復習待ち(due超過) 1=未学習 2=学習中 3=マスター
+function tier(x){
+  var s=stat(x.id);var now=Date.now();
+  if(s.s===0)return 1;
+  if(s.due<=now)return 0;
+  return s.box>=MASTER_BOX?3:2;
+}
+function counts(pred){
+  var AD=activeData();
+  if(pred)AD=AD.filter(pred);
+  var c={review:0,newq:0,learning:0,mastered:0,seen:0,correct:0,total:AD.length};
+  for(var i=0;i<AD.length;i++){
+    var t=tier(AD[i]);
+    if(t===0)c.review++;else if(t===1)c.newq++;else if(t===2)c.learning++;else c.mastered++;
+    var s=stat(AD[i].id);c.seen+=s.s;c.correct+=s.c;
+  }
+  return c;
+}
+function isTr(x){return x.type==='tr';}
+function notTr(x){return x.type!=='tr';}
+function isMiss(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}
+function activeData(){return DATA.filter(function(x){return !HIDE[x.id];});}
+// 正解でも「まだ不安」な問題を手動で復習ボックスに戻す（正答記録はそのまま）
+function demote(id,btn){
+  var s=stat(id);
+  s.box=0;s.st=0;s.due=Date.now();
+  STATS[id]=s;save();
+  if(btn){btn.textContent='✓ 復習ボックスに戻しました（次のスマート復習で優先出題）';btn.onclick=null;}
+  toast('復習ボックスに戻しました');
+}
+function demoteBtn(id){
+  return '<button class="ghost" onclick="demote('+id+',this)">正解したけど不安 — 復習ボックスに戻す</button>';
+}
+function graduate(id,btn){
+  HIDE[id]=1;save();
+  if(btn){btn.textContent='✓ 卒業済み';btn.onclick=null;}
+  toast('卒業にしました。今後出題されません');
+}
+function restoreQ(id){delete HIDE[id];save();renderData();}
+function restoreAllQ(){
+  if(!confirm('卒業したすべての問題を出題対象に戻します。よろしいですか？'))return;
+  HIDE={};save();renderData();
+}
+// smart: due超過（期限切れが古い順）→ 未学習 → 学習中/マスター（due近い順）
+function smartOrder(pool,n){
+  var t=[[],[],[],[]];
+  for(var i=0;i<pool.length;i++)t[tier(pool[i])].push(pool[i]);
+  var byDue=function(a,b){return stat(a.id).due-stat(b.id).due;};
+  t[0].sort(byDue);
+  shuffle(t[1]);
+  var rest=t[2].concat(t[3]).sort(byDue);
+  return t[0].concat(t[1],rest).slice(0,n);
+}
+function makeSession(mode,part){
+  var AD=activeData();
+  var list;
+  if(mode==='mistakes'){
+    list=AD.filter(function(x){return notTr(x)&&isMiss(x);});shuffle(list);
+  }else if(mode==='trmistakes'){
+    list=AD.filter(function(x){return isTr(x)&&isMiss(x);});shuffle(list);
+  }else if(mode==='part'){
+    list=AD.filter(function(x){return x.part===part;});shuffle(list);
+  }else if(mode==='cat'){
+    list=AD.filter(function(x){return x.cat===part;});shuffle(list);
+  }else if(mode==='all'){
+    list=AD.filter(notTr);shuffle(list);list=list.slice(0,25);
+  }else if(mode==='trsmart'){
+    list=smartOrder(AD.filter(isTr),8);
+  }else{
+    list=smartOrder(AD.filter(notTr),20);
+  }
+  return list;
+}
+
+/* ---------- ユーティリティ ---------- */
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmt(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toast._t);toast._t=setTimeout(function(){el.classList.remove('show');},2200);
+}
+function copyText(t,msg){
+  function fb(){
+    var ta=document.createElement('textarea');
+    ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast(msg);}catch(e){toast('コピーできませんでした');}
+    ta.remove();
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast(msg);},fb);
+  else fb();
+}
+
+/* ---------- 画面 ---------- */
+var session=null,idx=0,scoreC=0,answered=false,missedIds=[];
+var app=document.getElementById('app');
+function h(s){app.innerHTML=s;window.scrollTo(0,0);}
+
+function miniStats(c){
+  var acc=c.seen?Math.round(c.correct/c.seen*100):0;
+  return '<div class="ministats">'
+  +'<span><b class="ms-red">'+c.review+'</b>復習待ち</span>'
+  +'<span><b>'+c.newq+'</b>未学習</span>'
+  +'<span><b class="ms-green">'+c.mastered+'</b>マスター</span>'
+  +'<span><b>'+acc+'%</b>正答率</span>'
+  +'</div>';
+}
+function renderMenu(){
+  session=null;
+  var cQ=counts(notTr),cT=counts(isTr);
+  var streak=currentStreak();
+  var parts=[['Part 1','前置詞コロケーション'],['Part 2','句動詞'],['Part 3','イディオム・慣用'],['Part 4','文法・語法'],['Part 5','ことわざ'],['Part 6','トピック語彙']];
+  var AD=activeData();
+  var pc={};for(var i=0;i<AD.length;i++)pc[AD[i].part]=(pc[AD[i].part]||0)+1;
+  var pb='';
+  for(var j=0;j<parts.length;j++){
+    var p=parts[j];
+    pb+='<button class="opt" onclick="start(\'part\',\''+p[0]+'\')"><b>'+p[0]+'</b> '+p[1]+' <span class="mut">'+(pc[p[0]]||0)+'問</span></button>';
+  }
+  var qMiss=AD.filter(function(x){return notTr(x)&&isMiss(x);}).length;
+  var trMiss=AD.filter(function(x){return isTr(x)&&isMiss(x);}).length;
+  var l1=AD.filter(function(x){return x.cat==='和訳・構文確認';}).length;
+  var l2=AD.filter(function(x){return x.cat==='和訳・実戦';}).length;
+  h('<div class="wrap">'
+  +'<h1>航大英語ドリル</h1>'
+  +'<div class="sub">全'+(cQ.total+cT.total)+'問 ・ 連続'+streak+'日</div>'
+  +'<div class="secttl">大問Ⅰ対策（語彙・文法 4択）</div>'
+  +miniStats(cQ)
+  +'<button class="primary big" onclick="start(\'smart\')">スマート復習を始める<small>期限が来た問題・未学習を優先して20問</small></button>'
+  +'<div class="row2">'
+  +'<button class="primary alt" onclick="start(\'mistakes\')">間違えた問題<small>'+qMiss+'問</small></button>'
+  +'<button class="primary alt" onclick="start(\'all\')">ランダム<small>25問</small></button>'
+  +'</div>'
+  +'<button class="primary alt" onclick="renderCats()">カテゴリ別の成績<small>弱点カテゴリを確認して、そのまま練習</small></button>'
+  +'<details class="fold"><summary>パート別に練習</summary>'+pb+'</details>'
+  +'<div class="secttl">大問Ⅲ対策（英文和訳・Claude採点）</div>'
+  +miniStats(cT)
+  +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
+  +'<div class="row2">'
+  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・構文確認')+'\')">レベル1 構文確認<small>'+l1+'問</small></button>'
+  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・実戦')+'\')">レベル2 実戦<small>'+l2+'問</small></button>'
+  +'</div>'
+  +'<div class="row2">'
+  +(trMiss?'<button class="primary alt" onclick="start(\'trmistakes\')">間違えた和訳<small>'+trMiss+'問</small></button>':'')
+  +'<button class="primary alt" onclick="renderTrList()">問題一覧<small>1問だけやり直す</small></button>'
+  +'</div>'
+  +'<div class="row2">'
+  +'<button class="reset" onclick="renderIdeas()">問題の追加メモ'+(IDEAS.length?'（'+IDEAS.length+'）':'')+'</button>'
+  +'<button class="reset" onclick="renderData()">データ管理・同期</button>'
+  +'</div>'
+  +'<div class="foot"><span id="syncBadge">'+syncText()+'</span><br>進捗はこの端末に自動保存されます。<br>正解を重ねると出題間隔が 1日→3日→7日→14日 と延び、間違えるとすぐ復習に戻ります。<br>v'+APP_V+'</div>'
+  +'</div>');
+}
+
+function start(mode,part){
+  if(part)part=decodeURIComponent(part);
+  session=makeSession(mode,part);idx=0;scoreC=0;missedIds=[];
+  if(!session.length){
+    h('<div class="wrap"><h1>🎉 出題なし</h1><p class="done">いま表示できる問題がありません。<br>「間違えた問題だけ」は、一度間違えて まだマスターしていない問題が対象です。全部できています。</p><button class="primary" onclick="renderMenu()">メニューに戻る</button></div>');
+    return;
+  }
+  renderQ();
+}
+
+function renderQ(){
+  answered=false;
+  var x=session[idx];
+  if(x.type==='tr'){renderTr(x);return;}
+  var opts=shuffle([x.a].concat(x.d));
+  var prog=Math.round(idx/session.length*100);
+  var b='';
+  for(var i=0;i<opts.length;i++)b+='<button class="opt ans" data-o="'+encodeURIComponent(opts[i])+'" onclick="choose(this)">'+esc(opts[i])+'</button>';
+  h('<div class="wrap">'
+  +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
+  +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
+  +'<div class="qcard">'+esc(x.q)+'</div>'
+  +'<div id="opts">'+b+'</div>'
+  +'<div id="fb"></div>'
+  +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
+  +'</div>');
+}
+
+function choose(btn){
+  if(answered)return;
+  answered=true;
+  var x=session[idx];
+  var chosen=decodeURIComponent(btn.getAttribute('data-o'));
+  var ok=(chosen===x.a);
+  if(ok)scoreC++;else missedIds.push(x.id);
+  record(x.id,ok);
+  var all=document.querySelectorAll('#opts .ans');
+  for(var i=0;i<all.length;i++){
+    var bb=all[i];bb.classList.add('done');
+    var o=decodeURIComponent(bb.getAttribute('data-o'));
+    if(o===x.a)bb.classList.add('correct');else if(bb===btn)bb.classList.add('wrong');
+  }
+  var last=(idx+1>=session.length);
+  document.getElementById('fb').innerHTML='<div class="exp '+(ok?'okbox':'ngbox')+'">'
+  +'<div class="verd">'+(ok?'✓ 正解':'✕ 不正解')+' ・ 答え：'+esc(x.a)+'</div>'
+  +'<div>'+fmt(x.e)+'</div></div>'
+  +etyBlock(x)
+  +memoBlock(x.id)
+  +(ok?demoteBtn(x.id):'')
+  +'<div class="row2">'
+  +'<button class="primary alt" style="flex:1" onclick="graduate('+x.id+',this)">卒業<small>今後出題しない</small></button>'
+  +'<button class="primary" style="flex:1.8" onclick="next()">'+(last?'結果を見る':'次へ')+'</button>'
+  +'</div>';
+}
+
+/* ---------- 和訳問題（type:"tr"）：自分の訳を入力→Claudeに採点依頼 ---------- */
+function renderTr(x){
+  var prog=Math.round(idx/session.length*100);
+  var excerpt=x.q.indexOf('**')>=0;   // 下線部和訳（**〜**が訳す範囲）
+  h('<div class="wrap">'
+  +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
+  +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
+  +'<div class="qcard tr">'+fmt(x.q)+'</div>'
+  +'<textarea id="trIn" class="io jp" placeholder="'+(excerpt?'下線部の和訳を入力（文脈を踏まえて）':'ここに和訳を入力')+'"></textarea>'
+  +'<div class="row2">'
+  +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー<small>英文＋自分の訳</small></button>'
+  +'<button class="primary" style="flex:1.8" onclick="revealTr()">訳例と解説を見る</button>'
+  +'</div>'
+  +'<div id="fb"></div>'
+  +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
+  +'</div>');
+  // PC（マウス操作の端末）では最初から入力ボックスにカーソルを置く。
+  // タッチ端末では自動でキーボードが出て英文が隠れるのを避けるため、あえてフォーカスしない。
+  if(window.matchMedia&&window.matchMedia('(pointer:fine)').matches){
+    var ti=document.getElementById('trIn');if(ti)ti.focus();
+  }
+}
+function copyTr(){
+  var x=session[idx];
+  var mine=(document.getElementById('trIn').value||'').trim()||'（未記入）';
+  copyText('【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine,'英文と自分の訳をコピーしました');
+}
+function revealTr(){
+  if(answered)return;
+  answered=true;
+  trDone=false;
+  var x=session[idx];
+  var mine=(document.getElementById('trIn').value||'').trim();
+  var auto=!!(AI.key&&mine);   // キー設定済み＋訳入力済みなら自動でClaude採点
+  var sb='';
+  for(var i=0;i<=10;i++)sb+='<button class="scorebtn'+(i>=8?' hi':'')+'" onclick="gradeTr('+i+')">'+i+'</button>';
+  document.getElementById('fb').innerHTML=
+   '<div id="aibox"></div>'
+  +'<div id="grade"'+(auto?' style="display:none"':'')+'>'
+  +'<div class="secttl">自己採点（8点以上で◯・復習間隔に反映）</div>'
+  +'<div class="scorerow">'+sb+'</div>'
+  +'</div>'
+  +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
+  +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
+  +trHistBlock(x.id)
+  +etyBlock(x)
+  +'<div id="nextSlot"></div>';
+  if(auto)aiGrade();
+}
+function logTr(id,text,score,feedback){
+  var a=TRLOG[id]||[];
+  var e={d:localDay(),sc:score,t:text};
+  if(feedback)e.f=feedback;
+  a.push(e);
+  if(a.length>5)a=a.slice(a.length-5);   // 直近5回だけ保持
+  TRLOG[id]=a;
+}
+function trHistBlock(id){
+  var a=TRLOG[id];
+  if(!a||!a.length)return '';
+  var last=a[a.length-1];
+  var trend='';
+  if(a.length>1)trend='<div class="mut" style="margin-top:6px">点数の推移: '+a.map(function(r){return r.sc;}).join('点 → ')+'点</div>';
+  return '<div class="exp notebox"><div class="verd">🕘 前回の自分の訳（'+esc(last.d)+' ・ '+last.sc+'点）</div>'
+  +'<div>'+fmt(last.t||'（未入力）')+'</div>'
+  +(last.f?'<div class="mut" style="margin-top:6px">前回の添削:</div><div>'+fmt(last.f)+'</div>':'')
+  +trend+'</div>';
+}
+var trDone=false;    // 二重記録防止（Claude自動記録と手動採点の排他）
+function gradeTr(score){applyTrScore(score,null);}
+function applyTrScore(score,feedback){
+  if(trDone)return;
+  trDone=true;
+  var x=session[idx];
+  var ok=score>=8;
+  if(ok)scoreC++;else missedIds.push(x.id);
+  logTr(x.id,(document.getElementById('trIn').value||'').trim(),score,feedback);
+  record(x.id,ok);
+  var last=(idx+1>=session.length);
+  var g=document.getElementById('grade');
+  g.style.display='';
+  g.innerHTML='<div class="verd">'+score+' / 10 点'+(feedback?'（Claude採点・自動記録）':'')+' ・ '+(ok?'◯で記録しました':'✕で記録：間隔を詰めて再出題します')+'</div>';
+  document.getElementById('nextSlot').innerHTML=
+   memoBlock(x.id)
+  +(ok?demoteBtn(x.id):'')
+  +'<div class="row2">'
+  +'<button class="primary alt" style="flex:1" onclick="graduate('+x.id+',this)">卒業<small>今後出題しない</small></button>'
+  +'<button class="primary" style="flex:1.8" onclick="next()">'+(last?'結果を見る':'次へ')+'</button>'
+  +'</div>';
+}
+
+/* ---------- 語源・自分メモ ---------- */
+function etyBlock(x){
+  if(!x.ety)return '';
+  return '<div class="exp etybox"><div class="verd">🔍 語源で覚える</div><div>'+fmt(x.ety)+'</div></div>';
+}
+function memoBlock(id){
+  var n=NOTES[id];
+  return '<div id="memoBox">'+(n
+   ?'<div class="exp notebox"><div class="verd">📝 自分メモ</div><div>'+fmt(n)+'</div><button class="ghost" onclick="editMemo('+id+')">メモを編集</button></div>'
+   :'<button class="ghost" onclick="editMemo('+id+')">＋ この問題にメモを残す</button>')
+  +'</div>';
+}
+function editMemo(id){
+  document.getElementById('memoBox').innerHTML=
+   '<div class="exp notebox"><div class="verd">📝 自分メモ</div>'
+  +'<textarea id="memoTa" class="io jp" placeholder="間違えた理由・覚え方など">'+esc(NOTES[id]||'')+'</textarea>'
+  +'<button class="primary alt" onclick="saveMemo('+id+')">メモを保存</button></div>';
+  document.getElementById('memoTa').focus();
+}
+function saveMemo(id){
+  var v=document.getElementById('memoTa').value.trim();
+  if(v)NOTES[id]=v;else delete NOTES[id];
+  save();
+  document.getElementById('memoBox').outerHTML=memoBlock(id);
+  toast(v?'メモを保存しました':'メモを削除しました');
+}
+
+function next(){idx++;if(idx>=session.length)renderDone();else renderQ();}
+
+function renderDone(){
+  var n=session.length;
+  var acc=Math.round(scoreC/n*100);
+  var missBtn=missedIds.length
+    ?'<button class="primary" onclick="startMissed()">今の間違い '+missedIds.length+'問をすぐ復習</button>'
+    :'';
+  h('<div class="wrap"><h1>お疲れさま！</h1>'
+  +'<div class="result"><div class="big2">'+scoreC+' / '+n+'</div><div class="mut">このセッションの正答率 '+acc+'%</div></div>'
+  +missBtn
+  +'<button class="primary alt" onclick="start(\'smart\')">もう一度スマート復習</button>'
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button></div>');
+}
+
+function startMissed(){
+  var ids=missedIds.slice();
+  session=activeData().filter(function(x){return ids.indexOf(x.id)>=0;});
+  shuffle(session);idx=0;scoreC=0;missedIds=[];
+  renderQ();
+}
+
+/* ---------- 和訳の問題一覧（1問だけやり直す） ---------- */
+function trExcerpt(x){
+  var m=x.q.match(/\*\*(.+?)\*\*/);       // 下線部和訳は下線部を代表文に
+  var t=(m?m[1]:x.q).replace(/\*\*/g,'');
+  return t.length>52?t.slice(0,52)+'…':t;
+}
+function trHeading(x){                      // 解説 e の先頭 **構文名** を見出しに使う
+  var m=(x.e||'').match(/^\s*\*\*(.+?)\*\*/);
+  return m?m[1].trim():'';
+}
+var TRGROUPS=[['和訳・構文確認','レベル1：構文確認'],['和訳・実戦','レベル2：実戦・記事抜粋']];
+function trOrderedList(){                    // 問題一覧と同じ並び順で和訳問題を一列に返す
+  var AD=activeData(),out=[];
+  for(var g=0;g<TRGROUPS.length;g++){
+    for(var i=0;i<AD.length;i++)if(AD[i].cat===TRGROUPS[g][0])out.push(AD[i]);
+  }
+  return out;
+}
+function renderTrList(){
+  var list=trOrderedList();
+  var b='',curCat='';
+  for(var i=0;i<list.length;i++){
+    var x=list[i];
+    if(x.cat!==curCat){                      // カテゴリが変わったら見出しを挿入
+      curCat=x.cat;
+      for(var g=0;g<TRGROUPS.length;g++)if(TRGROUPS[g][0]===curCat)b+='<div class="secttl">'+TRGROUPS[g][1]+'</div>';
+    }
+    var log=TRLOG[x.id];
+    var attempted=log&&log.length;
+    var right;                              // 右側：全点数の履歴 or 未挑戦
+    if(attempted){
+      right='<span class="trscores">'+log.map(function(r){
+        var sc=r.sc;
+        return '<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'</span>';
+      }).join('')+'</span>';
+    }else{
+      right='<span class="mut">未挑戦</span>';
+    }
+    var head=attempted?trHeading(x):'';      // 見出しは挑戦済みだけ（ネタバレ防止）
+    var main,sub='';
+    if(head){
+      main='<span style="font-weight:700">'+esc(head)+'</span>';
+      sub='<div class="mut" style="margin-top:3px">'+esc(trExcerpt(x))+'</div>';
+    }else{
+      main='<span style="font-weight:400">'+esc(trExcerpt(x))+'</span>';
+    }
+    b+='<button class="opt" onclick="startOne('+x.id+')">'
+    +'<span class="cathead">'+main+right+'</span>'+sub
+    +'</button>';
+  }
+  h('<div class="wrap">'
+  +'<h1>和訳の問題一覧</h1>'
+  +'<div class="sub">タップした問題から一覧の並び順で続けて演習できます。点数は過去の採点履歴（古い→新しい順）。見出しは一度解いた問題だけ表示します</div>'
+  +b
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
+}
+function startOne(id){                       // タップした問題から一覧の並び順で以降すべてを演習
+  var list=trOrderedList();
+  var pos=-1;
+  for(var i=0;i<list.length;i++)if(list[i].id===id){pos=i;break;}
+  if(pos<0){renderMenu();return;}
+  session=list.slice(pos);
+  idx=0;scoreC=0;missedIds=[];
+  renderQ();
+}
+
+/* ---------- カテゴリ別成績（弱点分析） ---------- */
+function renderCats(){
+  var m={},order=[];
+  var AD=activeData();
+  for(var i=0;i<AD.length;i++){
+    var x=AD[i];
+    if(!m[x.cat]){m[x.cat]={cat:x.cat,total:0,seen:0,correct:0,mastered:0};order.push(x.cat);}
+    var g=m[x.cat];g.total++;
+    var s=stat(x.id);g.seen+=s.s;g.correct+=s.c;
+    if(tier(x)===3)g.mastered++;
+  }
+  var rows=order.map(function(k){return m[k];});
+  rows.sort(function(a,b){
+    var aa=a.seen?a.correct/a.seen:2,bb=b.seen?b.correct/b.seen:2; // 未学習は最後
+    if(aa!==bb)return aa-bb;
+    return b.total-a.total;
+  });
+  var b='';
+  for(var j=0;j<rows.length;j++){
+    var r=rows[j];
+    var acc=r.seen?Math.round(r.correct/r.seen*100):null;
+    var cls=acc===null?'mut':(acc<70?'acc-low':acc<85?'acc-mid':'acc-high');
+    b+='<button class="opt" onclick="start(\'cat\',\''+encodeURIComponent(r.cat)+'\')">'
+    +'<span class="cathead"><span><b>'+esc(r.cat)+'</b> <span class="mut">'+r.total+'問・マスター'+r.mastered+'</span></span>'
+    +'<span class="'+cls+'">'+(acc===null?'未学習':acc+'%')+'</span></span>'
+    +'<span class="catbar"><span class="fill" style="width:'+(acc||0)+'%"></span></span>'
+    +'</button>';
+  }
+  h('<div class="wrap">'
+  +'<h1>カテゴリ別の成績</h1>'
+  +'<div class="sub">累計の正答率が低い順に並んでいます。タップするとそのカテゴリだけ練習できます</div>'
+  +b
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
+}
+
+/* ---------- 問題の追加メモ（あとで Claude Code に依頼する用） ---------- */
+function renderIdeas(){
+  var b='';
+  for(var i=IDEAS.length-1;i>=0;i--){
+    var it=IDEAS[i];
+    b+='<div class="card idea"><div class="mut">'+esc(it.d||'')+'</div><div>'+fmt(it.t)+'</div>'
+    +'<button class="ghost" onclick="delIdea('+i+')">削除</button></div>';
+  }
+  h('<div class="wrap">'
+  +'<h1>問題の追加メモ</h1>'
+  +'<div class="sub">追加したい問題・単語・派生パターンを思いついたらここにメモ。<br>「全メモをコピー」して Claude Code に貼れば、questions.json に問題を作って追加してもらえます</div>'
+  +'<div class="card"><textarea id="ideaTa" class="io jp" placeholder="例：embark の問題を追加（disembark と対で）／ in charge of のイディオム"></textarea>'
+  +'<button class="primary" onclick="addIdea()">メモを追加</button></div>'
+  +(IDEAS.length?'<button class="primary alt" onclick="copyIdeas()">全メモをコピー<small>Claude Code への依頼文の形でコピーします</small></button>':'')
+  +b
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
+}
+function addIdea(){
+  var v=document.getElementById('ideaTa').value.trim();
+  if(!v){toast('メモを入力してください');return;}
+  IDEAS.push({t:v,d:localDay()});
+  save();
+  renderIdeas();
+  toast('メモを追加しました');
+}
+function delIdea(i){
+  IDEAS.splice(i,1);
+  save();
+  renderIdeas();
+}
+function copyIdeas(){
+  var lines=IDEAS.map(function(it){return '- '+(it.d?'('+it.d+') ':'')+it.t;});
+  var p='英語ドリルアプリの questions.json に、以下のメモをもとに新しい問題を追加してください。'
+  +'既存の形式（4択は q/a/d/e、和訳は type:"tr" で q/a/e）に合わせて、解説と必要に応じて語源（ety）も付けてください。\n\n'
+  +lines.join('\n');
+  copyText(p,'依頼文をコピーしました');
+}
+
+/* ---------- データ管理（エクスポート／インポート） ---------- */
+function renderData(){
+  var sync;
+  if(SYNC.tok&&SYNC.gist){
+    sync='<div class="card">✅ この端末は自動同期中です（1問ごとにアップロード）。'
+    +'<div class="mut" style="margin:6px 0">保存先 Gist: '+esc(SYNC.gist.slice(0,10))+'… ・ '
+    +(syncState.err?'⚠ エラー: '+esc(syncState.err):(syncState.last?'最終同期 '+new Date(syncState.last).toLocaleString():'未同期'))+'</div>'
+    +'<button class="primary alt sm" onclick="pushSync().then(function(){toast(\'同期しました\');renderData();})">今すぐ同期</button>'
+    +'<button class="ghost" onclick="clearSyncCfg()">この端末の同期を解除</button>'
+    +'</div>';
+  }else{
+    sync='<div class="card">GitHub の無料アカウントで、学習履歴を端末間で自動同期できます（1問ごとに保存）。'
+    +'<div class="mut" style="margin:8px 0;line-height:1.8">'
+    +'1. 下のリンクから GitHub でトークンを作成（<b>スコープは gist のみ</b>のまま「Generate token」）<br>'
+    +'2. 表示された ghp_… を下に貼り付けて「同期を開始」<br>'
+    +'3. 別の端末でも同じトークンを貼れば、自動でつながります</div>'
+    +'<a href="https://github.com/settings/tokens/new?scopes=gist&description=kdai-drill-sync" target="_blank" rel="noopener">→ トークン作成ページを開く</a>'
+    +'<input id="tokIn" class="io ti" type="password" placeholder="ghp_ で始まるトークンを貼り付け" autocomplete="off">'
+    +'<button class="primary sm" onclick="setupSync()">同期を開始</button>'
+    +'<div class="mut" style="margin-top:6px">トークンはこの端末の中だけに保存され、エクスポートにも含まれません。共用端末では設定しないでください。</div>'
+    +'</div>';
+  }
+  var ai='<div class="card">'
+  +(AI.key
+    ?'✅ Claude採点は設定済みです。和訳で「訳例と解説を見る」を押すと自動で添削・採点され、点数がそのまま記録されます。'
+    :'APIキーを設定すると、和訳の「訳例と解説を見る」で自動的にClaudeが添削・採点し、点数を記録します（従量課金・1問あたり数円）。'
+     +'<div class="mut" style="margin:8px 0"><a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">→ Anthropic Console でAPIキーを作成</a></div>')
+  +'<input id="aiKeyIn" class="io ti" type="password" placeholder="'+(AI.key?'設定済み（変更する場合のみ貼り付け）':'sk-ant- で始まるAPIキーを貼り付け')+'" autocomplete="off">'
+  +'<select id="aiModel" class="io">'
+  +'<option value="claude-opus-4-8"'+(AI.model==='claude-opus-4-8'?' selected':'')+'>Claude Opus 4.8（採点品質を最優先・約2円/問）</option>'
+  +'<option value="claude-sonnet-5"'+(AI.model==='claude-sonnet-5'?' selected':'')+'>Claude Sonnet 5（コスパ重視・約1円/問）</option>'
+  +'</select>'
+  +'<button class="primary sm" onclick="aiSave()">'+(AI.key?'設定を更新':'Claude採点を有効にする')+'</button>'
+  +(AI.key?'<button class="ghost" onclick="aiClear()">この端末の設定を解除</button>':'')
+  +'<div class="mut" style="margin-top:6px">キーはこの端末の中だけに保存され、エクスポートにも含まれません。Console側で月額上限の設定を推奨します。</div>'
+  +'</div>';
+  var hids=Object.keys(HIDE);
+  var gl='';
+  for(var gi=0;gi<hids.length;gi++){
+    var gq=null;
+    for(var gj=0;gj<DATA.length;gj++)if(String(DATA[gj].id)===String(hids[gi])){gq=DATA[gj];break;}
+    if(!gq)continue;
+    gl+='<div class="cathead" style="margin:8px 0"><span class="mut">'+esc(gq.q.length>42?gq.q.slice(0,42)+'…':gq.q)+'</span>'
+    +'<button class="ghost" style="width:auto;padding:2px 8px" onclick="restoreQ('+gq.id+')">復元</button></div>';
+  }
+  var grad='<div class="card">'+(hids.length
+    ?hids.length+'問を卒業（出題対象外）にしています。'+gl
+     +'<button class="primary alt sm" onclick="restoreAllQ()">すべて復元</button>'
+    :'解答後に「この問題を卒業」を押すと、覚えきった問題を出題対象から外せます。')+'</div>';
+  h('<div class="wrap">'
+  +'<h1>データ管理</h1>'
+  +'<div class="sub">端末間の同期と、バックアップの書き出し／取り込み</div>'
+  +'<h2>'+CLAWD+'Claude採点（和訳のAI添削）</h2>'
+  +ai
+  +'<h2>卒業した問題</h2>'
+  +grad
+  +'<h2>端末間の自動同期（無料）</h2>'
+  +sync
+  +'<h2>エクスポート</h2>'
+  +'<div class="card">学習履歴をファイルとして保存するか、コードをコピーして新しい端末に貼り付けてください。'
+  +'<button class="primary" onclick="expFile()">ファイルをダウンロード</button>'
+  +'<button class="primary alt" onclick="expCopy()">コードをコピー</button>'
+  +'<textarea id="expTa" class="io" readonly placeholder="「コードをコピー」を押すとここに表示されます"></textarea>'
+  +'</div>'
+  +'<h2>インポート</h2>'
+  +'<div class="card">エクスポートしたファイルを選ぶか、コードを貼り付けて取り込みます。<b>現在の進捗は上書きされます。</b>'
+  +'<label class="filelbl">ファイルを選択<input type="file" accept=".json,application/json" onchange="impFile(this)"></label>'
+  +'<textarea id="impTa" class="io" placeholder="ここにコードを貼り付け"></textarea>'
+  +'<button class="primary" onclick="impText()">貼り付けたコードを取り込む</button>'
+  +'</div>'
+  +'<button class="reset danger" onclick="resetAll()">学習履歴をすべてリセット</button>'
+  +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
+  +'</div>');
+}
+function expFile(){
+  var blob=new Blob([JSON.stringify(snapshot(),null,1)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='kdai-progress-'+localDay().replace(/-/g,'')+'.json';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+  toast('ダウンロードを開始しました');
+}
+function expCopy(){
+  var code=JSON.stringify(snapshot());
+  var ta=document.getElementById('expTa');
+  ta.value=code;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(code).then(function(){toast('コピーしました');},function(){ta.select();toast('長押しでコピーしてください');});
+  }else{ta.select();try{document.execCommand('copy');toast('コピーしました');}catch(e){toast('長押しでコピーしてください');}}
+}
+function doImport(text){
+  var obj;
+  try{obj=JSON.parse(text);}catch(e){toast('読み取れませんでした（形式エラー）');return;}
+  if(!confirm('現在の進捗を取り込んだデータで上書きします。よろしいですか？'))return;
+  try{applySnapshot(obj);}catch(e){toast('このファイルは進捗データではありません');return;}
+  save();
+  toast('インポートしました');
+  renderMenu();
+}
+function impFile(input){
+  var f=input.files&&input.files[0];
+  if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){doImport(r.result);};
+  r.readAsText(f);
+  input.value='';
+}
+function impText(){
+  var t=document.getElementById('impTa').value.trim();
+  if(!t){toast('コードを貼り付けてください');return;}
+  doImport(t);
+}
+function resetAll(){
+  if(confirm('すべての学習履歴（和訳の過去回答を含む）を消去します。よろしいですか？')){
+    STATS={};META={streak:0,lastDay:'',best:0};TRLOG={};save();renderMenu();
+  }
+}
+
+/* ---------- 起動 ---------- */
+function boot(){
+  loadSyncCfg();
+  loadAiCfg();
+  loadProgress().then(function(){
+    return pullSync();                 // 他端末の進捗があれば取り込む（失敗しても続行）
+  }).then(function(){
+    return fetch('questions.json').then(function(r){
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      return r.json();
+    });
+  }).then(function(data){
+    DATA=data;
+    renderMenu();
+  }).catch(function(e){
+    h('<div class="wrap"><h1>読み込みエラー</h1>'
+    +'<div class="warn">問題データを読み込めませんでした（'+esc(e.message)+'）。<br>通信環境を確認して再読み込みしてください。</div>'
+    +'<button class="primary" onclick="location.reload()">再読み込み</button></div>');
+  });
+}
+// Ctrl+Enter（Macは⌘+Enter）で、いま押すべきボタンを状況に応じて実行する。
+// 和訳の入力中に何度Enterしても改行できるよう、修飾キー付きのときだけ反応させる。
+document.addEventListener('keydown',function(ev){
+  if(ev.key!=='Enter'||!(ev.ctrlKey||ev.metaKey))return;
+  if(!session||!session.length)return;
+  var x=session[idx];if(!x)return;
+  if(x.type==='tr'){
+    if(!answered){ev.preventDefault();revealTr();}          // 入力中 → 訳例と解説を見る（採点開始）
+    else if(trDone){ev.preventDefault();next();}            // 採点済み → 次へ
+  }else{
+    if(answered){ev.preventDefault();next();}               // 4択：回答後 → 次へ
+  }
+});
+// 旧バージョンのService Workerが残っていたら解除しておく
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});
+}
+boot();
+</script>
+</body>
+</html>

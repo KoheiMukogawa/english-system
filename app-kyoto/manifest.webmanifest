@@ -1,0 +1,17 @@
+{
+  "name": "京大院試ドリル",
+  "short_name": "京大ドリル",
+  "description": "京都大学大学院入試（英語・論述）の過去問反復ドリル。和訳・和文英訳・補充・論述。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1e3a8a",
+  "background_color": "#eef1f6",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
