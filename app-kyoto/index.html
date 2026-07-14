@@ -256,7 +256,7 @@ function setupSync(){
       if(list[i].files&&list[i].files[GIST_FILE])return list[i];  // 他端末が作成済み
     }
     var files={};files[GIST_FILE]={content:JSON.stringify(snapshot())};
-    return gh('POST','/gists',{description:'航大英語ドリル 進捗（自動同期）',public:false,files:files});
+    return gh('POST','/gists',{description:'京大院試ドリル 進捗（自動同期）',public:false,files:files});
   }).then(function(g){
     SYNC.gist=g.id;saveSyncCfg();
     return pullSync();
@@ -555,8 +555,8 @@ function renderMenu(){
   var l1=AD.filter(function(x){return x.cat==='和訳・構文確認';}).length;
   var l2=AD.filter(function(x){return x.cat==='和訳・実戦';}).length;
   h('<div class="wrap">'
-  +'<h1>航大英語ドリル</h1>'
-  +'<div class="sub">全'+(cQ.total+cT.total)+'問 ・ 連続'+streak+'日</div>'
+  +'<h1>京大院試ドリル</h1>'
+  +'<div class="sub">全'+AD.length+'問 ・ 連続'+streak+'日</div>'
   +'<div class="secttl">大問Ⅰ対策（語彙・文法 4択）</div>'
   +miniStats(cQ)
   +'<button class="primary big" onclick="start(\'smart\')">スマート復習を始める<small>期限が来た問題・未学習を優先して20問</small></button>'
