@@ -327,6 +327,16 @@ function aiGrade(){
   var box=document.getElementById('aibox');
   if(!mine){toast('先に自分の訳を入力してください');return;}
   box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
+  if(x.type==='en'){
+    var sysEn='あなたは京都大学の和文英訳を採点する予備校講師。学生の英訳を英訳例と比較して採点する。\n'
+    +'- 部分点制: 文の骨格(SV)・時制/相・語法/コロケーション・専門語の妥当性・冠詞/数・自然さに配点し、10点満点に換算する\n'
+    +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。厳守）\n'
+    +'- 2行目以降、減点した要素だけを「**−n点**: 指摘（正しい英語表現）」の形式で1行ずつ書く\n'
+    +'- 文法・語法の誤りは重く、綴りや軽微な言い換えは軽く減点する。意味が正確に伝わる自然な言い換えは減点しない\n'
+    +'- 英訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大300字。装飾は**太字**のみ';
+    var promptEn='次の和文英訳を添削してください。\n\n【和文】\n'+x.q+'\n\n【英訳例】\n'+x.a+'\n\n【学生の英訳】\n'+mine;
+    return aiGradeSend(box,sysEn,promptEn);
+  }
   var excerpt=x.q.indexOf('**')>=0;
   var sys='あなたは京都大学の英文和訳を採点する予備校講師。学生の訳を訳例と比較して採点する。\n'
   +'- 京大方式の部分点制: 訳出対象を構文要素（骨格SV・従属節・挿入・指示語・語彙）に分けて配点し、要素ごとに判定して合計を10点満点に換算する\n'
@@ -337,13 +347,16 @@ function aiGrade(){
   +'- 訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大300字。装飾は**太字**のみ\n'
   +(excerpt?'- 英文中の **〜** で囲まれた部分だけが採点対象。前後の文は文脈であり、文脈に合った語義選択・指示語の訳出も配点に含める\n':'');
   var prompt='次の英文和訳を添削してください。\n\n【英文】\n'+x.q+'\n\n【訳例】\n'+x.a+'\n\n【学生の訳】\n'+mine;
+  return aiGradeSend(box,sys,prompt);
+}
+function aiGradeSend(box,sys,prompt){
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',headers:aiHeaders(AI.key),
     body:JSON.stringify({
       model:AI.model,
       max_tokens:1500,
       thinking:{type:'adaptive'},
-      output_config:{effort:'low'},   // 訳例との比較採点なので低effortで十分。品質が落ちたらmediumへ
+      output_config:{effort:'low'},
       system:sys,
       messages:[{role:'user',content:prompt}]
     })
@@ -433,7 +446,8 @@ function counts(pred){
   return c;
 }
 function isTr(x){return x.type==='tr';}
-function notTr(x){return x.type!=='tr';}
+function isEn(x){return x.type==='en';}
+function notTr(x){return x.type!=='tr'&&x.type!=='en'&&x.type!=='essay';}
 function isMiss(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}
 function activeData(){return DATA.filter(function(x){return !HIDE[x.id];});}
 // 正解でも「まだ不安」な問題を手動で復習ボックスに戻す（正答記録はそのまま）
@@ -482,6 +496,8 @@ function makeSession(mode,part){
     list=AD.filter(notTr);shuffle(list);list=list.slice(0,25);
   }else if(mode==='trsmart'){
     list=smartOrder(AD.filter(isTr),8);
+  }else if(mode==='ensmart'){
+    list=smartOrder(AD.filter(isEn),8);
   }else{
     list=smartOrder(AD.filter(notTr),20);
   }
@@ -553,6 +569,7 @@ function renderMenu(){
   +'<div class="secttl">大問Ⅲ対策（英文和訳・Claude採点）</div>'
   +miniStats(cT)
   +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
+  +'<button class="primary big" onclick="start(\'ensmart\')">和文英訳（英作文）<small>期限が来た英訳・未学習を優先して8問</small></button>'
   +'<div class="row2">'
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・構文確認')+'\')">レベル1 構文確認<small>'+l1+'問</small></button>'
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・実戦')+'\')">レベル2 実戦<small>'+l2+'問</small></button>'
@@ -582,7 +599,7 @@ function start(mode,part){
 function renderQ(){
   answered=false;
   var x=session[idx];
-  if(x.type==='tr'){renderTr(x);return;}
+  if(x.type==='tr'||x.type==='en'){renderTr(x);return;}
   var opts=shuffle([x.a].concat(x.d));
   var prog=Math.round(idx/session.length*100);
   var b='';
@@ -627,12 +644,16 @@ function choose(btn){
 /* ---------- 和訳問題（type:"tr"）：自分の訳を入力→Claudeに採点依頼 ---------- */
 function renderTr(x){
   var prog=Math.round(idx/session.length*100);
+  var isEn=(x.type==='en');
   var excerpt=x.q.indexOf('**')>=0;   // 下線部和訳（**〜**が訳す範囲）
+  var ph=isEn?'ここに英訳を入力':(excerpt?'下線部の和訳を入力（文脈を踏まえて）':'ここに和訳を入力');
+  var hintHtml=(isEn&&x.hint)?'<div class="mut" style="margin:4px 0 2px">語注: '+esc(x.hint)+'</div>':'';
   h('<div class="wrap">'
   +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
   +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
-  +'<div class="qcard tr">'+fmt(x.q)+'</div>'
-  +'<textarea id="trIn" class="io jp" placeholder="'+(excerpt?'下線部の和訳を入力（文脈を踏まえて）':'ここに和訳を入力')+'"></textarea>'
+  +'<div class="qcard tr'+(isEn?' jp':'')+'">'+fmt(x.q)+'</div>'
+  +hintHtml
+  +'<textarea id="'+'trIn" class="io'+(isEn?'':' jp')+'" placeholder="'+ph+'"></textarea>'
   +'<div class="row2">'
   +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー<small>英文＋自分の訳</small></button>'
   +'<button class="primary" style="flex:1.8" onclick="revealTr()">訳例と解説を見る</button>'
@@ -649,6 +670,7 @@ function renderTr(x){
 function copyTr(){
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim()||'（未記入）';
+  if(x.type==='en'){copyText('【和文】\n'+x.q+'\n\n【私の英訳】\n'+mine,'和文と自分の英訳をコピーしました');return;}
   copyText('【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine,'英文と自分の訳をコピーしました');
 }
 function revealTr(){
@@ -666,7 +688,7 @@ function revealTr(){
   +'<div class="secttl">自己採点（8点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
   +'</div>'
-  +'<div class="exp okbox"><div class="verd">訳例</div><div>'+fmt(x.a)+'</div></div>'
+  +'<div class="exp okbox"><div class="verd">'+(x.type==='en'?'英訳例':'訳例')+'</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
   +trHistBlock(x.id)
   +etyBlock(x)
