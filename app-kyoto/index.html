@@ -81,6 +81,11 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .acc-low{color:#dc2626;font-weight:700}.acc-mid{color:#ea580c;font-weight:700}.acc-high{color:#16a34a;font-weight:700}
 .trscores{display:inline-flex;gap:8px;flex:none;white-space:nowrap}.trscores>span{font-size:15px}
 .qcard.tr{font-weight:400;font-size:16px;padding:14px}
+.essay-in{min-height:220px}
+.kwrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.kwrow .chip{font-size:12px}
+.charcount{font-size:12px;color:var(--mut);text-align:right;margin-top:4px}
+.charcount.over{color:#dc2626}
 .qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
 textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
 input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:13px;padding:10px;font-family:ui-monospace,monospace;margin:8px 0}
@@ -327,6 +332,18 @@ function aiGrade(){
   var box=document.getElementById('aibox');
   if(!mine){toast('先に自分の訳を入力してください');return;}
   box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
+  if(x.type==='essay'){
+    var kwLine=(x.kw&&x.kw.length)?('必須キーワード: '+x.kw.join('、')+'\n'):'';
+    var limLine=x.limit?('字数目安: '+x.limit+'字\n'):'';
+    var sysEs='あなたは京都大学大学院入試の論述答案を採点する採点官。以下のルーブリックで学生の答案を採点する。\n'
+    +'- 観点別（各内訳を明示）: ①設問要求への充足 ②論理構成・一貫性 ③根拠/数値/具体性 ④キーワード網羅 ⑤字数の適否。合計10点満点に換算\n'
+    +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。厳守）\n'
+    +'- 2行目以降、観点ごとに「**観点名**: 良い点/不足と改善案」を1行ずつ、最大5行\n'
+    +'- 模範骨子はあくまで参考。骨子と違う筋でも、論理と根拠が妥当なら高く評価する\n'
+    +'- 模範骨子の再掲は禁止。励まし・前置きは書かない。全体で最大400字。装飾は**太字**のみ';
+    var promptEs='次の論述答案を採点してください。\n\n【設問】\n'+x.q+'\n'+kwLine+limLine+'\n【模範骨子（参考）】\n'+x.a+'\n\n【学生の答案】\n'+mine;
+    return aiGradeSend(box,sysEs,promptEs);
+  }
   if(x.type==='en'){
     var sysEn='あなたは京都大学の和文英訳を採点する予備校講師。学生の英訳を英訳例と比較して採点する。\n'
     +'- 部分点制: 文の骨格(SV)・時制/相・語法/コロケーション・専門語の妥当性・冠詞/数・自然さに配点し、10点満点に換算する\n'
@@ -447,6 +464,7 @@ function counts(pred){
 }
 function isTr(x){return x.type==='tr';}
 function isEn(x){return x.type==='en';}
+function isEssay(x){return x.type==='essay';}
 function notTr(x){return x.type!=='tr'&&x.type!=='en'&&x.type!=='essay';}
 function isMiss(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}
 function activeData(){return DATA.filter(function(x){return !HIDE[x.id];});}
@@ -498,6 +516,8 @@ function makeSession(mode,part){
     list=smartOrder(AD.filter(isTr),8);
   }else if(mode==='ensmart'){
     list=smartOrder(AD.filter(isEn),8);
+  }else if(mode==='essaysmart'){
+    list=smartOrder(AD.filter(isEssay),5);
   }else{
     list=smartOrder(AD.filter(notTr),20);
   }
@@ -570,6 +590,7 @@ function renderMenu(){
   +miniStats(cT)
   +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
   +'<button class="primary big" onclick="start(\'ensmart\')">和文英訳（英作文）<small>期限が来た英訳・未学習を優先して8問</small></button>'
+  +'<button class="primary big" onclick="start(\'essaysmart\')">論述（小論文）<small>期限が来た論述・未学習を優先して5問</small></button>'
   +'<div class="row2">'
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・構文確認')+'\')">レベル1 構文確認<small>'+l1+'問</small></button>'
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・実戦')+'\')">レベル2 実戦<small>'+l2+'問</small></button>'
@@ -599,6 +620,7 @@ function start(mode,part){
 function renderQ(){
   answered=false;
   var x=session[idx];
+  if(x.type==='essay'){renderEssay(x);return;}
   if(x.type==='tr'||x.type==='en'){renderTr(x);return;}
   var opts=shuffle([x.a].concat(x.d));
   var prog=Math.round(idx/session.length*100);
@@ -641,6 +663,31 @@ function choose(btn){
   +'</div>';
 }
 
+/* ---------- 論述（type:"essay"）：長文解答→Claudeがルーブリック採点 ---------- */
+function renderEssay(x){
+  var prog=Math.round(idx/session.length*100);
+  var kw=(x.kw&&x.kw.length)?'<div class="kwrow">キーワード：'+x.kw.map(function(w){return '<span class="chip">'+esc(w)+'</span>';}).join('')+'</div>':'';
+  var lim=x.limit?('目安 '+x.limit+'字'):'';
+  h('<div class="wrap">'
+  +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
+  +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+'</span></div>'
+  +'<div class="qcard tr jp">'+fmt(x.q)+'</div>'
+  +kw
+  +'<textarea id="trIn" class="io jp essay-in" placeholder="ここに解答を入力"></textarea>'
+  +'<div class="charcount" id="cc">0字'+(lim?' / '+lim:'')+'</div>'
+  +'<div class="row2">'
+  +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー</button>'
+  +'<button class="primary" style="flex:1.8" onclick="revealTr()">模範骨子と採点</button>'
+  +'</div>'
+  +'<div id="fb"></div>'
+  +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
+  +'</div>');
+  var ta=document.getElementById('trIn'),cc=document.getElementById('cc'),limN=x.limit||0;
+  if(ta&&cc){ta.addEventListener('input',function(){
+    var n=ta.value.length;cc.textContent=n+'字'+(limN?(' / 目安 '+limN+'字'):'');
+    cc.className='charcount'+(limN&&n>limN*1.2?' over':'');
+  });}
+}
 /* ---------- 和訳問題（type:"tr"）：自分の訳を入力→Claudeに採点依頼 ---------- */
 function renderTr(x){
   var prog=Math.round(idx/session.length*100);
@@ -670,6 +717,7 @@ function renderTr(x){
 function copyTr(){
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim()||'（未記入）';
+  if(x.type==='essay'){copyText('【設問】\n'+x.q+'\n\n【私の答案】\n'+mine,'設問と自分の答案をコピーしました');return;}
   if(x.type==='en'){copyText('【和文】\n'+x.q+'\n\n【私の英訳】\n'+mine,'和文と自分の英訳をコピーしました');return;}
   copyText('【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine,'英文と自分の訳をコピーしました');
 }
@@ -688,7 +736,7 @@ function revealTr(){
   +'<div class="secttl">自己採点（8点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
   +'</div>'
-  +'<div class="exp okbox"><div class="verd">'+(x.type==='en'?'英訳例':'訳例')+'</div><div>'+fmt(x.a)+'</div></div>'
+  +'<div class="exp okbox"><div class="verd">'+(x.type==='essay'?'模範骨子':x.type==='en'?'英訳例':'訳例')+'</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
   +trHistBlock(x.id)
   +etyBlock(x)
