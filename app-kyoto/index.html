@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2563eb">
+<meta name="theme-color" content="#1e3a8a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="航大英語">
+<meta name="apple-mobile-web-app-title" content="京大院試">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
@@ -117,7 +117,7 @@ var HIDE={};                         // id → 1 卒業（出題対象から除�
 
 /* ---------- 永続化：IndexedDB（localStorageにも二重保存） ---------- */
 var DB_KEY='kdai_kyoto_v1';
-var LEGACY_KEY='kdai_stats_v1';
+var LEGACY_KEY='kdai_kyoto_stats_v1';
 var dbp=null;
 function openDB(){
   if(dbp)return dbp;

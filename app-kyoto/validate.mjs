@@ -10,7 +10,10 @@ try {
 }
 
 const errs = [];
-if (!Array.isArray(data)) errs.push('top-level は配列である必要があります');
+if (!Array.isArray(data)) {
+  console.error('検証NG:\n - top-level は配列である必要があります');
+  process.exit(1);
+}
 
 const ids = new Set();
 const TYPES = new Set([undefined, 'tr', 'en', 'essay']);
