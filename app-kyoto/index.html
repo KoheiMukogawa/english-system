@@ -108,7 +108,7 @@ select.io{display:block;width:100%;border:1px solid var(--line);border-radius:10
 <div id="toast" class="toast"></div>
 <script>
 'use strict';
-var APP_V='1.0.0';
+var APP_V='1.1.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
@@ -562,7 +562,7 @@ function renderMenu(){
   session=null;
   var cQ=counts(notTr),cT=counts(isTr);
   var streak=currentStreak();
-  var parts=[['Part 1','前置詞コロケーション'],['Part 2','句動詞'],['Part 3','イディオム・慣用'],['Part 4','文法・語法'],['Part 5','ことわざ'],['Part 6','トピック語彙']];
+  var parts=[['前置詞補充','空所に入る前置詞を選ぶ'],['語彙補充','文脈に合う語を選ぶ']];
   var AD=activeData();
   var pc={};for(var i=0;i<AD.length;i++)pc[AD[i].part]=(pc[AD[i].part]||0)+1;
   var pb='';
@@ -572,8 +572,7 @@ function renderMenu(){
   }
   var qMiss=AD.filter(function(x){return notTr(x)&&isMiss(x);}).length;
   var trMiss=AD.filter(function(x){return isTr(x)&&isMiss(x);}).length;
-  var l1=AD.filter(function(x){return x.cat==='和訳・構文確認';}).length;
-  var l2=AD.filter(function(x){return x.cat==='和訳・実戦';}).length;
+  var lTr=AD.filter(function(x){return x.cat==='和訳・予想';}).length;
   h('<div class="wrap">'
   +'<h1>京大院試ドリル</h1>'
   +'<div class="sub">全'+AD.length+'問 ・ 連続'+streak+'日</div>'
@@ -591,10 +590,7 @@ function renderMenu(){
   +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
   +'<button class="primary big" onclick="start(\'ensmart\')">和文英訳（英作文）<small>期限が来た英訳・未学習を優先して8問</small></button>'
   +'<button class="primary big" onclick="start(\'essaysmart\')">論述（小論文）<small>期限が来た論述・未学習を優先して5問</small></button>'
-  +'<div class="row2">'
-  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・構文確認')+'\')">レベル1 構文確認<small>'+l1+'問</small></button>'
-  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・実戦')+'\')">レベル2 実戦<small>'+l2+'問</small></button>'
-  +'</div>'
+  +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・予想')+'\')">和訳をまとめて練習<small>'+lTr+'問（予想問題・順番に）</small></button>'
   +'<div class="row2">'
   +(trMiss?'<button class="primary alt" onclick="start(\'trmistakes\')">間違えた和訳<small>'+trMiss+'問</small></button>':'')
   +'<button class="primary alt" onclick="renderTrList()">問題一覧<small>1問だけやり直す</small></button>'
@@ -844,7 +840,7 @@ function trHeading(x){                      // 解説 e の先頭 **構文名** 
   var m=(x.e||'').match(/^\s*\*\*(.+?)\*\*/);
   return m?m[1].trim():'';
 }
-var TRGROUPS=[['和訳・構文確認','レベル1：構文確認'],['和訳・実戦','レベル2：実戦・記事抜粋']];
+var TRGROUPS=[['和訳・予想','和訳（予想問題）']];
 function trOrderedList(){                    // 問題一覧と同じ並び順で和訳問題を一列に返す
   var AD=activeData(),out=[];
   for(var g=0;g<TRGROUPS.length;g++){
