@@ -23,8 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # 航大アプリ(app)をルート、京大アプリ(app-kyoto)を /app-kyoto/ に配置。
+      # kyoto-uni の過去問PDF等はデプロイ対象に含めない。
+      - name: Assemble site (app at root, app-kyoto under /app-kyoto/)
+        run: |
+          mkdir -p _site/app-kyoto
+          cp -r app/. _site/
+          cp -r app-kyoto/. _site/app-kyoto/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: app
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
