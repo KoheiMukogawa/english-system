@@ -92,6 +92,7 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .charcount.over{color:#dc2626}
 .qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
 textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
+textarea.io.en{font-size:16px;line-height:1.5;height:140px;background:var(--card)}
 input.ti{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:13px;padding:10px;font-family:ui-monospace,monospace;margin:8px 0}
 .primary.sm{padding:10px;font-size:13px;font-weight:600;margin:6px 0}
 .scorerow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
@@ -706,7 +707,7 @@ function renderTr(x){
   +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
   +'<div class="qcard tr'+(isEn?' jp':'')+'">'+fmt(x.q)+'</div>'
   +hintHtml
-  +'<textarea id="'+'trIn" class="io'+(isEn?'':' jp')+'" placeholder="'+ph+'"></textarea>'
+  +'<textarea id="'+'trIn" class="io '+(isEn?'en':'jp')+'" placeholder="'+ph+'"></textarea>'
   +'<div class="row2">'
   +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー<small>英文＋自分の訳</small></button>'
   +'<button class="primary" style="flex:1.8" onclick="revealTr()">訳例と解説を見る</button>'
