@@ -86,6 +86,7 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .tabs>button small{display:block;font-weight:400;font-size:11px;opacity:.8;margin-top:2px}
 .qcard.tr{font-weight:400;font-size:16px;padding:14px}
 .essay-in{min-height:220px}
+.para-in{min-height:300px}
 .kwrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 .kwrow .chip{font-size:12px}
 .charcount{font-size:12px;color:var(--mut);text-align:right;margin-top:4px}
@@ -354,11 +355,11 @@ var AI_KEY='kdai_ai_v1';
 // Sonnetで足り、論述は論の妥当性そのものを判断するのでOpusを充てる。
 var AI_TIERS={
   balanced:{name:'おすすめ',desc:'和訳・英訳は Sonnet 5、論述は Opus 5',cost:'約3〜7円/問',
-    models:{tr:'claude-sonnet-5',en:'claude-sonnet-5',essay:'claude-opus-5'}},
+    models:{tr:'claude-sonnet-5',en:'claude-sonnet-5',enp:'claude-sonnet-5',essay:'claude-opus-5'}},
   quality:{name:'品質優先',desc:'すべて Opus 5',cost:'約7円/問',
-    models:{tr:'claude-opus-5',en:'claude-opus-5',essay:'claude-opus-5'}},
+    models:{tr:'claude-opus-5',en:'claude-opus-5',enp:'claude-opus-5',essay:'claude-opus-5'}},
   economy:{name:'コスト優先',desc:'すべて Sonnet 5',cost:'約3円/問',
-    models:{tr:'claude-sonnet-5',en:'claude-sonnet-5',essay:'claude-sonnet-5'}}
+    models:{tr:'claude-sonnet-5',en:'claude-sonnet-5',enp:'claude-sonnet-5',essay:'claude-sonnet-5'}}
 };
 var TIER_ORDER=['balanced','quality','economy'];
 var AI={key:'',tier:'balanced'};
@@ -391,7 +392,7 @@ function aiSave(){
   toast('キーを確認中…');
   // count_tokens は無料エンドポイント。この水準で使う全モデルにキーが通るか確かめる
   var models=[];
-  ['tr','en','essay'].forEach(function(ty){
+  ['tr','en','enp','essay'].forEach(function(ty){
     var m=AI_TIERS[t].models[ty];
     if(models.indexOf(m)<0)models.push(m);
   });
@@ -446,6 +447,37 @@ function aiGrade(){
     +'- 模範骨子の再掲は禁止。励まし・前置きは書かない。全体で最大400字。装飾は**太字**のみ';
     var promptEs='次の論述答案を採点してください。\n\n【設問】\n'+x.q+'\n'+kwLine+limLine+'\n【模範骨子（参考）】\n'+x.a+'\n\n【学生の答案】\n'+mine;
     return aiGradeSend(box,sysEs,promptEs,aiModelFor('essay'));
+  }
+  if(x.type==='enp'){
+    // 段落単位の英訳。文ごとの誤りに加えて、段落としての一貫性を見る観点をBに置く
+    var sysEp='あなたは京都大学大学院入試の和文英訳（段落単位）を採点する予備校講師。学生の英訳を英訳例と比較して採点する。\n'
+    +'- 部分点制: 10点満点から下の表に従って減点し、合計を出す。数え方（A/B/C）を厳守すること\n'
+    +'\n'
+    +'【A. 誤り1件ごとに減点する分類】同じ分類は最大2件まで計上する\n'
+    +'- −3: 一文まるごとの訳し漏らし／内容が伝わらない文がある\n'
+    +'- −2: 文の骨格（文型・主述）の崩壊／構文の取り違えで意味がずれる\n'
+    +'- −2: 時制・相の誤り／語法・コロケーションの誤り／主述の不一致・語形の誤り\n'
+    +'- −1: 冠詞・単複・可算性／通じるが不自然な言い回し\n'
+    +'\n'
+    +'【B. 段落全体を見て一度だけ減点する分類】文ごとには数えない\n'
+    +'- −2: 文と文のつながりが切れている（指示語や接続表現が欠け、流れが追えない）\n'
+    +'- −1: 同じ概念に別々の訳語を当てるなど、段落内で用語が統一されていない\n'
+    +'- −1: 主語や視点が不必要に入れ替わり、段落として読みにくい\n'
+    +'\n'
+    +'【C. 誤り1件ごとに減点し、件数の上限を設けない分類】\n'
+    +'- −1: 綴りの誤り。1語につき−1点。専用の上限は設けない\n'
+    +'- −1: 句読点・大文字小文字の誤り。1箇所につき−1点\n'
+    +'- Cの例外: まったく同じ語を同じ誤り方で繰り返している場合のみ、初出の1回だけ減点する\n'
+    +'- Cの指摘は分類ごとに1行にまとめ、誤った箇所をすべて列挙したうえで合計点を書く\n'
+    +'\n'
+    +'- −0: 意味が正確に伝わる自然な言い換え（英訳例と語句や構文が違うだけなら減点しない）\n'
+    +'- 適用順: まずA・Bを合計し、和文の内容がおおむね伝わっている答案はこの時点で3点を下回らせない。次にCを引き、0点未満にはしない\n'
+    +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。厳守）\n'
+    +'- 2行目以降、減点した要素だけを「**−n点**: 指摘（正しい英語表現）」の形式で1行ずつ書く。点数は上の表の値を使う\n'
+    +'- Bで減点した場合は、どの文とどの文のつながりかを必ず示す\n'
+    +'- 英訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大450字。装飾は**太字**のみ';
+    var promptEp='次の和文英訳（段落）を添削してください。\n\n【和文】\n'+x.q+'\n\n【英訳例】\n'+x.a+'\n\n【学生の英訳】\n'+mine;
+    return aiGradeSend(box,sysEp,promptEp,aiModelFor('enp'));
   }
   if(x.type==='en'){
     var sysEn='あなたは京都大学の和文英訳を採点する予備校講師。学生の英訳を英訳例と比較して採点する。\n'
@@ -595,7 +627,8 @@ function counts(pred){
 function isTr(x){return x.type==='tr';}
 function isEn(x){return x.type==='en';}
 function isEssay(x){return x.type==='essay';}
-function notTr(x){return x.type!=='tr'&&x.type!=='en'&&x.type!=='essay';}
+function isEnp(x){return x.type==='enp';}   // 段落英訳（本番の大問C形式）
+function notTr(x){return x.type!=='tr'&&x.type!=='en'&&x.type!=='enp'&&x.type!=='essay';}
 function isWritten(x){return !notTr(x);}   // 記述3種（和訳・英作文・論述）をまとめて数える
 function isMiss(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}
 function activeData(){return DATA.filter(function(x){return !HIDE[x.id];});}
@@ -647,6 +680,8 @@ function makeSession(mode,part){
     list=smartOrder(AD.filter(isTr),8);
   }else if(mode==='ensmart'){
     list=smartOrder(AD.filter(isEn),8);
+  }else if(mode==='enpsmart'){
+    list=smartOrder(AD.filter(isEnp),3);   // 1問が長いので少なめ
   }else if(mode==='essaysmart'){
     list=smartOrder(AD.filter(isEssay),5);
   }else{
@@ -687,8 +722,14 @@ function stopTimer(){
   if(qStart){qElapsed=Math.floor((Date.now()-qStart)/1000);qStart=0;}
 }
 function mmss(sec){return Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');}
-// 目安時間（秒）。問題に min があればそれを使い、なければ字数から見積もる（構想5分＋40字/分）
-function essaySec(x){return (x.min||Math.max(5,Math.round((x.limit||400)/40)+5))*60;}
+// 目安時間（秒）。0を返した問題は計測しない。
+// 論述の既定値は「構想10分＋執筆25字/分＋見直し5分」。これは実測ではなく見積もりなので、
+// 記録された所要時間（TRLOGのsec）が溜まったら実績に合わせて min を調整する。
+function targetSec(x){
+  if(x.min)return x.min*60;
+  if(x.type==='essay')return (Math.round((x.limit||600)/25)+15)*60;
+  return 0;
+}
 function startTimer(limitSec){
   stopTimer();
   var el=document.getElementById('tmr');
@@ -747,6 +788,7 @@ function renderMenu(){
   +miniStats(cT)
   +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
   +'<button class="primary big" onclick="start(\'ensmart\')">和文英訳（英作文）<small>期限が来た英訳・未学習を優先して8問</small></button>'
+  +'<button class="primary big" onclick="start(\'enpsmart\')">段落英訳（本番形式）<small>大問Cと同じ段落まるごとの英訳を3問</small></button>'
   +'<button class="primary big" onclick="start(\'essaysmart\')">論述（小論文）<small>期限が来た論述・未学習を優先して5問</small></button>'
   +'<button class="primary alt" onclick="start(\'cat\',\''+encodeURIComponent('和訳・予想')+'\')">和訳をまとめて練習<small>'+lTr+'問（予想問題・順番に）</small></button>'
   +'<div class="row2">'
@@ -775,7 +817,7 @@ function renderQ(){
   answered=false;
   var x=session[idx];
   if(x.type==='essay'){renderEssay(x);return;}
-  if(x.type==='tr'||x.type==='en'){renderTr(x);return;}
+  if(x.type==='tr'||x.type==='en'||x.type==='enp'){renderTr(x);return;}
   var opts=shuffle([x.a].concat(x.d));
   var prog=Math.round(idx/session.length*100);
   var b='';
@@ -837,7 +879,7 @@ function renderEssay(x){
   +'<div id="fb"></div>'
   +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
   +'</div>');
-  startTimer(essaySec(x));
+  startTimer(targetSec(x));
   var ta=document.getElementById('trIn'),cc=document.getElementById('cc'),limN=x.limit||0;
   if(ta&&cc){ta.addEventListener('input',function(){
     var n=ta.value.length;cc.textContent=n+'字'+(limN?(' / 目安 '+limN+'字'):'');
@@ -847,9 +889,11 @@ function renderEssay(x){
 /* ---------- 和訳問題（type:"tr"）：自分の訳を入力→Claudeに採点依頼 ---------- */
 function renderTr(x){
   var prog=Math.round(idx/session.length*100);
-  var isEn=(x.type==='en');
+  var isPara=(x.type==='enp');
+  var isEn=(x.type==='en'||isPara);
+  var tsec=targetSec(x);
   var excerpt=x.q.indexOf('**')>=0;   // 下線部和訳（**〜**が訳す範囲）
-  var ph=isEn?'ここに英訳を入力':(excerpt?'下線部の和訳を入力（文脈を踏まえて）':'ここに和訳を入力');
+  var ph=isPara?'ここに段落全体の英訳を入力':isEn?'ここに英訳を入力':(excerpt?'下線部の和訳を入力（文脈を踏まえて）':'ここに和訳を入力');
   var hintHtml=(isEn&&x.hint)?'<div class="mut" style="margin:4px 0 2px">語注: '+esc(x.hint)+'</div>':'';
   h('<div class="wrap">'
   +'<div class="bar"><div class="fill" style="width:'+prog+'%"></div></div>'
@@ -857,7 +901,8 @@ function renderTr(x){
   +'<div class="qcard tr'+(isEn?' jp':'')+'">'+fmt(x.q)+'</div>'
   +hintHtml
   // 本番では綴りの間違いを教えてくれないので、赤波線と自動補正は切っておく
-  +'<textarea id="'+'trIn" class="io '+(isEn?'en':'jp')+'" spellcheck="false" autocorrect="off" placeholder="'+ph+'"></textarea>'
+  +'<textarea id="'+'trIn" class="io '+(isEn?'en':'jp')+(isPara?' para-in':'')+'" spellcheck="false" autocorrect="off" placeholder="'+ph+'"></textarea>'
+  +(tsec?'<div class="metarow"><span class="timer" id="tmr"></span></div>':'')
   +'<div class="row2">'
   +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー<small>英文＋自分の訳</small></button>'
   +'<button class="primary" style="flex:1.8" onclick="revealTr()">訳例と解説を見る</button>'
@@ -870,12 +915,13 @@ function renderTr(x){
   if(window.matchMedia&&window.matchMedia('(pointer:fine)').matches){
     var ti=document.getElementById('trIn');if(ti)ti.focus();
   }
+  if(tsec)startTimer(tsec);
 }
 function copyTr(){
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim()||'（未記入）';
   if(x.type==='essay'){copyText('【設問】\n'+x.q+'\n\n【私の答案】\n'+mine,'設問と自分の答案をコピーしました');return;}
-  if(x.type==='en'){copyText('【和文】\n'+x.q+'\n\n【私の英訳】\n'+mine,'和文と自分の英訳をコピーしました');return;}
+  if(x.type==='en'||x.type==='enp'){copyText('【和文】\n'+x.q+'\n\n【私の英訳】\n'+mine,'和文と自分の英訳をコピーしました');return;}
   copyText('【英文】\n'+x.q+'\n\n【私の和訳】\n'+mine,'英文と自分の訳をコピーしました');
 }
 function revealTr(){
@@ -885,11 +931,10 @@ function revealTr(){
   stopTimer();                       // 採点を押した時点で計測を止める（表示はそのまま残る）
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim();
-  var timeLine='';
-  if(x.type==='essay'){
-    var lim=essaySec(x);
-    timeLine='<div class="mut" style="margin:0 0 8px">所要 '+mmss(qElapsed)+' / 目安 '+mmss(lim)
-    +(qElapsed>lim?'（'+mmss(qElapsed-lim)+' 超過）':'')+'</div>';
+  var tsec=targetSec(x),timeLine='';
+  if(tsec){
+    timeLine='<div class="mut" style="margin:0 0 8px">所要 '+mmss(qElapsed)+' / 目安 '+mmss(tsec)
+    +(qElapsed>tsec?'（'+mmss(qElapsed-tsec)+' 超過）':'')+'</div>';
   }
   var auto=!!(AI.key&&mine);   // キー設定済み＋訳入力済みなら自動でClaude採点
   var sb='';
@@ -901,17 +946,18 @@ function revealTr(){
   +'<div class="secttl">自己採点（8点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
   +'</div>'
-  +'<div class="exp okbox"><div class="verd">'+(x.type==='essay'?'模範骨子':x.type==='en'?'英訳例':'訳例')+'</div><div>'+fmt(x.a)+'</div></div>'
+  +'<div class="exp okbox"><div class="verd">'+(x.type==='essay'?'模範骨子':(x.type==='en'||x.type==='enp')?'英訳例':'訳例')+'</div><div>'+fmt(x.a)+'</div></div>'
   +'<div class="exp ngbox"><div class="verd">ポイント</div><div>'+fmt(x.e)+'</div></div>'
   +trHistBlock(x.id)
   +etyBlock(x)
   +'<div id="nextSlot"></div>';
   if(auto)aiGrade();
 }
-function logTr(id,text,score,feedback){
+function logTr(id,text,score,feedback,sec){
   var a=TRLOG[id]||[];
   var e={d:localDay(),sc:score,t:text};
   if(feedback)e.f=feedback;
+  if(sec)e.sec=sec;              // 目安時間を実績から調整するための記録
   a.push(e);
   if(a.length>5)a=a.slice(a.length-5);   // 直近5回だけ保持
   TRLOG[id]=a;
@@ -922,7 +968,7 @@ function trHistBlock(id){
   var last=a[a.length-1];
   var trend='';
   if(a.length>1)trend='<div class="mut" style="margin-top:6px">点数の推移: '+a.map(function(r){return r.sc;}).join('点 → ')+'点</div>';
-  return '<div class="exp notebox"><div class="verd">🕘 前回の自分の訳（'+esc(last.d)+' ・ '+last.sc+'点）</div>'
+  return '<div class="exp notebox"><div class="verd">🕘 前回の自分の訳（'+esc(last.d)+' ・ '+last.sc+'点'+(last.sec?' ・ 所要 '+mmss(last.sec):'')+'）</div>'
   +'<div>'+fmt(last.t||'（未入力）')+'</div>'
   +(last.f?'<div class="mut" style="margin-top:6px">前回の添削:</div><div>'+fmt(last.f)+'</div>':'')
   +trend+'</div>';
@@ -935,7 +981,7 @@ function applyTrScore(score,feedback){
   var x=session[idx];
   var ok=score>=8;
   if(ok)scoreC++;else missedIds.push(x.id);
-  logTr(x.id,(document.getElementById('trIn').value||'').trim(),score,feedback);
+  logTr(x.id,(document.getElementById('trIn').value||'').trim(),score,feedback,targetSec(x)?qElapsed:0);
   record(x.id,ok);
   var last=(idx+1>=session.length);
   var g=document.getElementById('grade');
@@ -1011,7 +1057,8 @@ function trHeading(x){                      // 解説 e の先頭 **構文名** 
   return m?m[1].trim():'';
 }
 // [type, タブ表示名, 画面見出し, 抜粋の文字数]
-var WGENRES=[['tr','和訳','和訳の問題一覧',52],['en','英作文','和文英訳の問題一覧',52],['essay','論述','論述の問題一覧',80]];
+var WGENRES=[['tr','和訳','和訳の問題一覧',52],['en','英作文','和文英訳の問題一覧',52],
+  ['enp','段落英訳','段落英訳の問題一覧',60],['essay','論述','論述の問題一覧',80]];
 var listGenre='tr';                          // 一覧でいま開いているジャンル
 function genreList(g){                       // 一覧と同じ並び順（cat単位でまとめる）で1ジャンルを一列に返す
   var AD=activeData().filter(function(x){return x.type===g;});
