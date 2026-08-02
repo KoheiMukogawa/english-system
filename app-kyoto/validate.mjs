@@ -34,6 +34,7 @@ data.forEach((x, i) => {
   if (x.type === 'essay') {
     if (x.kw !== undefined && (!Array.isArray(x.kw) || x.kw.some(w => typeof w !== 'string'))) errs.push(`${at}: kw は文字列配列`);
     if (x.limit !== undefined && typeof x.limit !== 'number') errs.push(`${at}: limit は数値`);
+    if (x.min !== undefined && (typeof x.min !== 'number' || x.min <= 0)) errs.push(`${at}: min(目安時間・分) は正の数値`);
   }
   if (x.hint !== undefined && typeof x.hint !== 'string') errs.push(`${at}: hint は文字列`);
 });

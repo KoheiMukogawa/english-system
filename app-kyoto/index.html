@@ -90,6 +90,11 @@ textarea.io{width:100%;height:110px;border:1px solid var(--line);border-radius:1
 .kwrow .chip{font-size:12px}
 .charcount{font-size:12px;color:var(--mut);text-align:right;margin-top:4px}
 .charcount.over{color:#dc2626}
+.metarow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.metarow .charcount{margin-top:0}
+.timer{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap}
+.timer b{font-size:15px;color:var(--ink);font-weight:700;margin-right:1px}
+.timer.over b,.timer.over{color:#dc2626}
 .qcard strong{font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--acc)}
 textarea.io.jp{font-family:inherit;font-size:15px;height:84px;background:var(--card)}
 textarea.io.en{font-size:16px;line-height:1.5;height:140px;background:var(--card)}
@@ -224,6 +229,61 @@ function pushSync(){
     syncState.err=e.message;updateSyncBadge();
   });
 }
+// 同じ問題の記録が両端末にあるとき、より進んでいる方を採る
+function mergeStat(a,b){
+  if(!a)return b;
+  if(!b)return a;
+  var as=a.s||0,bs=b.s||0;
+  if(as!==bs)return bs>as?b:a;              // 解答回数が多い方
+  return (b.due||0)>=(a.due||0)?b:a;        // 同数なら次回出題が後の方
+}
+function mergeTrLog(a,b){
+  var seen={},out=[];
+  (a||[]).concat(b||[]).forEach(function(e){
+    var k=e.d+'|'+e.sc+'|'+(e.t||'');
+    if(seen[k])return;
+    seen[k]=1;out.push(e);
+  });
+  out.sort(function(x,y){return x.d<y.d?-1:x.d>y.d?1:0;});
+  return out.slice(Math.max(0,out.length-5));   // 直近5回だけ保持
+}
+// 2端末の進捗を突き合わせる。片方にしかない記録は必ず残す。
+// メモの内容が食い違ったときだけ、新しい方のスナップショットを優先する。
+// 卒業・追加メモは和集合にするので、片方で消しても他方が未同期なら復活しうる。
+function mergeSnapshots(local,remote,remoteIsNewer){
+  var L=local||{},R=remote||{};
+  var out={stats:{},meta:null,notes:{},ideas:[],trlog:{},hide:{}};
+  var ls=L.stats||{},rs=R.stats||{};
+  Object.keys(ls).concat(Object.keys(rs)).forEach(function(id){
+    if(!out.stats[id])out.stats[id]=mergeStat(ls[id],rs[id]);
+  });
+  var lt=L.trlog||{},rt=R.trlog||{};
+  Object.keys(lt).concat(Object.keys(rt)).forEach(function(id){
+    if(!out.trlog[id])out.trlog[id]=mergeTrLog(lt[id],rt[id]);
+  });
+  var ln=L.notes||{},rn=R.notes||{};
+  Object.keys(ln).forEach(function(id){out.notes[id]=ln[id];});
+  Object.keys(rn).forEach(function(id){
+    if(!(id in out.notes)||remoteIsNewer)out.notes[id]=rn[id];
+  });
+  [L.hide||{},R.hide||{}].forEach(function(h){
+    Object.keys(h).forEach(function(id){out.hide[id]=1;});
+  });
+  var seenIdea={};
+  (L.ideas||[]).concat(R.ideas||[]).forEach(function(it){
+    var k=(it.d||'')+'|'+it.t;
+    if(seenIdea[k])return;
+    seenIdea[k]=1;out.ideas.push(it);
+  });
+  var lm=L.meta||{},rm=R.meta||{};
+  var useRemoteStreak=(rm.lastDay||'')>(lm.lastDay||'');
+  out.meta={
+    lastDay:useRemoteStreak?rm.lastDay:(lm.lastDay||''),
+    streak:useRemoteStreak?(rm.streak||0):(lm.streak||0),
+    best:Math.max(lm.best||0,rm.best||0)
+  };
+  return out;
+}
 function pullSync(){
   if(!SYNC.tok||!SYNC.gist)return Promise.resolve();
   return gh('GET','/gists/'+SYNC.gist).then(function(g){
@@ -232,16 +292,19 @@ function pullSync(){
     var p=f.truncated?fetch(f.raw_url).then(function(r){return r.text();}):Promise.resolve(f.content);
     return p.then(function(txt){
       var remote=JSON.parse(txt);
-      var remoteExp=Date.parse(remote.exported||'')||0;
+      if(!remote||remote.v!==2||typeof remote.stats!=='object'){
+        schedulePush();                     // Gist側が読めない形式なら、こちらの進捗で作り直す
+        syncState.last=Date.now();syncState.err='';
+        return;
+      }
       var localExp=0;
       try{localExp=Date.parse(JSON.parse(lsGet(DB_KEY)||'null').exported||'')||0;}catch(e){}
-      if(remoteExp>localExp){
-        applySnapshot(remote);
-        var json=JSON.stringify(snapshot());
-        lsSet(DB_KEY,json);idbSet(DB_KEY,json).catch(function(){});
-      }else if(localExp>remoteExp){
-        schedulePush();
-      }
+      var remoteExp=Date.parse(remote.exported||'')||0;
+      var m=mergeSnapshots(snapshot(),remote,remoteExp>localExp);
+      applySnapshot({v:2,stats:m.stats,meta:m.meta,notes:m.notes,ideas:m.ideas,trlog:m.trlog,hide:m.hide});
+      var json=JSON.stringify(snapshot());
+      lsSet(DB_KEY,json);idbSet(DB_KEY,json).catch(function(){});
+      schedulePush();                       // マージ結果をGistにも戻して両端末を揃える
       syncState.last=Date.now();syncState.err='';
     });
   }).catch(function(e){syncState.err=e.message;});
@@ -287,8 +350,29 @@ function clearSyncCfg(){
 
 /* ---------- Claude採点（Anthropic API・この端末のみにキー保存） ---------- */
 var AI_KEY='kdai_ai_v1';
-var AI={key:'',model:'claude-opus-4-8'};
-function loadAiCfg(){try{var r=lsGet(AI_KEY);if(r)AI=JSON.parse(r);}catch(e){}}
+// 記述の種類ごとに使うモデル。和訳・英訳は訳例と突き合わせて減点表に当てはめる作業なので
+// Sonnetで足り、論述は論の妥当性そのものを判断するのでOpusを充てる。
+var AI_TIERS={
+  balanced:{name:'おすすめ',desc:'和訳・英訳は Sonnet 5、論述は Opus 5',cost:'約3〜7円/問',
+    models:{tr:'claude-sonnet-5',en:'claude-sonnet-5',essay:'claude-opus-5'}},
+  quality:{name:'品質優先',desc:'すべて Opus 5',cost:'約7円/問',
+    models:{tr:'claude-opus-5',en:'claude-opus-5',essay:'claude-opus-5'}},
+  economy:{name:'コスト優先',desc:'すべて Sonnet 5',cost:'約3円/問',
+    models:{tr:'claude-sonnet-5',en:'claude-sonnet-5',essay:'claude-sonnet-5'}}
+};
+var TIER_ORDER=['balanced','quality','economy'];
+var AI={key:'',tier:'balanced'};
+function aiTier(){return AI_TIERS[AI.tier]||AI_TIERS.balanced;}
+function aiModelFor(type){return aiTier().models[type]||aiTier().models.tr;}
+function modelLabel(m){return m==='claude-opus-5'?'Opus 5':m==='claude-sonnet-5'?'Sonnet 5':m;}
+function loadAiCfg(){
+  try{var r=lsGet(AI_KEY);if(r)AI=JSON.parse(r);}catch(e){}
+  if(!AI.tier){                        // 旧形式（モデルを1つだけ持つ設定）からの移行
+    AI.tier=(AI.model==='claude-sonnet-5')?'economy':'balanced';
+    delete AI.model;delete AI.m5;
+    persistAiCfg();
+  }
+}
 function persistAiCfg(){lsSet(AI_KEY,JSON.stringify(AI));}
 function aiHeaders(key){
   return {
@@ -300,17 +384,26 @@ function aiHeaders(key){
 }
 function aiSave(){
   var k=(document.getElementById('aiKeyIn').value||'').trim();
-  var m=document.getElementById('aiModel').value;
+  var t=document.getElementById('aiTier').value;
+  if(!AI_TIERS[t])t='balanced';
   if(!k&&!AI.key){toast('APIキーを貼り付けてください');return;}
   var key=k||AI.key;
   toast('キーを確認中…');
-  // count_tokens は無料エンドポイント。キーとモデルの有効性だけ検証する
-  fetch('https://api.anthropic.com/v1/messages/count_tokens',{
-    method:'POST',headers:aiHeaders(key),
-    body:JSON.stringify({model:m,messages:[{role:'user',content:'ping'}]})
-  }).then(function(r){
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    AI.key=key;AI.model=m;persistAiCfg();
+  // count_tokens は無料エンドポイント。この水準で使う全モデルにキーが通るか確かめる
+  var models=[];
+  ['tr','en','essay'].forEach(function(ty){
+    var m=AI_TIERS[t].models[ty];
+    if(models.indexOf(m)<0)models.push(m);
+  });
+  Promise.all(models.map(function(m){
+    return fetch('https://api.anthropic.com/v1/messages/count_tokens',{
+      method:'POST',headers:aiHeaders(key),
+      body:JSON.stringify({model:m,messages:[{role:'user',content:'ping'}]})
+    }).then(function(r){
+      if(!r.ok)throw new Error(modelLabel(m)+' HTTP '+r.status);
+    });
+  })).then(function(){
+    AI.key=key;AI.tier=t;persistAiCfg();
     toast('Claude採点を設定しました');
     renderData();
   }).catch(function(e){
@@ -319,7 +412,7 @@ function aiSave(){
 }
 function aiClear(){
   if(!confirm('この端末のClaude採点設定（APIキー）を解除します。'))return;
-  AI={key:'',model:AI.model};persistAiCfg();
+  AI={key:'',tier:AI.tier};persistAiCfg();   // 選んだ採点水準は残す
   renderData();
 }
 // clawd（Claude Code起動ロゴのピクセルアート）。フォント依存で崩れないようSVGで描画
@@ -336,53 +429,79 @@ function aiGrade(){
   var mine=(document.getElementById('trIn').value||'').trim();
   var box=document.getElementById('aibox');
   if(!mine){toast('先に自分の訳を入力してください');return;}
-  box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div class="mut">添削中…（数秒かかります）</div></div>';
+  box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削 <span class="mut">'+esc(modelLabel(aiModelFor(x.type)))+'</span></div><div class="mut">添削中…（数秒かかります）</div></div>';
   if(x.type==='essay'){
     var kwLine=(x.kw&&x.kw.length)?('必須キーワード: '+x.kw.join('、')+'\n'):'';
     var limLine=x.limit?('字数目安: '+x.limit+'字\n'):'';
     var sysEs='あなたは京都大学大学院入試の論述答案を採点する採点官。以下のルーブリックで学生の答案を採点する。\n'
-    +'- 観点別（各内訳を明示）: ①設問要求への充足 ②論理構成・一貫性 ③根拠/数値/具体性 ④キーワード網羅 ⑤字数の適否。合計10点満点に換算\n'
-    +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。厳守）\n'
-    +'- 2行目以降、観点ごとに「**観点名**: 良い点/不足と改善案」を1行ずつ、最大5行\n'
+    +'- 加点方式: 下の5観点をそれぞれ満点から整数で採点し、単純合計して10点満点とする（換算はしない）\n'
+    +'- ①設問要求への充足 3点満点: 問われたことに正面から答えているか\n'
+    +'- ②論理構成・一貫性 2点満点: 主張→根拠→結論の流れが通っているか\n'
+    +'- ③根拠・数値・具体性 3点満点: 具体例や数値で裏づけているか\n'
+    +'- ④キーワード網羅 1点満点: 必須キーワードを適切な文脈で使えているか（指定がなければ1点を与える）\n'
+    +'- ⑤字数の適否 1点満点: 目安の0.8〜1.2倍なら1点、外れれば0点（指定がなければ1点を与える）\n'
+    +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。5観点の合計と必ず一致させる。厳守）\n'
+    +'- 2行目以降、観点ごとに「**観点名 n/満点**: 良い点/不足と改善案」を1行ずつ、5行すべて書く\n'
     +'- 模範骨子はあくまで参考。骨子と違う筋でも、論理と根拠が妥当なら高く評価する\n'
     +'- 模範骨子の再掲は禁止。励まし・前置きは書かない。全体で最大400字。装飾は**太字**のみ';
     var promptEs='次の論述答案を採点してください。\n\n【設問】\n'+x.q+'\n'+kwLine+limLine+'\n【模範骨子（参考）】\n'+x.a+'\n\n【学生の答案】\n'+mine;
-    return aiGradeSend(box,sysEs,promptEs);
+    return aiGradeSend(box,sysEs,promptEs,aiModelFor('essay'));
   }
   if(x.type==='en'){
     var sysEn='あなたは京都大学の和文英訳を採点する予備校講師。学生の英訳を英訳例と比較して採点する。\n'
-    +'- 部分点制: 10点満点から、次の減点表に従って誤り1件ずつ引き、合計を出す\n'
+    +'- 部分点制: 10点満点から下の表に従って減点し、合計を出す。数え方（A/B）を厳守すること\n'
+    +'\n'
+    +'【A. 誤り1件ごとに減点する分類】同じ分類は最大2件まで計上する\n'
     +'- −5: 和文の内容が伝わらない／主要情報の訳し漏らし\n'
     +'- −3: 文の骨格（文型・主述）の崩壊／構文の取り違えで意味がずれる（関係詞・比較・仮定法・分詞構文など）\n'
     +'- −2: 時制・相の誤り／語法・コロケーションの誤り（自他・前置詞・動詞のとる形）／主述の不一致・語形の誤り／専門語が不適切で内容がずれる\n'
-    +'- −1: 冠詞・単複・可算性／通じるが不自然な言い回し／綴り・句読点\n'
+    +'- −1: 冠詞・単複・可算性／通じるが不自然な言い回し\n'
+    +'\n'
+    +'【B. 誤り1件ごとに減点し、件数の上限を設けない分類】\n'
+    +'- −1: 綴りの誤り。1語につき−1点。3語間違えれば−3点。専用の上限は設けない\n'
+    +'- −1: 句読点・大文字小文字の誤り。1箇所につき−1点\n'
+    +'- Bの例外: まったく同じ語を同じ誤り方で繰り返している場合のみ、初出の1回だけ減点する。別々の語の誤りはそれぞれ独立に数える\n'
+    +'- Bの指摘は分類ごとに1行にまとめ、誤った語・箇所をすべて列挙したうえで合計点を書く\n'
+    +'\n'
     +'- −0: 意味が正確に伝わる自然な言い換え（英訳例と語句や構文が違うだけなら減点しない）\n'
-    +'- 上限: 同じ分類の誤りは最大2件まで計上。綴りは合計−1まで。合計減点は10までとし0点未満にしない\n'
-    +'- 下限: 和文の内容が正確に伝わっている答案は3点を下回らせない。文法・語法の誤りがなく自然な英語なら、英訳例と表現が違っても10点\n'
+    +'- 適用順: まずAを合計し、和文の内容が正確に伝わっている答案はこの時点で3点を下回らせない。次にBを引き、0点未満にはしない\n'
+    +'- 文法・語法・綴りの誤りがなく自然な英語なら、英訳例と表現が違っても10点\n'
     +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。厳守）\n'
     +'- 2行目以降、減点した要素だけを「**−n点**: 指摘（正しい英語表現）」の形式で1行ずつ書く。点数は上の表の値を使う\n'
     +'- 英訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大350字。装飾は**太字**のみ';
     var promptEn='次の和文英訳を添削してください。\n\n【和文】\n'+x.q+'\n\n【英訳例】\n'+x.a+'\n\n【学生の英訳】\n'+mine;
-    return aiGradeSend(box,sysEn,promptEn);
+    return aiGradeSend(box,sysEn,promptEn,aiModelFor('en'));
   }
   var excerpt=x.q.indexOf('**')>=0;
   var sys='あなたは京都大学の英文和訳を採点する予備校講師。学生の訳を訳例と比較して採点する。\n'
-  +'- 京大方式の部分点制: 訳出対象を構文要素（骨格SV・従属節・挿入・指示語・語彙）に分けて配点し、要素ごとに判定して合計を10点満点に換算する\n'
+  +'- 部分点制: 10点満点から下の表に従って減点し、合計を出す。数え方（A/B）を厳守すること\n'
+  +'\n'
+  +'【A. 誤り1件ごとに減点する分類】同じ分類は最大2件まで計上する\n'
+  +'- −5: 訳出対象の内容が伝わらない／一文まるごとの訳し漏らし\n'
+  +'- −3: 構文の取り違えで意味がずれる（関係詞・比較・否定・倒置・分詞構文・強調構文など）／節の係り受けの誤り／構造を曖昧にした誤魔化し訳\n'
+  +'- −2: 指示語・代名詞の指す内容の取り違え／文脈に合わない語義選択で内容がずれる／時制・態の誤り／語句の訳し漏らし\n'
+  +'- −1: 訳語がやや不適切だが内容は伝わる／日本語として不自然\n'
+  +'\n'
+  +'【B. 誤り1件ごとに減点し、件数の上限を設けない分類】\n'
+  +'- −1: 誤字・脱字。1箇所につき−1点。専用の上限は設けない\n'
+  +'- Bの例外: まったく同じ語を同じ誤り方で繰り返している場合のみ、初出の1回だけ減点する\n'
+  +'- Bの指摘は1行にまとめ、誤った箇所をすべて列挙したうえで合計点を書く\n'
+  +'\n'
+  +'- −0: 構造が正確に取れていれば意訳は減点しない。訳例と語句や言い回しが違うだけなら減点しない\n'
+  +'- 適用順: まずAを合計し、構文が正確に取れている答案はこの時点で3点を下回らせない。次にBを引き、0点未満にはしない\n'
   +'- 1行目は必ず「採点: n/10」の形式（nは0〜10の整数。この形式を厳守）\n'
-  +'- 2行目以降、減点した要素だけを「**−n点**: 指摘（正しい訳し方）」の形式で1行ずつ書く\n'
-  +'- 構文の取り違え・構造を曖昧にした誤魔化し訳は重く、訳語の選択や日本語の綾は軽く減点する\n'
-  +'- 意訳は構造が正確に取れていれば減点しない\n'
-  +'- 訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大300字。装飾は**太字**のみ\n'
+  +'- 2行目以降、減点した要素だけを「**−n点**: 指摘（正しい訳し方）」の形式で1行ずつ書く。点数は上の表の値を使う\n'
+  +'- 訳例の全文再掲は禁止。前置き・講評・励ましは書かない。全体で最大350字。装飾は**太字**のみ\n'
   +(excerpt?'- 英文中の **〜** で囲まれた部分だけが採点対象。前後の文は文脈であり、文脈に合った語義選択・指示語の訳出も配点に含める\n':'');
   var prompt='次の英文和訳を添削してください。\n\n【英文】\n'+x.q+'\n\n【訳例】\n'+x.a+'\n\n【学生の訳】\n'+mine;
-  return aiGradeSend(box,sys,prompt);
+  return aiGradeSend(box,sys,prompt,aiModelFor('tr'));
 }
-function aiGradeSend(box,sys,prompt){
+function aiGradeSend(box,sys,prompt,model){
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',headers:aiHeaders(AI.key),
     body:JSON.stringify({
-      model:AI.model,
-      max_tokens:8000,                   // max_tokensは思考＋本文の合計上限。effort mediumで思考が伸びるため余裕を取る
+      model:model,
+      max_tokens:12000,                  // max_tokensは思考＋本文の合計上限。Opus 5は既定で思考するため余裕を取る（未使用分は課金されない）
       thinking:{type:'adaptive'},
       output_config:{effort:'medium'},   // 採点のぶれを抑えるため low→medium（和訳・英訳・論述の3種で共通）
       system:sys,
@@ -402,7 +521,7 @@ function aiGradeSend(box,sys,prompt){
     }
     if(!txt)throw new Error('応答が空でした');
     var m=txt.match(/採点[:：]\s*(\d{1,2})\s*[\/／]\s*10/);
-    box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削</div><div>'+fmt(txt)+'</div></div>';
+    box.innerHTML='<div class="exp aifb"><div class="verd">'+CLAWD+'Claude添削 <span class="mut">'+esc(modelLabel(model))+'</span></div><div>'+fmt(txt)+'</div></div>';
     if(m&&+m[1]<=10){
       applyTrScore(+m[1],txt);              // 点数を読み取って自動記録
     }else{
@@ -477,6 +596,7 @@ function isTr(x){return x.type==='tr';}
 function isEn(x){return x.type==='en';}
 function isEssay(x){return x.type==='essay';}
 function notTr(x){return x.type!=='tr'&&x.type!=='en'&&x.type!=='essay';}
+function isWritten(x){return !notTr(x);}   // 記述3種（和訳・英作文・論述）をまとめて数える
 function isMiss(x){var s=stat(x.id);return s.w>0&&s.box<MASTER_BOX;}
 function activeData(){return DATA.filter(function(x){return !HIDE[x.id];});}
 // 正解でも「まだ不安」な問題を手動で復習ボックスに戻す（正答記録はそのまま）
@@ -558,7 +678,34 @@ function copyText(t,msg){
 /* ---------- 画面 ---------- */
 var session=null,idx=0,scoreC=0,answered=false,missedIds=[];
 var app=document.getElementById('app');
-function h(s){app.innerHTML=s;window.scrollTo(0,0);}
+function h(s){stopTimer();app.innerHTML=s;window.scrollTo(0,0);}
+
+/* ---------- 論述の経過時間タイマー ---------- */
+var qTimer=null,qStart=0,qElapsed=0;
+function stopTimer(){
+  if(qTimer){clearInterval(qTimer);qTimer=null;}
+  if(qStart){qElapsed=Math.floor((Date.now()-qStart)/1000);qStart=0;}
+}
+function mmss(sec){return Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');}
+// 目安時間（秒）。問題に min があればそれを使い、なければ字数から見積もる（構想5分＋40字/分）
+function essaySec(x){return (x.min||Math.max(5,Math.round((x.limit||400)/40)+5))*60;}
+function startTimer(limitSec){
+  stopTimer();
+  var el=document.getElementById('tmr');
+  if(!el)return;
+  qStart=Date.now();qElapsed=0;
+  // 経過は開始時刻から毎回計算する。バックグラウンドでsetIntervalが間引かれてもずれない
+  var paint=function(){
+    qElapsed=Math.floor((Date.now()-qStart)/1000);
+    el.innerHTML='<b>'+mmss(qElapsed)+'</b> / 目安 '+mmss(limitSec);
+    el.className='timer'+(qElapsed>limitSec?' over':'');
+  };
+  paint();
+  qTimer=setInterval(function(){
+    if(!document.getElementById('tmr')){stopTimer();return;}   // 画面が変わっていたら止める
+    paint();
+  },1000);
+}
 
 function miniStats(c){
   var acc=c.seen?Math.round(c.correct/c.seen*100):0;
@@ -571,7 +718,7 @@ function miniStats(c){
 }
 function renderMenu(){
   session=null;
-  var cQ=counts(notTr),cT=counts(isTr);
+  var cQ=counts(notTr),cT=counts(isWritten);   // cTは和訳・英作文・論述の合算
   var streak=currentStreak();
   var parts=[['前置詞補充','空所に入る前置詞を選ぶ'],['語彙補充','文脈に合う語を選ぶ']];
   var AD=activeData();
@@ -596,7 +743,7 @@ function renderMenu(){
   +'</div>'
   +'<button class="primary alt" onclick="renderCats()">カテゴリ別の成績<small>弱点カテゴリを確認して、そのまま練習</small></button>'
   +'<details class="fold"><summary>パート別に練習</summary>'+pb+'</details>'
-  +'<div class="secttl">大問Ⅲ対策（英文和訳・Claude採点）</div>'
+  +'<div class="secttl">記述対策（和訳・英作文・論述／Claude採点）</div>'
   +miniStats(cT)
   +'<button class="primary big" onclick="start(\'trsmart\')">和訳スマート復習<small>期限が来た和訳・未学習を優先して8問</small></button>'
   +'<button class="primary big" onclick="start(\'ensmart\')">和文英訳（英作文）<small>期限が来た英訳・未学習を優先して8問</small></button>'
@@ -681,7 +828,8 @@ function renderEssay(x){
   +'<div class="qcard tr jp">'+fmt(x.q)+'</div>'
   +kw
   +'<textarea id="trIn" class="io jp essay-in" placeholder="ここに解答を入力"></textarea>'
-  +'<div class="charcount" id="cc">0字'+(lim?' / '+lim:'')+'</div>'
+  +'<div class="metarow"><span class="timer" id="tmr"></span>'
+  +'<span class="charcount" id="cc">0字'+(lim?' / '+lim:'')+'</span></div>'
   +'<div class="row2">'
   +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー</button>'
   +'<button class="primary" style="flex:1.8" onclick="revealTr()">模範骨子と採点</button>'
@@ -689,6 +837,7 @@ function renderEssay(x){
   +'<div id="fb"></div>'
   +'<button class="ghost" onclick="renderMenu()">中断してメニューへ</button>'
   +'</div>');
+  startTimer(essaySec(x));
   var ta=document.getElementById('trIn'),cc=document.getElementById('cc'),limN=x.limit||0;
   if(ta&&cc){ta.addEventListener('input',function(){
     var n=ta.value.length;cc.textContent=n+'字'+(limN?(' / 目安 '+limN+'字'):'');
@@ -733,13 +882,21 @@ function revealTr(){
   if(answered)return;
   answered=true;
   trDone=false;
+  stopTimer();                       // 採点を押した時点で計測を止める（表示はそのまま残る）
   var x=session[idx];
   var mine=(document.getElementById('trIn').value||'').trim();
+  var timeLine='';
+  if(x.type==='essay'){
+    var lim=essaySec(x);
+    timeLine='<div class="mut" style="margin:0 0 8px">所要 '+mmss(qElapsed)+' / 目安 '+mmss(lim)
+    +(qElapsed>lim?'（'+mmss(qElapsed-lim)+' 超過）':'')+'</div>';
+  }
   var auto=!!(AI.key&&mine);   // キー設定済み＋訳入力済みなら自動でClaude採点
   var sb='';
   for(var i=0;i<=10;i++)sb+='<button class="scorebtn'+(i>=8?' hi':'')+'" onclick="gradeTr('+i+')">'+i+'</button>';
   document.getElementById('fb').innerHTML=
-   '<div id="aibox"></div>'
+   timeLine
+  +'<div id="aibox"></div>'
   +'<div id="grade"'+(auto?' style="display:none"':'')+'>'
   +'<div class="secttl">自己採点（8点以上で◯・復習間隔に反映）</div>'
   +'<div class="scorerow">'+sb+'</div>'
@@ -1028,16 +1185,23 @@ function renderData(){
     +'<div class="mut" style="margin-top:6px">トークンはこの端末の中だけに保存され、エクスポートにも含まれません。共用端末では設定しないでください。</div>'
     +'</div>';
   }
+  var tierOpts='';
+  for(var ti=0;ti<TIER_ORDER.length;ti++){
+    var tk=TIER_ORDER[ti],td=AI_TIERS[tk];
+    tierOpts+='<option value="'+tk+'"'+(AI.tier===tk?' selected':'')+'>'
+    +esc(td.name+'：'+td.desc+'・'+td.cost)+'</option>';
+  }
+  var cur=aiTier();
   var ai='<div class="card">'
   +(AI.key
-    ?'✅ Claude採点は設定済みです。和訳で「訳例と解説を見る」を押すと自動で添削・採点され、点数がそのまま記録されます。'
-    :'APIキーを設定すると、和訳の「訳例と解説を見る」で自動的にClaudeが添削・採点し、点数を記録します（従量課金・1問あたり数円）。'
+    ?'✅ Claude採点は設定済みです。記述問題で「訳例と解説を見る」「模範骨子と採点」を押すと自動で添削・採点され、点数がそのまま記録されます。'
+    :'APIキーを設定すると、記述問題の採点ボタンで自動的にClaudeが添削・採点し、点数を記録します（従量課金・1問あたり数円）。'
      +'<div class="mut" style="margin:8px 0"><a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">→ Anthropic Console でAPIキーを作成</a></div>')
   +'<input id="aiKeyIn" class="io ti" type="password" placeholder="'+(AI.key?'設定済み（変更する場合のみ貼り付け）':'sk-ant- で始まるAPIキーを貼り付け')+'" autocomplete="off">'
-  +'<select id="aiModel" class="io">'
-  +'<option value="claude-opus-4-8"'+(AI.model==='claude-opus-4-8'?' selected':'')+'>Claude Opus 4.8（採点品質を最優先・約2円/問）</option>'
-  +'<option value="claude-sonnet-5"'+(AI.model==='claude-sonnet-5'?' selected':'')+'>Claude Sonnet 5（コスパ重視・約1円/問）</option>'
-  +'</select>'
+  +'<select id="aiTier" class="io">'+tierOpts+'</select>'
+  +'<div class="mut" style="margin:-2px 0 8px">いま使うモデル：和訳 '+esc(modelLabel(cur.models.tr))
+  +' ／ 英作文 '+esc(modelLabel(cur.models.en))
+  +' ／ 論述 '+esc(modelLabel(cur.models.essay))+'</div>'
   +'<button class="primary sm" onclick="aiSave()">'+(AI.key?'設定を更新':'Claude採点を有効にする')+'</button>'
   +(AI.key?'<button class="ghost" onclick="aiClear()">この端末の設定を解除</button>':'')
   +'<div class="mut" style="margin-top:6px">キーはこの端末の中だけに保存され、エクスポートにも含まれません。Console側で月額上限の設定を推奨します。</div>'
@@ -1058,7 +1222,7 @@ function renderData(){
   h('<div class="wrap">'
   +'<h1>データ管理</h1>'
   +'<div class="sub">端末間の同期と、バックアップの書き出し／取り込み</div>'
-  +'<h2>'+CLAWD+'Claude採点（和訳のAI添削）</h2>'
+  +'<h2>'+CLAWD+'Claude採点（記述のAI添削）</h2>'
   +ai
   +'<h2>卒業した問題</h2>'
   +grad
@@ -1120,8 +1284,10 @@ function impText(){
   doImport(t);
 }
 function resetAll(){
-  if(confirm('すべての学習履歴（和訳の過去回答を含む）を消去します。よろしいですか？')){
-    STATS={};META={streak:0,lastDay:'',best:0};TRLOG={};save();renderMenu();
+  // 確認文言どおり、この端末の学習データを全部消す（同期設定とAPIキーは別保存なので残る）
+  if(confirm('すべての学習データを消去します。\n・正誤と復習スケジュール\n・記述の過去回答と点数\n・自分メモ\n・卒業の設定\n・問題の追加メモ\nよろしいですか？')){
+    STATS={};META={streak:0,lastDay:'',best:0};TRLOG={};NOTES={};HIDE={};IDEAS=[];
+    save();renderMenu();
   }
 }
 
