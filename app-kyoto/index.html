@@ -707,7 +707,8 @@ function renderTr(x){
   +'<div class="qmeta"><span class="chip">'+esc(x.cat)+'</span><span class="mut">'+(idx+1)+' / '+session.length+' ・ 正解 '+scoreC+'</span></div>'
   +'<div class="qcard tr'+(isEn?' jp':'')+'">'+fmt(x.q)+'</div>'
   +hintHtml
-  +'<textarea id="'+'trIn" class="io '+(isEn?'en':'jp')+'" placeholder="'+ph+'"></textarea>'
+  // 本番では綴りの間違いを教えてくれないので、赤波線と自動補正は切っておく
+  +'<textarea id="'+'trIn" class="io '+(isEn?'en':'jp')+'" spellcheck="false" autocorrect="off" placeholder="'+ph+'"></textarea>'
   +'<div class="row2">'
   +'<button class="primary alt" style="flex:1" onclick="copyTr()">コピー<small>英文＋自分の訳</small></button>'
   +'<button class="primary" style="flex:1.8" onclick="revealTr()">訳例と解説を見る</button>'
@@ -1150,7 +1151,7 @@ document.addEventListener('keydown',function(ev){
   if(ev.key!=='Enter'||!(ev.ctrlKey||ev.metaKey))return;
   if(!session||!session.length)return;
   var x=session[idx];if(!x)return;
-  if(x.type==='tr'){
+  if(x.type==='tr'||x.type==='en'||x.type==='essay'){       // 和訳・英作文・論述は同じ入力→採点の流れ
     if(!answered){ev.preventDefault();revealTr();}          // 入力中 → 訳例と解説を見る（採点開始）
     else if(trDone){ev.preventDefault();next();}            // 採点済み → 次へ
   }else{
