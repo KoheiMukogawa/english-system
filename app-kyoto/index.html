@@ -123,6 +123,8 @@ var APP_V='1.3.0';
 var DAY=86400000;
 var BOX_DAYS=[0,1,3,7,14];           // Leitner: box番号 → 次回出題までの日数
 var MASTER_BOX=3;                    // box3以上＝マスター扱い
+var KEEP_ANS=15;                     // 答案本文を残す回数（分析の主材料なので長めに持つ）
+var KEEP_FB=3;                       // 添削全文を残す回数（容量を食うのはこちら。古い分は本文だけ残す）
 var DATA=[];
 var STATS={};                        // id → {s,c,w,st,last,box,due}
 var META={streak:0,lastDay:'',best:0};
@@ -246,7 +248,14 @@ function mergeTrLog(a,b){
     seen[k]=1;out.push(e);
   });
   out.sort(function(x,y){return x.d<y.d?-1:x.d>y.d?1:0;});
-  return out.slice(Math.max(0,out.length-5));   // 直近5回だけ保持
+  out=out.slice(Math.max(0,out.length-KEEP_ANS));
+  trimFb(out);
+  return out;
+}
+// 古い記録から添削だけを落とす。答案本文は KEEP_ANS 回ぶん残す
+function trimFb(a){
+  for(var i=0;i<a.length-KEEP_FB;i++)if(a[i].f)delete a[i].f;
+  return a;
 }
 // 2端末の進捗を突き合わせる。片方にしかない記録は必ず残す。
 // メモの内容が食い違ったときだけ、新しい方のスナップショットを優先する。
@@ -959,7 +968,8 @@ function logTr(id,text,score,feedback,sec){
   if(feedback)e.f=feedback;
   if(sec)e.sec=sec;              // 目安時間を実績から調整するための記録
   a.push(e);
-  if(a.length>5)a=a.slice(a.length-5);   // 直近5回だけ保持
+  if(a.length>KEEP_ANS)a=a.slice(a.length-KEEP_ANS);
+  trimFb(a);
   TRLOG[id]=a;
 }
 function trHistBlock(id){
@@ -967,7 +977,11 @@ function trHistBlock(id){
   if(!a||!a.length)return '';
   var last=a[a.length-1];
   var trend='';
-  if(a.length>1)trend='<div class="mut" style="margin-top:6px">点数の推移: '+a.map(function(r){return r.sc;}).join('点 → ')+'点</div>';
+  if(a.length>1){
+    var tv=a.slice(Math.max(0,a.length-8));           // 直近8回まで
+    trend='<div class="mut" style="margin-top:6px">点数の推移: '+(a.length>tv.length?'… → ':'')
+    +tv.map(function(r){return r.sc;}).join('点 → ')+'点</div>';
+  }
   return '<div class="exp notebox"><div class="verd">🕘 前回の自分の訳（'+esc(last.d)+' ・ '+last.sc+'点'+(last.sec?' ・ 所要 '+mmss(last.sec):'')+'）</div>'
   +'<div>'+fmt(last.t||'（未入力）')+'</div>'
   +(last.f?'<div class="mut" style="margin-top:6px">前回の添削:</div><div>'+fmt(last.f)+'</div>':'')
@@ -1094,7 +1108,9 @@ function renderTrList(g){
     var attempted=log&&log.length;
     var right;                              // 右側：全点数の履歴 or 未挑戦
     if(attempted){
-      right='<span class="trscores">'+log.map(function(r){
+      var shown=log.slice(Math.max(0,log.length-6));   // 横幅の都合で直近6回だけ
+      right='<span class="trscores">'+(log.length>shown.length?'<span class="mut">…</span>':'')
+      +shown.map(function(r){
         var sc=r.sc;
         return '<span class="'+(sc>=7?'acc-high':sc>=5?'acc-mid':'acc-low')+'">'+sc+'</span>';
       }).join('')+'</span>';
@@ -1119,6 +1135,10 @@ function renderTrList(g){
   +'<div class="tabs">'+tabs+'</div>'
   +'<div class="sub">タップした問題から一覧の並び順で続けて演習できます。点数は過去の採点履歴（古い→新しい順）。見出しは一度解いた問題だけ表示します</div>'
   +b
+  +(anaCount(listGenre)
+    ?'<button class="primary alt" onclick="copyAnalysis(\''+listGenre+'\')">この'+def[1]+'を分析用にコピー'
+     +'<small>記録'+anaCount(listGenre)+'回ぶんの答案を、依頼文つきでコピー。Claudeのチャットに貼って傾向を見てもらう用</small></button>'
+    :'')
   +'<button class="ghost" onclick="renderMenu()">メニューに戻る</button>'
   +'</div>');
 }
@@ -1133,6 +1153,70 @@ function startOne(id){                       // タップした問題から同�
   session=list.slice(pos);
   idx=0;scoreC=0;missedIds=[];
   renderQ();
+}
+
+/* ---------- 分析用の持ち出し（診断はチャット側で行う前提） ---------- */
+var ANA_ASK='英語の学習記録です。私の答案から傾向を分析してください。\n\n'
++'【分析してほしいこと】\n'
++'1. 点数ではなく答案の本文を主な材料にしてください。点数は参考情報です。\n'
++'2. 使うべき構文を避けて別の言い方に逃げていないかを見てください。意味が通っていても、その構文が書けていない可能性があります。\n'
++'3. 日本語の言い回しに引きずられた型が、問題をまたいで繰り返し出ていないかを指摘してください。\n'
++'4. 同じ問題を複数回解いているものは、1回目から最新回までを比べ、直った点と直っていない点を分けてください。点数が同じでも中身が入れ替わっていることがあります。\n'
++'5. 添削（Claudeによる採点コメント）は参考にとどめ、答案本文の観察を優先してください。\n'
++'6. 最後に、次に優先して練習すべきことを3つまでに絞って挙げてください。\n\n'
++'【前提】\n'
++'- 採点基準と採点モデルを途中で変更しているため、古い記録と新しい記録の点数は同じ物差しでは比べられません。答案の中身で判断してください。\n'
++'- 見出しの構文名は、その問題で練習したい構文です。\n'
++'- 添削は直近3回ぶんしか残していません。答案本文は最大15回ぶん残っています。\n';
+var ANA_LABEL={tr:['英文','訳例'],en:['和文','英訳例'],enp:['和文（段落）','英訳例'],essay:['設問','模範骨子']};
+function anaCount(g){
+  var n=0,list=genreList(g);
+  for(var i=0;i<list.length;i++){var l=TRLOG[list[i].id];if(l)n+=l.length;}
+  return n;
+}
+function analysisBody(g){
+  var def=genreDef(g),lab=ANA_LABEL[g]||ANA_LABEL.tr;
+  var list=genreList(g).filter(function(x){return TRLOG[x.id]&&TRLOG[x.id].length;});
+  if(!list.length)return '';
+  var total=0;
+  var body=list.map(function(x){
+    var log=TRLOG[x.id];total+=log.length;
+    var head=trHeading(x);
+    var s='## id'+x.id+(head?'　'+head:'')+'\n'
+    +'['+lab[0]+'] '+x.q+'\n'
+    +'['+lab[1]+'] '+x.a+'\n';
+    log.forEach(function(r,i){
+      s+='[答案'+(i+1)+'] '+r.d+' '+r.sc+'点'+(r.sec?' 所要'+mmss(r.sec):'')+'\n'+(r.t||'（未記入）')+'\n';
+    });
+    var fb=log.filter(function(r){return r.f;});
+    if(fb.length){
+      s+='[添削]\n'+fb.map(function(r){return r.d+'\n'+r.f;}).join('\n')+'\n';
+    }
+    return s;
+  }).join('\n');
+  return '【形式】'+def[1]+'\n【問題数】'+list.length+'問 / 記録'+total+'回\n\n'+body;
+}
+function analysisText(gs){
+  var parts=[];
+  for(var i=0;i<gs.length;i++){var b=analysisBody(gs[i]);if(b)parts.push(b);}
+  return parts.length?ANA_ASK+'\n'+parts.join('\n----\n\n'):'';
+}
+function copyAnalysis(g){
+  var t=analysisText([g]);
+  if(!t){toast('このジャンルにはまだ記録がありません');return;}
+  copyText(t,'依頼文をコピーしました。Claudeのチャットに貼り付けてください');
+}
+function expAnalysisFile(){
+  var gs=[];for(var i=0;i<WGENRES.length;i++)gs.push(WGENRES[i][0]);
+  var t=analysisText(gs);
+  if(!t){toast('まだ記録がありません');return;}
+  var blob=new Blob([t],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='kdai-answers-'+localDay().replace(/-/g,'')+'.txt';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+  toast('ダウンロードを開始しました');
 }
 
 /* ---------- カテゴリ別成績（弱点分析） ---------- */
@@ -1275,6 +1359,11 @@ function renderData(){
   +grad
   +'<h2>端末間の自動同期（無料）</h2>'
   +sync
+  +'<h2>答案の書き出し（傾向分析用）</h2>'
+  +'<div class="card">記述問題の答案を、依頼文つきのテキストにまとめて書き出します。Claudeのチャットに貼るか添付して、傾向を分析してもらう用です。'
+  +'<div class="mut" style="margin:6px 0">ジャンルごとにコピーするなら「問題一覧」から。ここでは全ジャンルをまとめてファイルにします。</div>'
+  +'<button class="primary alt" onclick="expAnalysisFile()">全ジャンルをファイルに書き出し</button>'
+  +'</div>'
   +'<h2>エクスポート</h2>'
   +'<div class="card">学習履歴をファイルとして保存するか、コードをコピーして新しい端末に貼り付けてください。'
   +'<button class="primary" onclick="expFile()">ファイルをダウンロード</button>'
